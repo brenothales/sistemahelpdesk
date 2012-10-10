@@ -1,0 +1,26 @@
+<%= page_sub_title('Detalhes Produto') %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= show_field_value("Cliente", @produto.user.name) %>
+    <%= show_field_value(:name, @produto.name) %>
+    <%= show_field_value("Categoria", @produto.category.name) %>
+    <%= show_field_value(:modelo, @produto.modelo) %>
+    <%= show_field_value(:marca, @produto.marca) %>
+    <%= show_field_value("Número de Série", @produto.numeroSerie) %>
+    <%= show_field_value("Patrimônio", @produto.patrimonio) %>
+    <%= show_field_value("Número de Contrato", @produto.numeroContrato) %>
+    <%= show_field_value("Acessórios", @produto.acessorios) %>
+    <%= show_field_value("Setor", @produto.seto) %>
+    <%= show_field_value("Valor de Depreciado",  (number_to_currency @produto.valorDespreciacao)) %>
+    <%= show_field_value("Observação", @produto.observacao) %>
+    
+  </tbody>
+</table>
+<%= back_button(admin_produtos_path) %>
+

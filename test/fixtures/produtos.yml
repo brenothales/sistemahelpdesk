@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  category: 
+  nome: MyString
+  modelo: MyString
+  marca: MyString
+  numeroSerie: MyString
+  patrimonio: MyString
+  numeroContrato: MyString
+  acessorios: MyText
+  seto: MyString
+  valorDespreciaco: MyString
+  observacao: MyText
+  user: 
+
+two:
+  category: 
+  nome: MyString
+  modelo: MyString
+  marca: MyString
+  numeroSerie: MyString
+  patrimonio: MyString
+  numeroContrato: MyString
+  acessorios: MyText
+  seto: MyString
+  valorDespreciaco: MyString
+  observacao: MyText
+  user: 

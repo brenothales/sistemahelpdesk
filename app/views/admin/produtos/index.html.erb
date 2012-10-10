@@ -1,0 +1,20 @@
+<div data-pjax-container>
+	<div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        <li><%= link_to  :controller => "produtos", :action => "index", :id => @produtos do %>
+				<i class="icon-home"></i> Todos Produtos 
+        	<% end -%>
+
+        </li>
+         <li>
+            <%= link_to "Novo Produto", new_admin_produto_path %>
+        </li>
+    </ul>
+</div>          
+  <%= form_search(new_admin_produto_path, admin_produtos_path, 'Novo Produto') %>
+  <%= table_list(@produtos) %>
+
+</div>
+
+
+

@@ -1,0 +1,204 @@
+<% if current_user.is_role?(:administrador) %>
+
+<% unless @clientes.empty? %>
+  <div class="right">
+    <%= link_to new_admin_cliente_path, :class=> "btn" do %>
+    <i class="icon-plus"></i>Info de Usário
+    <% end -%>
+    </div>
+  <div class='show_itens_and_per_page'>
+    <span class="label label-info">
+      Registros encontrados : <%= @clientes.size %>
+    </span>  
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr> 
+        <th width="170px" >Nome/Razão Social</th> 
+        <th>CPF/CNPJ</th>
+        <th>Telefones</th>
+        <th>Ação</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% @clientes.each do |cliente| %>
+        <tr>
+         <td><%= cliente.user.name %> <br/>
+             <%= cliente.tipo_cliente.nome %>
+         </td>
+           <%if cliente.tipo_cliente_id == 2 %>
+             <td><%= cliente.cnpj %></td>
+           <% else %>
+             <td><%= cliente.cpf %></td>
+           <% end -%>
+         <td>
+          <%if cliente.contato_telefones.length > 0%>
+          <% cliente.contato_telefones.each do |telefone|%>
+           <%= telefone.DDD %> <%= telefone.numero%> <%= "Ramal: #{telefone.ramal}" unless telefone.ramal.blank?%> <%= "(fax)" if telefone.fax%> <br/ >
+           <%end%>
+         <%end%> 
+         </td>
+         <td>
+            <%= link_to 'Mostrar', [:admin, cliente]%>
+            <%= link_to 'Editar', edit_admin_cliente_path(cliente) %>
+            <%= link_to 'Deletar', [:admin, cliente], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+         
+
+
+      <% end %>
+    </tbody>
+  </table>
+
+
+
+<% else %>
+  <%= alert_list_empty %>
+<% end %>
+  <% else %> <!-- se não é administrador visualiza perfil -->
+
+
+
+
+
+
+
+
+
+
+
+
+<% @clientes.each do |cliente| %>
+
+<% if can? :update, cliente %>
+
+<!-- ####################################################### -->
+<div class="row-fluid">
+    <div class="span12">
+        <h3 class="heading">Informação de Conta</h3>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="vcard">
+                    <img class="thumbnail" src="http://www.placehold.it/80x80/EFEFEF/AAAAAA" alt="">
+                    <ul>
+                        <li class="v-heading">
+                            Informação do Cliente <span class="right">  <%= link_to 'Editar', edit_admin_cliente_path(cliente) %></span> 
+                        </li>
+                        <li>
+                            <span class="item-key">Nome Completo</span>
+                            <div class="vcard-item"><%= cliente.user.name %></div>
+                        </li>
+
+                        <li>
+                            <span class="item-key">Email</span>
+                            <div class="vcard-item"><%= cliente.user.email %></div>
+                        </li>
+
+                        <li>
+                          <span class="item-key">Tipo</span> 
+                          <div class="vcard-item"><%= cliente.tipo_cliente.nome %></div>   
+                        </li>
+                        <li><%if cliente.tipo_cliente_id == 2 %>
+                          <span class="item-key">CNPJ</span> 
+                          <div class="vcard-item"><%= cliente.cnpj %></div>
+                          <% else %>
+                          <span class="item-key">CPF</span> 
+                          <div class="vcard-item"><%= cliente.cpf %></div>
+                        </li>
+                          <li>
+                          <span class="item-key">RG</span> 
+                          <div class="vcard-item"><%= cliente.rg %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">Sexo</span> 
+                          <div class="vcard-item"><%= cliente.sexo %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">Data Nascimento</span> 
+                          <div class="vcard-item"><%= cliente.dataNascimento %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">Função</span> 
+                          <div class="vcard-item"><%= cliente.funcao %></div>  
+                        </li>
+                          <% end -%>
+                        <%if cliente.contato_emails.length > 0%>
+                        <li>
+                          <span class="item-key">Telefone</span> 
+
+                          <div class="vcard-item"><% cliente.contato_telefones.each do |telefone|%>
+                            <%= telefone.DDD %> <%= telefone.numero%> <%= "Ramal: #{telefone.ramal}" unless telefone.ramal.blank?%> <%= "(fax)" if telefone.fax%></div>  
+                          <%end%>
+                        </li> 
+                          
+                        <%end%> 
+                         <!-- Emails -->           
+                         <%if cliente.contato_emails.length > 0%>
+                        <li>
+                          <span class="item-key">Email(s):</span> 
+
+                          <div class="vcard-item"><% cliente.contato_emails.each do |email|%>
+                            <%= email.email %> <%= " - #{email.contato}" unless email.contato.blank?%>&nbsp;</dd>
+                            <%end%></div>  
+                        </li> 
+                          
+                        <%end%> 
+                        <li>
+                          <span class="item-key">Logradouro</span> 
+                          <div class="vcard-item"><%= cliente.endereco.logradouro %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">Bairro</span> 
+                          <div class="vcard-item"><%= cliente.endereco.bairro %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">Cidade</span> 
+                          <div class="vcard-item"><%= cliente.endereco.cidade %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">numero</span> 
+                          <div class="vcard-item"><%= cliente.endereco.numero %></div>  
+                        </li>
+                        <li>
+                          <span class="item-key">UF</span> 
+                          <div class="vcard-item"><%= cliente.endereco.uf %></div>  
+                        </li>
+                           <li>
+                          <span class="item-key">CEP</span> 
+                          <div class="vcard-item"><%= cliente.endereco.bairro %></div>  
+                        </li>
+
+    
+          
+
+           
+
+
+                        <li>
+                            <span class="item-key">Observação</span>
+                            <div class="vcard-item">
+                                <%= cliente.observacao %>
+                            </div>
+                        </li>
+                        <li class="v-heading">
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<% end -%>
+<% end -%>
+
+<% end -%>
+
+
+
+
+

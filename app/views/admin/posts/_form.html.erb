@@ -1,0 +1,10 @@
+<%= form_for [:admin, @post],:html => {:class => 'form-horizontal'}  do |f| %>
+    <%= error_message_for(@post) %>
+    <%= form_field_control_label_and_input(:post, :name, f.text_field(:name, :class => 'input-xlarge'), {:label_name => 'Título'})%>
+    <%= show_select(f, @categories, :label_name => 'Selecione a Categoria') %>
+    <%= form_field_control_label_and_input(:post, :content, f.text_area(:content, :class => 'input-xlarge', :rows => 10, :cols => 25), {:label_name => 'Conteúdo'})%>
+    <%= form_field_control_label_and_input(:post, :published_at, f.date_select(:published_at, :order => [:day, :month, :year], :use_month_numbers => true, :class => 'input-small'), {:label_name => 'Quando '})%>
+    <%= form_field_control_label_and_input(:post, :situation, f.check_box(:situation) , {:label_name => 'Ativo?'})%>
+    <%= submit_and_back_buttons(admin_posts_path,{:label_name => label_name}) %>
+<% end %>
+

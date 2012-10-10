@@ -1,0 +1,46 @@
+<% unless objects.empty? %>
+  
+  <div class='show_itens_and_per_page'>
+    <span class="label label-info">
+      Registros encontrados : <%= objects.size %>
+    </span>  
+
+    <%= itens_per_page %>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        
+        <th class='name'>
+          Name
+          <%= show_ordenation(:name) %>
+        </th>
+
+        <th class='situation'>
+          Situação
+          <%= show_ordenation(:situation) %>
+        </th>
+
+        <th class='actions'>Ações</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% objects.each do |objeto| %>
+      <% if can? :update, objeto %>
+        <tr>
+          <td class='name'><%= objeto.name %></td>
+          <td class='situation'><%= link_to_situation(objeto) %></td>
+          <%= show_actions(objeto) %>
+        </tr>
+          <% end %>
+       <% end %>
+    </tbody>
+  </table>
+
+  <span class='paginate'><%= page_navigation_links(objects)%></span>
+
+<% else %>
+  <%= alert_list_empty %>
+<% end %>

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  assunto: MyString
+  descricao: MyText
+  prioridade: MyString
+  tipoAtendimento: MyString
+  cortesia: false
+  observacao: MyText
+  solucionado: false
+  finalizaSolicitacao: false
+  valorGeral: 9.99
+  usuario: 
+  produto: 
+
+two:
+  assunto: MyString
+  descricao: MyText
+  prioridade: MyString
+  tipoAtendimento: MyString
+  cortesia: false
+  observacao: MyText
+  solucionado: false
+  finalizaSolicitacao: false
+  valorGeral: 9.99
+  usuario: 
+  produto: 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  DDD: MyString
+  numero: MyString
+  ramal: MyString
+  fax: false
+  cliente: 
+
+two:
+  DDD: MyString
+  numero: MyString
+  ramal: MyString
+  fax: false
+  cliente: 

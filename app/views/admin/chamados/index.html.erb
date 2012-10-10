@@ -1,0 +1,43 @@
+<h1>Listing chamados</h1>
+
+<table>
+  <tr>
+    <th>Assunto</th>
+    <th>Descricao</th>
+    <th>Prioridade</th>
+    <th>Tipoatendimento</th>
+    <th>Cortesia</th>
+    <th>Observacao</th>
+    <th>Solucionado</th>
+    <th>Finalizasolicitacao</th>
+    <th>Valorgeral</th>
+    <th>Usuario</th>
+    <th>Produto</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @chamados.each do |chamado| %>
+  <tr>
+    <td><%= chamado.assunto %></td>
+    <td><%= chamado.descricao %></td>
+    <td><%= chamado.prioridade %></td>
+    <td><%= chamado.tipoAtendimento %></td>
+    <td><%= chamado.cortesia %></td>
+    <td><%= chamado.observacao %></td>
+    <td><%= chamado.solucionado %></td>
+    <td><%= chamado.finalizaSolicitacao %></td>
+    <td><%= chamado.valorGeral %></td>
+    <td><%= chamado.usuario %></td>
+    <td><%= chamado.produto %></td>
+    <td><%= link_to 'Show', admin_chamado_path(chamado) %></td>
+    <td><%= link_to 'Edit', edit_admin_chamado_path(chamado) %></td>
+    <td><%= link_to 'Destroy', admin_chamado_path(chamado), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= debug @log %>
+<%= link_to 'New Chamado', new_admin_chamado_path %>

@@ -1,0 +1,6 @@
+<%= form_for [:admin, @archive],:html => {:class => 'form-horizontal', :multipart => true}  do |f| %>
+    <%= error_message_for(@archive) %>
+    <%= form_field_control_label_and_input(:archive, :image, f.file_field(:image), {:label_name => 'Arquivo para upload'})%>
+    <%= submit_and_back_buttons(admin_archives_path,{:label_name => 'Gravar'}) %>
+<% end %>
+

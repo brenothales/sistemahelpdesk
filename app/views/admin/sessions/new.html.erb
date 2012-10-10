@@ -1,0 +1,15 @@
+<div class='well span4 login'>
+  <legend>Faça seu login</legend>
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <fieldset>
+      <%= form_field_control_label_and_input(:user, :email, f.email_field(:email,:class => 'span4',:placeholder => 'Email válido')) %>
+
+      <%= form_field_control_label_and_input(:user, :password, f.password_field(:password,:class => 'span4',:placeholder => 'Sua Senha'), {:label_name => 'Senha'}) %>
+
+      <%= f.submit "LOGAR",:class => 'btn btn-primary btn-block btn-large' %>
+      
+    </fieldset>
+  <% end %>
+</div>
+
+

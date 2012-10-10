@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+#coding : utf-8
+
+one:
+  id: '1'
+  name: Esse é o meu primeiro Post
+  content: Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod
+  published_at: 2012-09-20
+  situation: true
+  author_id: '2'
+
+two:
+  id: '2'
+  name: Esse é meu segundo Post fera!
+  content: Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod
+  published_at: 2012-09-20
+  situation: true
+  author_id: '2'

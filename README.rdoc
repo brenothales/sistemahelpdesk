@@ -1,0 +1,8 @@
+Aplicação teste usando :
+
+Rails 3.2.8
+Ruby 1.9.2
+Devise
+Will_paginate
+Twitter Bootstrap Rails
+

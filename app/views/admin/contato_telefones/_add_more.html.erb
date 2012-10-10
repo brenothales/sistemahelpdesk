@@ -1,0 +1,18 @@
+<div class="controls controls-row" style="margin-bottom:20px;">
+	<div class="span8">
+		 <div class="span2">
+		 	<%= f.text_field :DDD, :mask => "ddd", :class => 'text_field span12', :placeholder => "DDD" %>
+		 </div>
+		 <div class="span4">
+		  <%= f.text_field :numero, :mask => "numero", :class => 'text_field span12 ', :placeholder => "numero" %>
+		</div>
+		<div class="span3">
+		  <%= f.text_field :ramal, :class => 'text_field  span12', :placeholder => "ramal" %>
+		</div>
+		<label class="checkbox  span3">
+		  <%= f.check_box :fax %> Fax ?
+		</label>
+  </div>
+  
+  <%= link_to_remove_fields "remove", f %>
+</div>

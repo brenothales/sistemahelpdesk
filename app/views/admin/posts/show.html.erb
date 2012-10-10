@@ -1,0 +1,18 @@
+<%= page_sub_title('Detalhes Usuário') %>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Campo</th>
+			<th>Valor</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= show_field_value(:name, @post.name) %>
+		<%= show_field_value(:content, @post.email) %>
+		<%#= show_field_value(:role, @user.role.name.camelize) %>
+		<%= show_field_value(:situation, show_situation_status(@post.situation)) %>
+	</tbody>
+</table>
+<%= back_button(admin_posts_path) %>
+
+

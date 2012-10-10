@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Assunto:</b>
+  <%= @chamado.assunto %>
+</p>
+
+<p>
+  <b>Descricao:</b>
+  <%= @chamado.descricao %>
+</p>
+
+<p>
+  <b>Prioridade:</b>
+  <%= @chamado.prioridade %>
+</p>
+
+<p>
+  <b>Tipoatendimento:</b>
+  <%= @chamado.tipoAtendimento %>
+</p>
+
+<p>
+  <b>Cortesia:</b>
+  <%= @chamado.cortesia %>
+</p>
+
+<p>
+  <b>Observacao:</b>
+  <%= @chamado.observacao %>
+</p>
+
+<p>
+  <b>Solucionado:</b>
+  <%= @chamado.solucionado %>
+</p>
+
+<p>
+  <b>Finalizasolicitacao:</b>
+  <%= @chamado.finalizaSolicitacao %>
+</p>
+
+<p>
+  <b>Valorgeral:</b>
+  <%= @chamado.valorGeral %>
+</p>
+
+<p>
+  <b>Usuario:</b>
+  <%= @chamado.usuario %>
+</p>
+
+<p>
+  <b>Produto:</b>
+  <%= @chamado.produto.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_chamado_path(@chamado) %> |
+<%= link_to 'Back', admin_chamados_path %>

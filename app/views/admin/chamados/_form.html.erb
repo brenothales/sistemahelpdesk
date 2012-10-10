@@ -1,0 +1,21 @@
+<%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :assunto %>
+    <%= f.input :descricao %>
+    <%= f.input :prioridade %>
+    <%= f.input :tipoAtendimento %>
+    <%= f.input :cortesia %>
+    <%= f.input :observacao %>
+    <%= f.input :solucionado %>
+    <%= f.input :finalizaSolicitacao %>
+    <%= f.input :valorGeral %>
+    <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id) %> 
+    
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<%= render 'form' %>
+
+<% unless @archives.empty? %>
+	<% @archives.each do |archive| %>
+		<%= image_tag archive.image_url(:thumb).to_s  %>
+	<% end %>
+<% else %>
+vish =( )
+<% end %>

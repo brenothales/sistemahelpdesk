@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+*= require_self 
+*= require bootstrap/css/bootstrap.min
+*= require bootstrap/css/bootstrap-responsive.min
+*= require lib/jquery-ui/css/Aristo/Aristo
+*= require css/blue.css
+*= require lib/jBreadcrumbs/css/BreadCrumb
+*= require lib/qtip2/jquery.qtip.min
+*= require lib/sticky/sticky
+*= require lib/google-code-prettify/prettify
+*= require lib/sticky/sticky
+*= require img/splashy/splashy
+*= require lib/datepicker/datepicker
+*= require lib/tag_handler/css/jquery.taghandler
+*= require lib/uniform/Aristo/uniform.aristo
+*= require lib/multiselect/css/multi-select
+*= require lib/chosen/chosen
+*= require lib/plupload/js/jquery.plupload.queue/css/plupload-gebo
+*= require lib/colorbox/colorbox
+*= require lib/colorpicker/css/colorpicker
+*= require css/style
+*= require select2
+
+*= require_tree .
+
+ */ 
+
+
+/* Footer
+-------------------------------------------------- */
+/**/
+/*bootstrap/css/bootstrap.min*/
+/*bootstrap/css/bootstrap-responsive.min*/
+/*css/blue*/
+/*lib/jBreadcrumbs/css/BreadCrumb*/
+/*lib/qtip2/jquery.qtip.min*/
+/*lib/colorbox/colorbox*/
+/*lib/google-code-prettify/prettify*/
+/*lib/sticky/sticky*/
+/*img/splashy/splashy*/
+/*img/flags/flags*/
+/*lib/fullcalendar/fullcalendar_gebo*/
+/*css/style*/
+/*jquery-ui-1.8.custom*/
+/*ui.daterangepicker */
+/*select2*/
+/*require_tree .*/
+
+
+
+
+
+
+
+
+
+
