@@ -40,22 +40,17 @@
            <%end%>
          <%end%> 
          </td>
-         <td>
-            <%= link_to 'Mostrar', [:admin, cliente]%>
-            <%= link_to 'Editar', edit_admin_cliente_path(cliente) %>
-            <%= link_to 'Deletar', [:admin, cliente], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
-         
-
-
+           <%= show_actions(cliente) %>
       <% end %>
     </tbody>
   </table>
 
-
-
+         
 <% else %>
   <%= alert_list_empty %>
+     <%= link_to new_admin_cliente_path, :class=> "btn" do %>
+    <i class="icon-plus"></i>Info de Usário
+<% end %>
 <% end %>
   <% else %> <!-- se não é administrador visualiza perfil -->
 
@@ -69,8 +64,19 @@
 
 
 
+<% @users.each do |user| %>
+  <% if current_user.id == user.id %>
+    <% unless @users.empty? %>
+  <h1>Olá <%= user.name %>, vamos criar seu perfil </h1>
+  <%= link_to new_admin_cliente_path, :class=> "btn" do %>
+    <i class="icon-plus"></i>Criar seu Perfil
+    <% end -%>
+  <% end %>
+  <% end %>
+<% end -%>
 
 <% @clientes.each do |cliente| %>
+
 
 <% if can? :update, cliente %>
 

@@ -1,0 +1,16 @@
+<h1>Listing articles</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <%= render :partial => @articles %>
+</table>
+
+<br />
+
+<%= link_to 'New Article', new_article_path, :id => 'create_article' %>

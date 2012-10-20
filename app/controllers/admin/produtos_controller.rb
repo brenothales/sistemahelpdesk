@@ -7,13 +7,19 @@ class Admin::ProdutosController < ApplicationController
 
 
   def index
+    @produtos = Produto.order(:name).where("name like ?", "%#{params[:term]}%")
     @produtos = Produto.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page])
-    respond_with @produtos, :location => admin_produtos_path
+    respond_to do |format|
+    format.html # index.html.erb
+    format.json { render json: [@produtos.map(&:name)] }
+    end
+
   end
 
   def show
     @produto = Produto.find(params[:id])
-    respond_with @produto, :location => admin_produto_path
+    @user = User.find(@produto.user_id)
+    respond_with [@produto, @user], :location => admin_produto_path
   end
 
   def new
@@ -33,7 +39,12 @@ class Admin::ProdutosController < ApplicationController
     end
     
     flash[:notice] = 'Produto salvo com sucesso !' if @produto.save
-    respond_with @produto, :location => new_admin_produto_path
+    if @produto.save
+      @user = User.find(@produto.user_id)
+    else
+      @user = User.new
+    end
+    respond_with [@produto, @user], :location => new_admin_produto_path
   end
 
   def update
@@ -47,7 +58,11 @@ class Admin::ProdutosController < ApplicationController
     flash[:notice] = 'Produto deletado com sucesso!' if @produto.destroy
     redirect_to admin_produtos_path
   end
-
+def produtouser
+  
+  @produtos = Produto.where("user_id = ?", (params[:id]))
+  respond_with @produtos
+end
 protected
 
   def load_categories

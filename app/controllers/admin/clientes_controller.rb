@@ -2,8 +2,10 @@ class Admin::ClientesController < ApplicationController
   layout 'admin'
   load_and_authorize_resource
   before_filter :authenticate_user!
+  
   def index
     @clientes = Cliente.all
+    @users = User.all
     respond_with @clientes, :location => admin_clientes_path
   end
 
@@ -45,7 +47,7 @@ class Admin::ClientesController < ApplicationController
 
   def destroy
     @cliente = Cliente.find(params[:id])
-    flash[:notice] = 'Produto deletado com sucesso' if @cliente.destroy
+    flash[:notice] = 'Categoria deletado com sucesso' if @cliente.destroy
     redirect_to admin_clientes_path
   end
 end

@@ -13,8 +13,10 @@
 
 
 
-
+//= require jquery
+//= require jquery_ujs
 //= require js/jquery.min
+//= require select2
 //= require js/jquery.debouncedresize.min
 //= require js/jquery.actual.min
 //= require js/jquery.cookie.min
@@ -47,7 +49,10 @@
 //= require lib/plupload/js/plupload.full
 //= require lib/plupload/js/jquery.plupload.queue/jquery.plupload.queue.full
 //= require jquery.pjax
-//= require select2
+//= require chamados
+//= require clientes
+
+
 
 
 

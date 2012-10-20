@@ -1,9 +1,11 @@
 #coding : utf-8
 class ApplicationController < ActionController::Base
+
+ 
   protect_from_forgery
 
   before_filter :load_order
-  respond_to :html, :json, :xml
+  respond_to :html, :json, :xml, :js
 
   def load_order
     $order_by = params[:order_by].nil? ? 'id' : params[:order_by]

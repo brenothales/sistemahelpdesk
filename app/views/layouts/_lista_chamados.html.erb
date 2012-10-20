@@ -1,0 +1,27 @@
+ <table>
+  <tr>
+    <th>Assunto</th>
+    <th>Prioridade</th>
+    <th>Tipoatendimento</th>
+    <th>Solucionado</th>
+    <th>Finalizasolicitacao</th>
+    <th>Valorgeral</th>
+    <th>Usuario</th>
+    <th>Produto</th>
+  </tr>
+<% for chamado in @chamados %>
+  <tr>
+    <td><%= chamado.assunto %></td>
+    <td><%= chamado.prioridade %></td>
+    <td><%= chamado.tipoAtendimento %></td>
+    <td><%= chamado.solucionado %></td>
+    <td><%= chamado.finalizaSolicitacao %></td>
+    <td><%= chamado.valorGeral %></td>
+    <% if chamado.user %>
+        <td><%= chamado.user.name %></td>
+    <% end %>
+    <td><%= chamado.produto_name %></td>
+    <td><%= link_to 'Show', admin_chamado_path(chamado) %></td>
+  </tr>
+<% end %>
+</table>

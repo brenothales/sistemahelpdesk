@@ -1,22 +1,25 @@
-<p id="notice"><%= notice %></p>
 
-<p>
+
+<h1>
   <b>Assunto:</b>
   <%= @chamado.assunto %>
+</h1>
+<p>
+  <b>Usuario:</b>
+  <%= @chamado.user.name %>
 </p>
 
 <p>
-  <b>Descricao:</b>
-  <%= @chamado.descricao %>
+  <b>Produto:</b>
+  <%= @chamado.produto.name %>
 </p>
-
 <p>
   <b>Prioridade:</b>
   <%= @chamado.prioridade %>
 </p>
 
 <p>
-  <b>Tipoatendimento:</b>
+  <b>Atendimento:</b>
   <%= @chamado.tipoAtendimento %>
 </p>
 
@@ -26,35 +29,39 @@
 </p>
 
 <p>
-  <b>Observacao:</b>
+  <b>Observação:</b>
   <%= @chamado.observacao %>
 </p>
 
 <p>
   <b>Solucionado:</b>
-  <%= @chamado.solucionado %>
+  <% if @chamado.solucionado == false  %>
+      <span class="badge badge-important">Não</span>
+  <% else %>
+      <span class="badge badge-success">Sim</span>
+  <% end -%>
 </p>
 
 <p>
-  <b>Finalizasolicitacao:</b>
-  <%= @chamado.finalizaSolicitacao %>
+  <b>Finalizar Solicitacao:</b>
+  <% if @chamado.finalizaSolicitacao == false  %>
+      <span class="badge badge-important">Não</span>
+  <% else %>
+      <span class="badge badge-success">Sim</span>
+  <% end -%>
 </p>
 
 <p>
-  <b>Valorgeral:</b>
+  <b>Valor Total:</b>
   <%= @chamado.valorGeral %>
 </p>
 
-<p>
-  <b>Usuario:</b>
-  <%= @chamado.usuario %>
-</p>
 
 <p>
-  <b>Produto:</b>
-  <%= @chamado.produto.name %>
+  <b>Descricao:</b>
+  <%= @chamado.descricao %>
 </p>
 
-
-<%= link_to 'Edit', edit_admin_chamado_path(@chamado) %> |
-<%= link_to 'Back', admin_chamados_path %>
+<%= link_to 'Editar', edit_admin_chamado_path(@chamado) %> |
+<%= link_to 'Voltar', admin_chamados_path %>
+<p>  <%= @chamado.created_at %></p>

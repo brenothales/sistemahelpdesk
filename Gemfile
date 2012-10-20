@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'simple_form'
 gem 'devise'
 gem "cancan"
+gem "hirb"
 gem 'carrierwave'
 gem 'rmagick'
 

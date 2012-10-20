@@ -5,7 +5,7 @@
   <%= f.error_notification %>
 
 
-  
+
     
           <fieldset>
             <div class="control-group formSep">
@@ -14,7 +14,8 @@
                  <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :input_html => { :class => 'chzn_a' }, :label => "Cliente" %>
                 <% end -%>
               </div>
-              <div class="control-group formSep">
+
+            <div class="control-group formSep">
                 <%= f.label :tipo_cliente_id, :class => 'control-label' %>
                   <div class="control-group formSep">
                     <div class="controls">
@@ -23,11 +24,11 @@
                   </div> 
                   <!-- CNPJ -->
                   <div class="control-group formSep" id="cnpj_field">
-                    <%= f.input :cnpj, :input_html => { :class => 'input-medium text_field', :placeholder => "CNPJ", :mask => "cnpj"}, :label_html => { :class => 'control-label'}, :label => "CNPJ"  %> 
+                    <%= f.input :cnpj, :input_html => { :class => 'input-medium text_field', :placeholder => "CNPJ", :id => "mask_cnpj"}, :label_html => { :class => 'control-label'}, :label => "CNPJ"  %> 
                   </div>
                   <!-- CPF -->
                   <div class="control-group formSep" id="cpf_field">
-                  <%= f.input :cpf, :input_html => { :class => 'span2 text_field', :mask => "cpf", :placeholder => "CPF"},
+                  <%= f.input :cpf, :input_html => { :class => 'span4 text_field', :placeholder => "CPF", :id => "mask_cpf"},
                   :label_html => { :class => 'control-label'}, :label => "CPF" %>
                   <div class="control-group formSep" >
                      <%= f.input  :rg, :input_html => { :class => 'span2', :placeholder => "RG"}, 
@@ -36,84 +37,73 @@
                   <!-- Sexo -->
                   <div>
                     <div class="control-group formSep">    
-                      <%= f.label :sexo , :label => "Sexo", :class => 'control-label' %>   
-                      <div class="controls">  
-                      <%= f.select :sexo, Cliente::SEXO, :include_blank => true, :input_html => { :class => '  number_field'} %>
-                      </div>
+                        <%= f.input :sexo, :collection => Cliente::SEXO, :as => :radio_buttons, :item_wrapper_class => 'inline', :label => 'Sexo' %>
                      </div>
-                  </div>
+                 </div>
                   <!-- Data de Nascimento -->
                   <div>
                     <div class="control-group formSep">    
-                      <%= f.label :dataNascimento , :label => "Data de Nascimento", :class => 'control-label' %>   
-                      <div class="controls"> 
-                        <%= f.input_field :dataNascimento, :as => :date, :start_year => Date.today.year - 90,
-                              :end_year => Date.today.year - 12, :discard_day => false,
-                              :order => [:day, :month, :year]     %>
+                      <div class=""> 
+                        <%= f.input :dataNascimento,  :label_html => {:class=>"control-label"}, :input_html => {:class=>"span3", :id => "mask_date"}, :label=>"Data Nascimento" %>
                       </div>
                     </div>
                   </div>
+                  <!-- Fim Data de Nascimento -->
                   <!-- Funcao -->
-                  <div class="control-group formSep">
+                  <div class="">
                     <%= f.input  :funcao, :label=> "Função", :label_html => { :class => 'control-label'} , :input_html => { :class => 'span6 controls', :placeholder => :Função} %>
                   </div> 
-              </div>
+                  <!-- Fim Funcao -->
             </div>
-            <h3 class="heading">Telefone</h3>
+            <!-- Telefone  -->
+            <legend>Telefones</legend>
             <div id="contato_telefones">  
                 <%= f.fields_for :contato_telefones do  |c|%>
                   <%= render :partial => "admin/contato_telefones/add_more", :locals => { :f => c} %>
                   <%end%>
+            </div>
                 <div class="control-group">
                   <div class="controls">
                     <%= link_to_add_fields "Adicionar mais telefones", f, :contato_telefones, "admin/contato_telefones/add_more" %>
                   </div>
                 </div>
-              </div>
+              <!-- fim telefones -->
+              <!-- Email -->
+            <legend>Email</legend>
+               <div id="contato_emails">    
+                  <%= f.fields_for :contato_emails do |c|%>
+                    <%= render :partial => "admin/contato_emails/add_more", :locals => { :f => c} %>
+                  <%end%>
+                </div>
 
-\
+                <div class="control-group">
+                  <div class="controls">
+                    <%= link_to_add_fields "Adicionar mais emails", f, :contato_emails, "admin/contato_emails/add_more" %>
+                  </div>
+                </div>
+                <!-- Fim email -->
+          <legend>Endereço</legend>
+          <div >
+            <%= f.fields_for :endereco, :html =>{:class=>"formSep"} do |e| %>
+            <div class="">
+               <%= e.input :logradouro, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-xlarge "}, :label=>"Logradouro" %>
+            </div>   
+               <%= e.input :numero, :label_html => {:class=>"control-label"}, :input_html => {:class=>"span2 "}, :label=>"Número" %> 
+               <%= e.input :bairro, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-medium "}, :label=>"Bairro" %>
+               <%= e.input :cidade, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-medium "}, :label=>"Cidade" %>
+
+               <%= e.input :cep, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-medium ", :id=> "mask_cep"}, :label=>"CEP" %>
+            <% end %>
+         </div>
             </div>
+
             <div class="control-group formSep">
-              <label class="control-label">I want to receive:</label>
-              <div class="controls">
-                <label class="checkbox inline">
-                  <input type="checkbox" value="newsletter" id="email_newsletter" name="email_receive">
-                  Newsletters
-                </label>
-                <label class="checkbox inline">
-                  <input type="checkbox" value="sys_messages" id="email_sysmessages" name="email_receive" checked="checked">
-                  System messages
-                </label>
-                <label class="checkbox inline">
-                  <input type="checkbox" value="other_messages" id="email_othermessages" name="email_receive">
-                  Other messages
-                </label>
-              </div>
-            </div>
-        
-            <div class="control-group formSep">
-              <label class="control-label">Gender</label>
-              <div class="controls">
-                <label class="radio inline">
-                  <input type="radio" value="male" id="s_male" name="f_gender" checked="checked">
-                  Male
-                </label>
-                <label class="radio inline">
-                  <input type="radio" value="female" id="s_female" name="f_gender">
-                  Female
-                </label>
-              </div>
-            </div>
-            <div class="control-group formSep">
-              <label for="u_signature" class="control-label">Signature</label>
-              <div class="controls">
-                <textarea rows="4" id="u_signature" class="input-xlarge" style="overflow: hidden; word-wrap: break-word; max-height: 72px; min-height: 72px; height: 72px;">Lorem ipsum…</textarea>
-                <span class="help-block">Automatic resize</span>
-              </div>
+
+                  <%= f.input :observacao, :input_html => { :placeholder => :observacao, :class => "span5", :rows => 5 }, :label_html => { :class=>"control-label" }, :label => "Obervação" %>
             </div>
             <div class="control-group">
               <div class="controls">
-                <button class="btn btn-gebo" type="submit">Save changes</button>
+                <%= f.button :submit, :class=>"btn btn-gebo"  %>
               <button class="btn">Cancel</button>
               </div>
             </div>

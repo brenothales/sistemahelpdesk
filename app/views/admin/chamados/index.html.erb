@@ -1,43 +1,54 @@
-<h1>Listing chamados</h1>
-
-<table>
+<%= link_to 'Abrir Chamado', new_admin_chamado_path, :class=>"btn btn-large btn-block btn-primary" %>
+<br/>
+<hr>
+<% if !@chamados || @chamados.length == 0 %>
+    <p>'Chamados não encotrados.'</p>
+<% else %>
+<table class="table table-bordered table-striped">
+ <thead>
   <tr>
-    <th>Assunto</th>
-    <th>Descricao</th>
-    <th>Prioridade</th>
-    <th>Tipoatendimento</th>
-    <th>Cortesia</th>
-    <th>Observacao</th>
-    <th>Solucionado</th>
-    <th>Finalizasolicitacao</th>
-    <th>Valorgeral</th>
-    <th>Usuario</th>
-    <th>Produto</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <th class='name'>Assunto    <%= show_ordenation(:assunto) %></th>
+    <th class='name'>Cliente    <%= show_ordenation(:assunto) %></th>
+    <th class='name'>Produto    <%= show_ordenation(:assunto) %></th>
+    <th class='name'>Solucionado<%= show_ordenation(:assunto) %></th>
+    <th class='name'>Finalizado   <%= show_ordenation(:assunto) %></th>
+    <th class='name'>Valor      <%= show_ordenation(:valor) %></th>
+    <th class='actions'>Ações</th>
 
+  </tr>
+ </thead>
+<tbody>
 <% @chamados.each do |chamado| %>
   <tr>
-    <td><%= chamado.assunto %></td>
-    <td><%= chamado.descricao %></td>
-    <td><%= chamado.prioridade %></td>
-    <td><%= chamado.tipoAtendimento %></td>
-    <td><%= chamado.cortesia %></td>
-    <td><%= chamado.observacao %></td>
-    <td><%= chamado.solucionado %></td>
-    <td><%= chamado.finalizaSolicitacao %></td>
-    <td><%= chamado.valorGeral %></td>
-    <td><%= chamado.usuario %></td>
-    <td><%= chamado.produto %></td>
-    <td><%= link_to 'Show', admin_chamado_path(chamado) %></td>
-    <td><%= link_to 'Edit', edit_admin_chamado_path(chamado) %></td>
-    <td><%= link_to 'Destroy', admin_chamado_path(chamado), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class='name'><%= chamado.assunto %></td>
+   <% if chamado.user %>
+    <td class='name'><%= chamado.user.name %></td>
+    <% end %>
+    <td class='name'><%= chamado.produto_name %></td>
+    <td class='name'>
+        <% if chamado.solucionado == false  %>
+            <span class="badge badge-important">Não</span>
+        <% else %>
+            <span class="badge badge-success">Sim</span>
+        <% end -%>
+    </td>
+    <td class='name'>
+         <% if chamado.finalizaSolicitacao == false  %>
+            <span class="badge badge-important">Não</span>
+        <% else %>
+            <span class="badge badge-success">Sim</span>
+        <% end -%>
+    <td class='name'><%= number_to_currency chamado.valorGeral %></td>
+       <%= show_actions(chamado) %>
   </tr>
 <% end %>
+ </tbody>
 </table>
 
-<br />
-<%= debug @log %>
-<%= link_to 'New Chamado', new_admin_chamado_path %>
+<br /> 
+
+
+
+
+
+<% end %>

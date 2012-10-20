@@ -11,10 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009183934) do
+ActiveRecord::Schema.define(:version => 20121013022426) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -26,6 +32,19 @@ ActiveRecord::Schema.define(:version => 20121009183934) do
     t.datetime "updated_at",                                 :null => false
   end
 
+  create_table "chamado_produtos", :force => true do |t|
+    t.integer  "chamado_id"
+    t.integer  "produto_id"
+    t.integer  "user_id"
+    t.text     "observacao"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "chamado_produtos", ["chamado_id"], :name => "index_chamado_produtos_on_chamado_id"
+  add_index "chamado_produtos", ["produto_id"], :name => "index_chamado_produtos_on_produto_id"
+  add_index "chamado_produtos", ["user_id"], :name => "index_chamado_produtos_on_user_id"
+
   create_table "chamados", :force => true do |t|
     t.string   "assunto"
     t.text     "descricao"
@@ -36,30 +55,31 @@ ActiveRecord::Schema.define(:version => 20121009183934) do
     t.boolean  "solucionado"
     t.boolean  "finalizaSolicitacao"
     t.decimal  "valorGeral"
-    t.integer  "usuario_id"
+    t.string   "produto"
+    t.integer  "user_id"
     t.integer  "produto_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
 
   add_index "chamados", ["produto_id"], :name => "index_chamados_on_produto_id"
-  add_index "chamados", ["usuario_id"], :name => "index_chamados_on_usuario_id"
+  add_index "chamados", ["user_id"], :name => "index_chamados_on_user_id"
 
   create_table "clientes", :force => true do |t|
-    t.string   "nome"
-    t.string   "cnpj"
-    t.string   "cpf"
-    t.string   "responsavel"
+    t.string   "nome",            :limit => 50
+    t.string   "cnpj",            :limit => 18
+    t.string   "cpf",             :limit => 14
+    t.string   "responsavel",     :limit => 50
     t.integer  "tipo_cliente_id"
-    t.string   "complemento"
-    t.string   "rg"
-    t.string   "sexo"
-    t.date     "dataNascimento"
-    t.string   "funcao"
-    t.string   "observacao"
+    t.string   "complemento",     :limit => 140
+    t.string   "rg",              :limit => 20
+    t.string   "sexo",            :limit => 20
+    t.string   "dataNascimento",  :limit => 10
+    t.string   "funcao",          :limit => 30
+    t.text     "observacao"
     t.integer  "user_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "clientes", ["tipo_cliente_id"], :name => "index_clientes_on_tipo_cliente_id"
@@ -120,7 +140,7 @@ ActiveRecord::Schema.define(:version => 20121009183934) do
     t.string   "patrimonio",        :limit => 50
     t.string   "numeroContrato",    :limit => 50
     t.text     "acessorios"
-    t.decimal  "valorDespreciacao",                :precision => 10, :scale => 2,                   :null => false
+    t.decimal  "valorDespreciacao",                :precision => 10, :scale => 2
     t.string   "seto",              :limit => 50
     t.text     "observacao"
     t.boolean  "situation",                                                       :default => true

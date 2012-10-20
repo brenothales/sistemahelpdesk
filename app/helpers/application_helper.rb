@@ -1,6 +1,11 @@
 #encoding : utf-8
 module ApplicationHelper
 
+  def chamados_list
+    # não sei se essa é sua lógica mas segue um exemplo
+    Chamado.all.map { |chamado| chamado.assunto }.join(' ').html_safe
+  end
+
   def error_message_for(resource)
     render "/admin/shared/error_message",:target => resource
   end
@@ -66,9 +71,9 @@ module ApplicationHelper
     link_to t("edit"), url, html_options
   end
 
-  def link_to_destroy(url, html_options = {})
+   def link_to_destroy(url, html_options = {})
     html_options.reverse_merge!(:confirm => t("confirm"), :method => :delete, :class => "red")
-    link_to t("destroy"), url, html_options
+    link_to ("destroy"), url, html_options
   end
 
   def section(title="", &block)

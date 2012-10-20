@@ -1,0 +1,13 @@
+page.replace_html 'create_user', :partial => 'add_user'
+
+page<< "$j ('#create_ user_dialog').dialog({
+
+        title: 'New User'',
+
+        modal: true,
+
+        width: 500,
+
+        close: function(event, ui) { $j ('#create_ user_dialog').dialog('destroy') }
+
+    });"

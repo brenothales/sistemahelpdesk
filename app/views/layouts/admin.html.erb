@@ -8,7 +8,7 @@
       
            <%= csrf_meta_tags %>
       
-       <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
+       <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" /> -->
   
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
@@ -87,7 +87,9 @@
                 <div class="navbar navbar-fixed-top">
                     <div class="navbar-inner">
                         <div class="container-fluid">
-                            <a class="brand" href="dashboard.html"><i class="icon-home icon-white"></i> Help Desk</a>
+                            <%= link_to admin_root_path, :class=>"brand" do %>
+                              <i class="icon-home icon-white"></i>  Help Desk
+                            <% end -%>
                             <ul class="nav user_menu pull-right">
                                 <li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix">
@@ -137,11 +139,9 @@
                                         <li class="dropdown">
                                             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th icon-white"></i> Chamados <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="alerts_btns.html">Abertos</a></li>
-                                                <li><a href="icons.html">Pendências</a></li>
-                                                <li><a href="notifications.html">Atrasos</a></li>
-                                                <li><a href="tables.html">Concluídos</a></li>
-
+                                                <li><%= link_to "Abrir", new_admin_chamado_path %></li>
+                                                <li><%= link_to "Meus Chamados", admin_chamados_path if current_user.is_role?(:moderador)%></li>
+                                                <li><%= link_to "Todos Chamados", admin_chamados_path if current_user.is_role?(:administrador)%></li>
                         <li class="dropdown">
                           <a href="#">Sub menu <b class="caret-right"></b></a>
                           <ul class="dropdown-menu">
@@ -190,7 +190,7 @@
                 <div class="modal hide fade" id="myMail">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
-                        <h3>Novos Chamados</h3>
+                        <h3>Novos Chamados</h3>s
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-info">Chamados aberto.</div>
@@ -205,6 +205,9 @@
                             </thead>
                             <tbody>
                                 <tr>
+
+
+             
                                     <td>Thiago Chaves</td>
                                     <td><a href="javascript:void(0)"> afakj a kahfas kjhaf s</a></td>
                                     <td>23/10/2012</td>
@@ -230,6 +233,10 @@
                                 </tr>
                             </tbody>
                         </table>
+                         <div id='lateral'>
+                          <%= chamados_list %>
+
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <a href="javascript:void(0)" class="btn">Ir para chamados</a>

@@ -48,10 +48,13 @@
 	//* masked input
 	gebo_mask_input = {
 		init: function() {
-			$("#mask_date").inputmask("99/99/9999",{placeholder:"dd/mm/yyyy"});
+			$("#mask_date").inputmask("99/99/9999",{placeholder:"00/00/0000"});
 			$("#mask_phone").inputmask("(99) 9999-9999");
 			$("#mask_ssn").inputmask("999-99-9999");
 			$("#mask_product").inputmask("AA-999-A999");
+			$("#mask_cep").inputmask("99999-999");
+			$("#mask_cpf").inputmask("999.999.999-99");
+			$("#mask_cnpj").inputmask("99.999.999/9999-99");
 		}
 	};
 	

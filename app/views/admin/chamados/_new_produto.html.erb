@@ -1,0 +1,19 @@
+ <%= simple_form_for [:admin, @produto], :html => { :class => 'new_contato',  :id=>'new_contato'} do |c| %>
+
+  <%= c.input :name, :input_html => { :class => 'input-xlarge' }, :label => "Nome do Produto" %> -->
+  <% if current_user.is_role?(:administrador) %>
+      <%= c.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :input_html => { :class => 'chzn_a' }, :label => "Cliente" %>
+  <% end -%>
+   <%= c.association :category, :input_html => { :class => 'chzn_a ', :id => ""},:include_blank => false, :label => 'Categoria' %>
+   <%= c.input :modelo, :input_html => { :class => 'span2 ', :id => ""} %>
+   <%= c.input :marca, :input_html => { :class => 'span2 ', :id => ""} %>
+   <%= c.input :numeroSerie, :input_html => { :class => 'span2 ', :id => ""} %>
+   <%= c.input :patrimonio, :input_html => { :class => 'span2 ', :id => ""} %>
+   <%= c.input :numeroContrato, :input_html => { :class => 'span2 ', :id => ""} %>
+   <%= c.input :valorDespreciacao, :input_html => { :class => 'input-mini', :maxlength =>  15},      :hint => "Somente valores númericos"  %> 
+   <%= c.input :seto %>
+   <%= c.input :acessorios, :input_html => { :rows => 3 } %> 
+   <%= c.input :observacao, :as => :text, :input_html => { :rows => "1", :cols => "3", :id => "auto_expand" } %> 
+  
+<% end -%>
+

@@ -8,7 +8,7 @@ class CreateProdutos < ActiveRecord::Migration
       t.string :patrimonio         , :limit => "50"    
       t.string :numeroContrato     , :limit => "50"     
       t.text :acessorios             
-      t.decimal :valorDespreciacao , :precision => 10, :scale => 2, :null => false    
+      t.decimal :valorDespreciacao , :precision => 10, :scale => 2#, :null => false    
       t.string :seto               , :limit => "50"      
       t.text :observacao       
       t.boolean :situation, :default => true       

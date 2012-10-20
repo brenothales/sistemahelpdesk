@@ -4,6 +4,8 @@ class Admin::ChamadosController < ApplicationController
   before_filter :authenticate_user!
   def index
     @chamados = Chamado.all
+    @produtos = Produto.all
+    @produto = Produto.new
     respond_with @chamados, :location => admin_chamados_path
   end
 
@@ -14,19 +16,24 @@ class Admin::ChamadosController < ApplicationController
 
   def new
     @chamado = Chamado.new
-    respond_with @chamado, :location => new_admin_chamado_path
+    @chamado.build_produto
+    @users = User.all
+
+    @produto = Produto.new   
+    @produtos = Produto.all
+     respond_with [@chamado, @produtos] 
   end
 
   def edit
     @chamado = Chamado.find(params[:id])
+    @produto = Produto.new
+    @chamado.build_produto
+    @users = User.all
   end
 
   def create
-    @chamado = Chamado.new(params[:chamado])
-     if current_user.is_role?(:administrador) 
-     else
-    @chamado.user = current_user 
-    end 
+    @chamado = Chamado.new(params[:chamado])  
+    @users = User.all
     flash[:notice] = "Chamado salvo com sucesso!" if @chamado.save
     respond_with @chamado, :location => [:admin, @chamado]
   end
@@ -41,6 +48,11 @@ class Admin::ChamadosController < ApplicationController
     @chamado = Chamado.find(params[:id])
     flash[:notice] = 'Produto deletado com sucesso' if @chamado.destroy
     redirect_to admin_chamados_path
+  end
+protected
+  def load_resources
+    @authors    = User.all
+
   end
 end
 

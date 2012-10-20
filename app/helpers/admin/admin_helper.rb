@@ -30,11 +30,7 @@ module Admin::AdminHelper
     link_to t("edit"), url, html_options
   end
 
-  def link_to_destroy(url, html_options = {})
-    html_options.reverse_merge!(:confirm => t("confirm"), :method => :delete, :class => "red")
-    link_to t("destroy"), url, html_options
-  end
-
+ 
   def section(title="", &block)
     content_tag :div, :class => "section" do
       html = ""

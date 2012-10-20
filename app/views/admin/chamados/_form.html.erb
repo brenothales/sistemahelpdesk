@@ -1,21 +1,65 @@
-<%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for [:admin, @chamado] do |f| %>
   <%= f.error_notification %>
-
   <div class="form-inputs">
-    <%= f.input :assunto %>
-    <%= f.input :descricao %>
-    <%= f.input :prioridade %>
-    <%= f.input :tipoAtendimento %>
+    <%= f.input :assunto, :input_html => { :class=> "span5" }  %>
+    <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
+    <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atedimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atedimento" %> 
     <%= f.input :cortesia %>
-    <%= f.input :observacao %>
     <%= f.input :solucionado %>
-    <%= f.input :finalizaSolicitacao %>
-    <%= f.input :valorGeral %>
-    <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id) %> 
-    
-  </div>
+    <%= f.input :finalizaSolicitacao, :label => "Solicitação Finalizada" %>
+    <%= f.input :valorGeral, :label => "Valor Geral", :input_html => { :class => 'input-mini', :maxlength => 15} %>
+    <!-- Se for admin do sistema -->
+    <% if current_user.is_role?(:administrador) %>
+     <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a"}, :label => "Cliente"  %>
+     <select name="chamado[produto_id]" id="producttest">
+       
+     </select>
+
+       <!-- f.input :produto_id, :collection => @users, :as => :grouped_select, :group_method => :produtos, :input_html => {:class=>"chzn_b", :id=>"chosen_b" }, :value_method => :id, :include_blank => false, :prompt => "Selecionar Produto" %>  --> -->
+
+
+      <!--  f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.all %> -->
+
+    <!-- autocomplete -->
+       <!-- f.label :produto_name %><br /> -->
+       <!-- f.text_field :produto_name, data: {autocomplete_source: admin_produtos_path}, :id=>"chamado_produto_name" %> -->
+    <!-- fim do autocomplete -->
+     <!-- Se não for usuário -->
+
+     <a href="#" id="bt-cadastra">Novo Produto</a>
+
+    <%else%>
+    <!-- pegar o id do cliente -->
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id) %>
+    <% end -%>
+    <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span5", :rows => 5 }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
+  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span5", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação" %>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+<!-- Rabisco -->
+ <!-- f.input :produto_id, :collection => @users, :as => :grouped_select, :group_method => :users %> -->
+
+ <!--   f.input :produto_id, :as => :grouped_select, 
+             :collection => Produto.where(:user_id => current_user.id).where(:assigned_to => current_user), 
+             :group_method => :name %> 
+ -->
+ <!-- grouped_collection_select(:produto, :country_id, @continents, :countries, :name, :id, :name) %> -->
+
+
+
+  
+
+  
 <% end %>
+
+      <div id="dialog-cadastro" title="Cadastro de Pessoas"> 
+        <!-- <form action="../../produtos.js" method="post" id="new_contato">  -->
+           <%=  render "new_produto" %> 
+        <!-- </form> -->
+      </div>
+
+
+
