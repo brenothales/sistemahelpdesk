@@ -26,7 +26,8 @@ class Admin::ChamadosController < ApplicationController
 
   def edit
     @chamado = Chamado.find(params[:id])
-    @produto = Produto.new
+    @produto = Produto.find( @chamado.produto_id )
+    # @produto = Produto.new
     @chamado.build_produto
     @users = User.all
   end
@@ -40,6 +41,7 @@ class Admin::ChamadosController < ApplicationController
 
   def update
     @chamado = Chamado.find(params[:id])
+    @produto = Produto.find( @chamado.produto_id )
     flash[:notice] = "Chamado atualizado com sucesso!" if @chamado.update_attributes(params[:chamado])
     respond_with @chamado, :location => [:admin, @chamado]
   end
@@ -55,6 +57,7 @@ protected
 
   end
 end
+
 
 # class Admin::ChamadosController < ApplicationController
 #   layout 'admin'

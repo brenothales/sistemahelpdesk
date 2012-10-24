@@ -1,6 +1,11 @@
 #encoding : utf-8
 module ApplicationHelper
 
+  def post_date(date)
+    # formatting date: Aug, 31 2007 - 9:55PM
+    date.strftime("%b, %m %Y - %H:%M")
+  end
+
   def chamados_list
     # não sei se essa é sua lógica mas segue um exemplo
     Chamado.all.map { |chamado| chamado.assunto }.join(' ').html_safe

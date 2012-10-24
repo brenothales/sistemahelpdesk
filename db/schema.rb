@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013022426) do
+ActiveRecord::Schema.define(:version => 20121024034943) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(:version => 20121013022426) do
   add_index "clientes", ["tipo_cliente_id"], :name => "index_clientes_on_tipo_cliente_id"
   add_index "clientes", ["user_id"], :name => "index_clientes_on_user_id"
 
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "chamado_id"
+    t.text     "descricao"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comments", ["chamado_id"], :name => "index_comments_on_chamado_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "contato_emails", :force => true do |t|
     t.string   "contato"
     t.string   "email"
@@ -120,6 +131,17 @@ ActiveRecord::Schema.define(:version => 20121013022426) do
   end
 
   add_index "enderecos", ["cliente_id"], :name => "index_enderecos_on_cliente_id"
+
+  create_table "interacoes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "chamado_id"
+    t.text     "descricao"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "interacoes", ["chamado_id"], :name => "index_interacoes_on_chamado_id"
+  add_index "interacoes", ["user_id"], :name => "index_interacoes_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.string   "name"

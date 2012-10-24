@@ -13,4 +13,5 @@
  ActiveSupport::Inflector.inflections do |inflect|
     inflect.irregular 'chamado', 'chamados'
     inflect.irregular 'endereco', 'enderecos'
+    inflect.irregular 'interacao', 'interacoes'
 end

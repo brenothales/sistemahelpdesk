@@ -1,15 +1,16 @@
 class Chamado < ActiveRecord::Base
   belongs_to :user
   belongs_to :produto
+  has_many :comments, :dependent => :destroy
   attr_accessible :assunto, :cortesia, :descricao, :finalizaSolicitacao, 
   				  :observacao, :prioridade, :solucionado, 
   				  :tipoAtendimento, :valorGeral, :produto_id, :user_id, :produto_name, :name
-validates_presence_of :produto_name
-accepts_nested_attributes_for :produto
+validates_presence_of :produto_name, :assunto, :descricao, :observacao
+
 TIPODEATENDIMENTO = %w(Online Balcao Domiciliar Visita)
 PRIORIDADE = %w(Normal Urgente Extraurgente)
 
-accepts_nested_attributes_for :produto
+
 
 # def produto_name
  #  produto.name if produto

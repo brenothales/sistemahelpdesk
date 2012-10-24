@@ -51,6 +51,7 @@
 //= require jquery.pjax
 //= require chamados
 //= require clientes
+//= require comments
 
 
 

@@ -33,6 +33,11 @@
         <% end -%>
     </td>
     <td class='name'>
+        <% if chamado.solucionado == false  %>
+            <span class="badge badge-important">chamado.valorGeral</span>
+        <% end -%>
+    </td>
+    <td class='name'>
          <% if chamado.finalizaSolicitacao == false  %>
             <span class="badge badge-important">Não</span>
         <% else %>

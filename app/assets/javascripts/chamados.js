@@ -5,7 +5,7 @@ $(document).ready(function () {
      	$( "#bt-cadastra" )
 			.button()
 			.click(function() {
-				 // document.getElementById('new_contato').reset();
+				 document.getElementById('new_contato').reset();
 				$( "#dialog-cadastro" ).dialog( "open" );
 			});
 
@@ -96,6 +96,7 @@ $(document).ready(function () {
 		});			
 
     });
+
 
 
 

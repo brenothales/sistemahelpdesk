@@ -1,10 +1,5 @@
 PrimeiraApp::Application.routes.draw do
-
-  
-
-  
-
-
+  get "comments/index"
 
   resources :posts, :only => [:index, :show]
 
@@ -16,12 +11,15 @@ PrimeiraApp::Application.routes.draw do
   devise_for :users,:controllers => {
     :sessions => "admin/sessions",
     :passwords => "admin/passwords"
+
   }
 
   #rotas admin
   namespace :admin do
     root :to => "home#index"
-    resources :chamados
+    resources :chamados do
+        resources :comments
+    end
     resources :clientes
     resources :produtos
     resources :archives

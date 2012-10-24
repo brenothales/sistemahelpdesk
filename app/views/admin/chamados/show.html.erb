@@ -1,67 +1,116 @@
 
+<!-- <div class="span6">
+   <p><a href="#" class="btn pop_over" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit" data-original-title="Lorem ipsum" data-placement="right">hover for popover (right)</a></p>
+                  <p><a href="#" class="btn pop_over" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit" data-original-title="Lorem ipsum" data-placement="left">hover for popover (left)</a></p>
+                  <p><a href="#" class="btn pop_over" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit" data-original-title="Lorem ipsum" data-placement="top">hover for popover (top)</a></p>
+                  <p><a href="#" class="btn pop_over" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit" data-original-title="Lorem ipsum" data-placement="bottom">hover for popover (bottom)</a></p>
+                </div> -->
 
-<h1>
-  <b>Assunto:</b>
-  <%= @chamado.assunto %>
-</h1>
-<p>
-  <b>Usuario:</b>
-  <%= @chamado.user.name %>
-</p>
+<div class="span11 well">
+  <div class="span6">
+      Assunto:
+      <span class="lead"> <%= @chamado.assunto %> - Nº do <%= @chamado.id %></span><br/>
+<%= link_to("#{@chamado.produto.name.html_safe}", '#', :class => " pop_over btn btn-large btn", :title => "Espercificações do Produto", "data-placement"=> 'right',  "data-content" => "Modelo: #{@chamado.produto.modelo} <br/>
+                      ID: #{@chamado.produto.id} <br/>
+                      Categoria: #{@chamado.produto.category.name} <br/>
+                      Marca: #{@chamado.produto.marca} <br/>
+                      Nº: #{@chamado.produto.numeroSerie} <br/>
+                      Acessórios: #{@chamado.produto.acessorios} <br/>
+                      Observação: #{@chamado.produto.observacao} <br/>
+                      Setor: #{@chamado.produto.seto}").html_safe %>
 
-<p>
-  <b>Produto:</b>
-  <%= @chamado.produto.name %>
-</p>
-<p>
-  <b>Prioridade:</b>
-  <%= @chamado.prioridade %>
-</p>
+  </div>
 
-<p>
-  <b>Atendimento:</b>
+  <div class="span6 ">
+    Responsável: </b><span class="lead"> <%= @chamado.user.name %></span> <br/>
+    <span class="date">Criando <%= time_ago_in_words @chamado.created_at %></span>
+    <%= post_date @chamado.created_at %>
+  </div>
+
+
+  <div class="right">
+     <span class="right">
+      <%= "Valor Total"  if :valorGeral.present? %>
+      <b><%= number_to_currency  @chamado.valorGeral if :valorGeral.present? %></b></span>
+  </div>
+<div>
+
+
+<div class="span12">
+  <div class="span3">
+  <p>
+    Prioridade:
+    <b><%= @chamado.prioridade %></b>
+  </p>
+  </div>
+  <div class="span3">
+    <b>Atendimento:</b>
   <%= @chamado.tipoAtendimento %>
-</p>
-
-<p>
-  <b>Cortesia:</b>
-  <%= @chamado.cortesia %>
-</p>
-
+  </div>
+  <div class="span3">
+    <b>Cortesia:</b>
+  <% if @chamado.cortesia == false  %>
+  <span class="badge badge-important">Não</span>
+  <% else %>
+      <span class="badge badge-success">Sim</span>
+  <% end -%>
+  </div>
+  
+</div>
+  
+<div class="span11 well">
 <p>
   <b>Observação:</b>
   <%= @chamado.observacao %>
 </p>
-
+</div>
 <p>
-  <b>Solucionado:</b>
-  <% if @chamado.solucionado == false  %>
-      <span class="badge badge-important">Não</span>
-  <% else %>
-      <span class="badge badge-success">Sim</span>
-  <% end -%>
-</p>
+  
+<!--   <b>Descricao:</b>
+  <%= @chamado.descricao %> -->
+<hr>
+<div class="span11">
+  <div class="span6">
+      <b>Solucionado:</b>
+    <% if @chamado.solucionado == false  %>
+        <span class="badge badge-important">Não</span>
+    <% else %>
+        <span class="badge badge-success">Sim</span>
+    <% end -%>
+  </div>
+  <div class="span6">
+      <b>Solicitação Finalizada:</b>
+    <% if @chamado.finalizaSolicitacao == false  %>
+        <span class="badge badge-important">Não</span>
+    <% else %>
+        <span class="badge badge-success">Sim</span>
+    <% end -%>
+  </div>
+</div>
 
-<p>
-  <b>Finalizar Solicitacao:</b>
-  <% if @chamado.finalizaSolicitacao == false  %>
-      <span class="badge badge-important">Não</span>
-  <% else %>
-      <span class="badge badge-success">Sim</span>
-  <% end -%>
-</p>
-
-<p>
-  <b>Valor Total:</b>
-  <%= @chamado.valorGeral %>
-</p>
 
 
-<p>
-  <b>Descricao:</b>
-  <%= @chamado.descricao %>
-</p>
 
-<%= link_to 'Editar', edit_admin_chamado_path(@chamado) %> |
-<%= link_to 'Voltar', admin_chamados_path %>
-<p>  <%= @chamado.created_at %></p>
+
+<div id="comments" class="span12">
+  
+<%- if @chamado.comments.any? -%>
+  <%= render :partial => @chamado.comments %>
+<%- else -%>
+  <p>Não tem .</p>
+<%- end -%>
+
+</div>
+
+<hr/>
+
+<%= render "admin/comments/form", :chamado => @chamado, :comment => Comment.new %>
+
+
+<div class="control-group span12">
+    <div class="controls">
+      <!-- Opção ninguém pode editar um chamado -->
+       <!-- link_to 'Editar', edit_admin_chamado_path(@chamado) if current_user.is_role?(:administrador) %>  -->
+      <%= link_to 'Voltar', admin_chamados_path %>
+    </div>
+</div>
