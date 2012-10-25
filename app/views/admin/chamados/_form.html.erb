@@ -1,5 +1,5 @@
 <%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal well' } do |f| %>
-  <%= f.error_notification %>
+  <%= error_message_for(@chamado) %>
   <div class="form-inputs">
     <%= f.input :assunto, :input_html => { :class=> "span8" }  %>
     <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
@@ -17,7 +17,9 @@
 
      <a href="#" id="bt-cadastra"><span class="class="btn btn-primary""><i class="icon-plus"></i></span></a><p></p>
       <%= f.input :cortesia %>
-      <%= f.input :finalizaSolicitacao, :label => "Solicitação Finalizada" %>
+      <%= f.input :finalizaSolicitacao %>
+      <%= f.input :solucionado %>
+      <%= f.input :status, :as=> "select", :collection => Chamado::STATUS, :input_html => {:id=>"ui_slider3_sel", :class=>"span2"}, :prompt => "status" %>
       <%= f.input :valorGeral, :label => "Valor Geral", :input_html => { :class => 'input-mini', :maxlength => 15} %>
        <!-- f.input :produto_id, :collection => @users, :as => :grouped_select, :group_method => :produtos, :input_html => {:class=>"chzn_b", :id=>"chosen_b" }, :value_method => :id, :include_blank => false, :prompt => "Selecionar Produto" %>  --> 
 
@@ -33,14 +35,12 @@
     <!-- pegar o id do cliente -->
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id) %>
-
-      <%= @produto.name %>
     <% end -%>
     <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span5", :rows => 5 }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
   <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span5", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação" %>
-  <%= f.input :solucionado %>
+   <!-- f.input :finalizaSolicitacao, :label => "Solicitação Finalizada" %> -->
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= submit_and_back_buttons(admin_chamados_path,{:label_name => "Enviar"}) %>
   </div>
 <!-- Rabisco -->
  <!-- f.input :produto_id, :collection => @users, :as => :grouped_select, :group_method => :users %> -->
@@ -53,11 +53,12 @@
 
 
 
+
   
 
   
 <% end %>
-
+<% if current_user.is_role?(:administrador) %>
       <div id="dialog-cadastro" title="Cadastro de Pessoas"> 
         <!-- <form action="../../produtos.js" method="post" id="new_contato">  -->
            <%=  render "new_produto" %> 
@@ -65,4 +66,419 @@
       </div>
 
 
+<% end -%>
 
+
+<!-- <div>
+  <nav>
+    <div id="jCrumbs" class="breadCrumb module">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="icon-home"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#">Sports & Toys</a>
+                                </li>
+                                <li>
+                                    <a href="#">Toys & Hobbies</a>
+                                </li>
+                                <li>
+                                    <a href="#">Learning & Educational</a>
+                                </li>
+                                <li>
+                                    <a href="#">Astronomy & Telescopes</a>
+                                </li>
+                                <li>
+                                    Telescope 3735SX 
+                                </li>
+                            </ul>
+    </div>
+  </nav>
+    <div class="hide">
+            <div id="modal_form" class="modal_box">
+              <form action="">
+                <p class="sepH_c"><span class="label label-inverse">Form elemets in modal window</span></p>
+                <div class="formSep">
+                  <input type="text" id="tp_modal" />
+                  <span class="help-block">Timepicker</span>
+                </div>
+                <div class="formSep">
+                  <input type="text" id="cp_modal" />
+                  <span class="help-block">Colorpicker</span>
+                </div>
+                <div class="formSep">
+                  <input type="text" id="dp_modal" />
+                  <span class="help-block">Datepicker</span>
+                </div>
+              </form>
+            </div>
+    </div>
+    <div class="formSep">
+            <div class="row-fluid">
+              <div class="span12">
+                <a href="javascript:void(0)" class="btn btn-mini btn-inverse open_modal_form">Open modal with some elements</a>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <div class="row-fluid">
+              <div class="span6">
+                <p><span class="label label-inverse">UI Sliders</span></p>
+                <div class="sepH_c">
+                  <p class="sepH_a">Donation amount ($50 increments): <strong class="ui_slider1_val"></strong></p>
+                  <div class="ui_slider1"></div>
+                  <input type="hidden" name="ui_slider_default_val" id="ui_slider_default_val"/>
+                </div>
+                <div class="sepH_c">
+                  <p class="sepH_a">Price Range: <strong class="ui_slider2_val"></strong></p>
+                  <div class="ui_slider2"></div>
+                  <input type="hidden" name="ui_slider_min" id="ui_slider_min_val" />
+                  <input type="hidden" name="ui_slider_max" id="ui_slider_max_val" />
+                </div>
+                <div class="sepH_c">
+                  <form class="form-inline">
+                    <label for="ui_slider3_sel" class="sepH_b">Minimum number of beds</label>
+                    <input name="ui_slider3_sel" class="ui_slider3_sel" class="input-mini" type="hidden">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+              <div class="span6">
+                <p><span class="label label-inverse">UI Progressbars</span></p>
+                <div id="progress1" class="sepH_b">
+                  <div class="percent"></div>
+                  <div class="pbar"></div>
+                  <div class="elapsed"></div>
+                </div>
+                <div id="progress2" class="sepH_b">
+                  <div class="percent"></div>
+                  <div class="pbar"></div>
+                  <div class="elapsed"></div>
+                </div>
+                <div id="progress3">
+                  <div class="percent"></div>
+                  <div class="pbar"></div>
+                  <div class="elapsed"></div>
+                </div>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <div class="row-fluid">
+              <div class="span6">
+                <p><span class="label label-inverse">Multiselect</span></p>
+                <select multiple="multiple" class="multiselect" id="optgroup">
+                  <optgroup label="Africa">
+                    <option value="DZ">Algeria</option>
+                    <option value="AO">Angola</option>
+                    <option value="BJ">Benin</option>
+                    <option value="BW">Botswana</option>
+                    <option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="CM">Cameroon</option><option value="CV">Cape Verde</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="KM">Comoros</option><option value="CD">Congo [DRC]</option><option value="CG">Congo [Republic]</option><option value="DJ">Djibouti</option><option value="EG">Egypt</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="ET">Ethiopia</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GH">Ghana</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="CI">Ivory Coast</option><option value="KE">Kenya</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="ML">Mali</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="NA">Namibia</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="RW">Rwanda</option><option value="RE">Réunion</option><option value="SH">Saint Helena</option><option value="SN">Senegal</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="SD">Sudan</option><option value="SZ">Swaziland</option><option value="ST">São Tomé and Príncipe</option><option value="TZ">Tanzania</option><option value="TG">Togo</option><option value="TN">Tunisia</option><option value="UG">Uganda</option><option value="EH">Western Sahara</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option></optgroup><optgroup label="Antarctica"><option value="AQ">Antarctica</option><option value="BV">Bouvet Island</option><option value="TF">French Southern Territories</option><option value="HM">Heard Island and McDonald Island</option><option value="GS">South Georgia and the South Sandwich Islands</option></optgroup><optgroup label="Asia"><option value="AF">Afghanistan</option><option value="AM">Armenia</option><option value="AZ">Azerbaijan</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BT">Bhutan</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="KH">Cambodia</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CC">Cocos [Keeling] Islands</option><option value="GE">Georgia</option><option value="HK">Hong Kong</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IQ">Iraq</option><option value="IL">Israel</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LB">Lebanon</option><option value="MO">Macau</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="MN">Mongolia</option><option value="MM">Myanmar [Burma]</option><option value="NP">Nepal</option><option value="KP">North Korea</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PS">Palestinian Territories</option><option value="PH">Philippines</option><option value="QA">Qatar</option><option value="SA">Saudi Arabia</option><option value="SG">Singapore</option><option value="KR">South Korea</option><option value="LK">Sri Lanka</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TH">Thailand</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="AE">United Arab Emirates</option><option value="UZ">Uzbekistan</option><option value="VN">Vietnam</option><option value="YE">Yemen</option></optgroup><optgroup label="Europe"><option value="AL">Albania</option><option value="AD">Andorra</option><option value="AT">Austria</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BA">Bosnia and Herzegovina</option><option value="BG">Bulgaria</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="EE">Estonia</option><option value="FO">Faroe Islands</option><option value="FI">Finland</option><option value="FR">France</option><option value="DE">Germany</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GG">Guernsey</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IE">Ireland</option><option value="IM">Isle of Man</option><option value="IT">Italy</option><option value="JE">Jersey</option><option value="XK">Kosovo</option><option value="LV">Latvia</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MK">Macedonia</option><option value="MT">Malta</option><option value="MD">Moldova</option><option value="MC">Monaco</option><option value="ME">Montenegro</option><option value="NL">Netherlands</option><option value="NO">Norway</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="RO">Romania</option><option value="RU">Russia</option><option value="SM">San Marino</option><option value="RS">Serbia</option><option value="CS">Serbia and Montenegro</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="ES">Spain</option><option value="SJ">Svalbard and Jan Mayen</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="UA">Ukraine</option><option value="GB">United Kingdom</option><option value="VA">Vatican City</option><option value="AX">Åland Islands</option></optgroup><optgroup label="North America"><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AW">Aruba</option><option value="BS">Bahamas</option><option value="BB">Barbados</option><option value="BZ">Belize</option><option value="BM">Bermuda</option><option value="BQ">Bonaire, Saint Eustatius and Saba</option><option value="VG">British Virgin Islands</option><option value="CA">Canada</option><option value="KY">Cayman Islands</option><option value="CR">Costa Rica</option><option value="CU">Cuba</option><option value="CW">Curacao</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="SV">El Salvador</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="JM">Jamaica</option><option value="MQ">Martinique</option><option value="MX">Mexico</option><option value="MS">Montserrat</option><option value="AN">Netherlands Antilles</option><option value="NI">Nicaragua</option><option value="PA">Panama</option><option value="PR">Puerto Rico</option><option value="BL">Saint Barthélemy</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="MF">Saint Martin</option><option value="PM">Saint Pierre and Miquelon</option><option value="VC">Saint Vincent and the Grenadines</option><option value="SX">Sint Maarten</option><option value="TT">Trinidad and Tobago</option><option value="TC">Turks and Caicos Islands</option><option value="VI">U.S. Virgin Islands</option><option value="US">United States</option></optgroup><optgroup label="South America"><option value="AR">Argentina</option><option value="BO">Bolivia</option><option value="BR">Brazil</option><option value="CL">Chile</option><option value="CO">Colombia</option><option value="EC">Ecuador</option><option value="FK">Falkland Islands</option><option value="GF">French Guiana</option><option value="GY">Guyana</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="SR">Suriname</option><option value="UY">Uruguay</option><option value="VE">Venezuela</option></optgroup><optgroup label="Oceania"><option value="AS">American Samoa</option><option value="AU">Australia</option><option value="CK">Cook Islands</option><option value="TL">East Timor</option><option value="FJ">Fiji</option><option value="PF">French Polynesia</option><option value="GU">Guam</option><option value="KI">Kiribati</option><option value="MH">Marshall Islands</option><option value="FM">Micronesia</option><option value="NR">Nauru</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="PW">Palau</option><option value="PG">Papua New Guinea</option><option value="PN">Pitcairn Islands</option><option value="WS">Samoa</option><option value="SB">Solomon Islands</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TV">Tuvalu</option><option value="UM">U.S. Minor Outlying Islands</option><option value="VU">Vanuatu</option><option value="WF">Wallis and Futuna</option></optgroup>
+                </select>
+                <a id="select_all" href="javascript:void(0)">Select All</a> / <a id="deselect_all" href="javascript:void(0)">Deselect All</a>
+              </div>
+              <div class="span6">
+                <p><span class="label label-inverse">Multiselect with search</span></p>
+                <form id="searchable-form">
+                  <select name="countries[]" multiple="multiple" id="searchable-select">
+                    <option value=""></option> 
+                    <option value="DZ">Algeria</option><option value="AO">Angola</option><option value="BJ">Benin</option><option value="BW">Botswana</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="CM">Cameroon</option><option value="CV">Cape Verde</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="KM">Comoros</option><option value="CD">Congo [DRC]</option><option value="CG">Congo [Republic]</option><option value="DJ">Djibouti</option><option value="EG">Egypt</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="ET">Ethiopia</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GH">Ghana</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="CI">Ivory Coast</option><option value="KE">Kenya</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="ML">Mali</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="NA">Namibia</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="RW">Rwanda</option><option value="RE">Réunion</option><option value="SH">Saint Helena</option><option value="SN">Senegal</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="SD">Sudan</option><option value="SZ">Swaziland</option><option value="ST">São Tomé and Príncipe</option><option value="TZ">Tanzania</option><option value="TG">Togo</option><option value="TN">Tunisia</option><option value="UG">Uganda</option><option value="EH">Western Sahara</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option><option value="AQ">Antarctica</option><option value="BV">Bouvet Island</option><option value="TF">French Southern Territories</option><option value="HM">Heard Island and McDonald Island</option><option value="GS">South Georgia and the South Sandwich Islands</option><option value="AF">Afghanistan</option><option value="AM">Armenia</option><option value="AZ">Azerbaijan</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BT">Bhutan</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="KH">Cambodia</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CC">Cocos [Keeling] Islands</option><option value="GE">Georgia</option><option value="HK">Hong Kong</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IQ">Iraq</option><option value="IL">Israel</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LB">Lebanon</option><option value="MO">Macau</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="MN">Mongolia</option><option value="MM">Myanmar [Burma]</option><option value="NP">Nepal</option><option value="KP">North Korea</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PS">Palestinian Territories</option><option value="PH">Philippines</option><option value="QA">Qatar</option><option value="SA">Saudi Arabia</option><option value="SG">Singapore</option><option value="KR">South Korea</option><option value="LK">Sri Lanka</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TH">Thailand</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="AE">United Arab Emirates</option><option value="UZ">Uzbekistan</option><option value="VN">Vietnam</option><option value="YE">Yemen</option><option value="AL">Albania</option><option value="AD">Andorra</option><option value="AT">Austria</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BA">Bosnia and Herzegovina</option><option value="BG">Bulgaria</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="EE">Estonia</option><option value="FO">Faroe Islands</option><option value="FI">Finland</option><option value="FR">France</option><option value="DE">Germany</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GG">Guernsey</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IE">Ireland</option><option value="IM">Isle of Man</option><option value="IT">Italy</option><option value="JE">Jersey</option><option value="XK">Kosovo</option><option value="LV">Latvia</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MK">Macedonia</option><option value="MT">Malta</option><option value="MD">Moldova</option><option value="MC">Monaco</option><option value="ME">Montenegro</option><option value="NL">Netherlands</option><option value="NO">Norway</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="RO">Romania</option><option value="RU">Russia</option><option value="SM">San Marino</option><option value="RS">Serbia</option><option value="CS">Serbia and Montenegro</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="ES">Spain</option><option value="SJ">Svalbard and Jan Mayen</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="UA">Ukraine</option><option value="GB">United Kingdom</option><option value="VA">Vatican City</option><option value="AX">Åland Islands</option><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AW">Aruba</option><option value="BS">Bahamas</option><option value="BB">Barbados</option><option value="BZ">Belize</option><option value="BM">Bermuda</option><option value="BQ">Bonaire, Saint Eustatius and Saba</option><option value="VG">British Virgin Islands</option><option value="CA">Canada</option><option value="KY">Cayman Islands</option><option value="CR">Costa Rica</option><option value="CU">Cuba</option><option value="CW">Curacao</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="SV">El Salvador</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="JM">Jamaica</option><option value="MQ">Martinique</option><option value="MX">Mexico</option><option value="MS">Montserrat</option><option value="AN">Netherlands Antilles</option><option value="NI">Nicaragua</option><option value="PA">Panama</option><option value="PR">Puerto Rico</option><option value="BL">Saint Barthélemy</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="MF">Saint Martin</option><option value="PM">Saint Pierre and Miquelon</option><option value="VC">Saint Vincent and the Grenadines</option><option value="SX">Sint Maarten</option><option value="TT">Trinidad and Tobago</option><option value="TC">Turks and Caicos Islands</option><option value="VI">U.S. Virgin Islands</option><option value="US">United States</option><option value="AR">Argentina</option><option value="BO">Bolivia</option><option value="BR">Brazil</option><option value="CL">Chile</option><option value="CO">Colombia</option><option value="EC">Ecuador</option><option value="FK">Falkland Islands</option><option value="GF">French Guiana</option><option value="GY">Guyana</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="SR">Suriname</option><option value="UY">Uruguay</option><option value="VE">Venezuela</option><option value="AS">American Samoa</option><option value="AU">Australia</option><option value="CK">Cook Islands</option><option value="TL">East Timor</option><option value="FJ">Fiji</option><option value="PF">French Polynesia</option><option value="GU">Guam</option><option value="KI">Kiribati</option><option value="MH">Marshall Islands</option><option value="FM">Micronesia</option><option value="NR">Nauru</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="PW">Palau</option><option value="PG">Papua New Guinea</option><option value="PN">Pitcairn Islands</option><option value="WS">Samoa</option><option value="SB">Solomon Islands</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TV">Tuvalu</option><option value="UM">U.S. Minor Outlying Islands</option><option value="VU">Vanuatu</option><option value="WF">Wallis and Futuna</option>  
+                  </select>
+                </form>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <div class="row-fluid">
+              <div class="span6">
+                <p><span class="label label-inverse">Enhanced Select</span></p>
+                <select name="chosen_a" id="chosen_a" data-placeholder="Choose a Country..." class="chzn_a">
+                  <option value=""></option> 
+                  <option value="DZ">Algeria</option><option value="AO">Angola</option><option value="BJ">Benin</option><option value="BW">Botswana</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="CM">Cameroon</option><option value="CV">Cape Verde</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="KM">Comoros</option><option value="CD">Congo [DRC]</option><option value="CG">Congo [Republic]</option><option value="DJ">Djibouti</option><option value="EG">Egypt</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="ET">Ethiopia</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GH">Ghana</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="CI">Ivory Coast</option><option value="KE">Kenya</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="ML">Mali</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="NA">Namibia</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="RW">Rwanda</option><option value="RE">Réunion</option><option value="SH">Saint Helena</option><option value="SN">Senegal</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="SD">Sudan</option><option value="SZ">Swaziland</option><option value="ST">São Tomé and Príncipe</option><option value="TZ">Tanzania</option><option value="TG">Togo</option><option value="TN">Tunisia</option><option value="UG">Uganda</option><option value="EH">Western Sahara</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option><option value="AQ">Antarctica</option><option value="BV">Bouvet Island</option><option value="TF">French Southern Territories</option><option value="HM">Heard Island and McDonald Island</option><option value="GS">South Georgia and the South Sandwich Islands</option><option value="AF">Afghanistan</option><option value="AM">Armenia</option><option value="AZ">Azerbaijan</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BT">Bhutan</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="KH">Cambodia</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CC">Cocos [Keeling] Islands</option><option value="GE">Georgia</option><option value="HK">Hong Kong</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IQ">Iraq</option><option value="IL">Israel</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LB">Lebanon</option><option value="MO">Macau</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="MN">Mongolia</option><option value="MM">Myanmar [Burma]</option><option value="NP">Nepal</option><option value="KP">North Korea</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PS">Palestinian Territories</option><option value="PH">Philippines</option><option value="QA">Qatar</option><option value="SA">Saudi Arabia</option><option value="SG">Singapore</option><option value="KR">South Korea</option><option value="LK">Sri Lanka</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TH">Thailand</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="AE">United Arab Emirates</option><option value="UZ">Uzbekistan</option><option value="VN">Vietnam</option><option value="YE">Yemen</option><option value="AL">Albania</option><option value="AD">Andorra</option><option value="AT">Austria</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BA">Bosnia and Herzegovina</option><option value="BG">Bulgaria</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="EE">Estonia</option><option value="FO">Faroe Islands</option><option value="FI">Finland</option><option value="FR">France</option><option value="DE">Germany</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GG">Guernsey</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IE">Ireland</option><option value="IM">Isle of Man</option><option value="IT">Italy</option><option value="JE">Jersey</option><option value="XK">Kosovo</option><option value="LV">Latvia</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MK">Macedonia</option><option value="MT">Malta</option><option value="MD">Moldova</option><option value="MC">Monaco</option><option value="ME">Montenegro</option><option value="NL">Netherlands</option><option value="NO">Norway</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="RO">Romania</option><option value="RU">Russia</option><option value="SM">San Marino</option><option value="RS">Serbia</option><option value="CS">Serbia and Montenegro</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="ES">Spain</option><option value="SJ">Svalbard and Jan Mayen</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="UA">Ukraine</option><option value="GB">United Kingdom</option><option value="VA">Vatican City</option><option value="AX">Åland Islands</option><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AW">Aruba</option><option value="BS">Bahamas</option><option value="BB">Barbados</option><option value="BZ">Belize</option><option value="BM">Bermuda</option><option value="BQ">Bonaire, Saint Eustatius and Saba</option><option value="VG">British Virgin Islands</option><option value="CA">Canada</option><option value="KY">Cayman Islands</option><option value="CR">Costa Rica</option><option value="CU">Cuba</option><option value="CW">Curacao</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="SV">El Salvador</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="JM">Jamaica</option><option value="MQ">Martinique</option><option value="MX">Mexico</option><option value="MS">Montserrat</option><option value="AN">Netherlands Antilles</option><option value="NI">Nicaragua</option><option value="PA">Panama</option><option value="PR">Puerto Rico</option><option value="BL">Saint Barthélemy</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="MF">Saint Martin</option><option value="PM">Saint Pierre and Miquelon</option><option value="VC">Saint Vincent and the Grenadines</option><option value="SX">Sint Maarten</option><option value="TT">Trinidad and Tobago</option><option value="TC">Turks and Caicos Islands</option><option value="VI">U.S. Virgin Islands</option><option value="US">United States</option><option value="AR">Argentina</option><option value="BO">Bolivia</option><option value="BR">Brazil</option><option value="CL">Chile</option><option value="CO">Colombia</option><option value="EC">Ecuador</option><option value="FK">Falkland Islands</option><option value="GF">French Guiana</option><option value="GY">Guyana</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="SR">Suriname</option><option value="UY">Uruguay</option><option value="VE">Venezuela</option><option value="AS">American Samoa</option><option value="AU">Australia</option><option value="CK">Cook Islands</option><option value="TL">East Timor</option><option value="FJ">Fiji</option><option value="PF">French Polynesia</option><option value="GU">Guam</option><option value="KI">Kiribati</option><option value="MH">Marshall Islands</option><option value="FM">Micronesia</option><option value="NR">Nauru</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="PW">Palau</option><option value="PG">Papua New Guinea</option><option value="PN">Pitcairn Islands</option><option value="WS">Samoa</option><option value="SB">Solomon Islands</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TV">Tuvalu</option><option value="UM">U.S. Minor Outlying Islands</option><option value="VU">Vanuatu</option><option value="WF">Wallis and Futuna</option>  
+                </select>
+              </div>
+              <div class="span6">
+                <p><span class="label label-inverse">Enhanced Multi-Select</span></p>
+                <select name="chosen_b" id="chosen_b" multiple data-placeholder="Choose a Country..." class="chzn_b span8">
+                  <optgroup label="Africa"><option value="DZ">Algeria</option><option value="AO">Angola</option><option value="BJ">Benin</option><option value="BW">Botswana</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="CM">Cameroon</option><option value="CV">Cape Verde</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="KM">Comoros</option><option value="CD">Congo [DRC]</option><option value="CG">Congo [Republic]</option><option value="DJ">Djibouti</option><option value="EG">Egypt</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="ET">Ethiopia</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GH">Ghana</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="CI">Ivory Coast</option><option value="KE">Kenya</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="ML">Mali</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="NA">Namibia</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="RW">Rwanda</option><option value="RE">Réunion</option><option value="SH">Saint Helena</option><option value="SN">Senegal</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="SD">Sudan</option><option value="SZ">Swaziland</option><option value="ST">São Tomé and Príncipe</option><option value="TZ">Tanzania</option><option value="TG">Togo</option><option value="TN">Tunisia</option><option value="UG">Uganda</option><option value="EH">Western Sahara</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option></optgroup><optgroup label="Antarctica"><option value="AQ">Antarctica</option><option value="BV">Bouvet Island</option><option value="TF">French Southern Territories</option><option value="HM">Heard Island and McDonald Island</option><option value="GS">South Georgia and the South Sandwich Islands</option></optgroup><optgroup label="Asia"><option value="AF">Afghanistan</option><option value="AM">Armenia</option><option value="AZ">Azerbaijan</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BT">Bhutan</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="KH">Cambodia</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CC">Cocos [Keeling] Islands</option><option value="GE">Georgia</option><option value="HK">Hong Kong</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IQ">Iraq</option><option value="IL">Israel</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LB">Lebanon</option><option value="MO">Macau</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="MN">Mongolia</option><option value="MM">Myanmar [Burma]</option><option value="NP">Nepal</option><option value="KP">North Korea</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PS">Palestinian Territories</option><option value="PH">Philippines</option><option value="QA">Qatar</option><option value="SA">Saudi Arabia</option><option value="SG">Singapore</option><option value="KR">South Korea</option><option value="LK">Sri Lanka</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TH">Thailand</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="AE">United Arab Emirates</option><option value="UZ">Uzbekistan</option><option value="VN">Vietnam</option><option value="YE">Yemen</option></optgroup><optgroup label="Europe"><option value="AL">Albania</option><option value="AD">Andorra</option><option value="AT">Austria</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BA">Bosnia and Herzegovina</option><option value="BG">Bulgaria</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="EE">Estonia</option><option value="FO">Faroe Islands</option><option value="FI">Finland</option><option value="FR">France</option><option value="DE">Germany</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GG">Guernsey</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IE">Ireland</option><option value="IM">Isle of Man</option><option value="IT">Italy</option><option value="JE">Jersey</option><option value="XK">Kosovo</option><option value="LV">Latvia</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MK">Macedonia</option><option value="MT">Malta</option><option value="MD">Moldova</option><option value="MC">Monaco</option><option value="ME">Montenegro</option><option value="NL">Netherlands</option><option value="NO">Norway</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="RO">Romania</option><option value="RU">Russia</option><option value="SM">San Marino</option><option value="RS">Serbia</option><option value="CS">Serbia and Montenegro</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="ES">Spain</option><option value="SJ">Svalbard and Jan Mayen</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="UA">Ukraine</option><option value="GB">United Kingdom</option><option value="VA">Vatican City</option><option value="AX">Åland Islands</option></optgroup><optgroup label="North America"><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AW">Aruba</option><option value="BS">Bahamas</option><option value="BB">Barbados</option><option value="BZ">Belize</option><option value="BM">Bermuda</option><option value="BQ">Bonaire, Saint Eustatius and Saba</option><option value="VG">British Virgin Islands</option><option value="CA">Canada</option><option value="KY">Cayman Islands</option><option value="CR">Costa Rica</option><option value="CU">Cuba</option><option value="CW">Curacao</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="SV">El Salvador</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="JM">Jamaica</option><option value="MQ">Martinique</option><option value="MX">Mexico</option><option value="MS">Montserrat</option><option value="AN">Netherlands Antilles</option><option value="NI">Nicaragua</option><option value="PA">Panama</option><option value="PR">Puerto Rico</option><option value="BL">Saint Barthélemy</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="MF">Saint Martin</option><option value="PM">Saint Pierre and Miquelon</option><option value="VC">Saint Vincent and the Grenadines</option><option value="SX">Sint Maarten</option><option value="TT">Trinidad and Tobago</option><option value="TC">Turks and Caicos Islands</option><option value="VI">U.S. Virgin Islands</option><option value="US">United States</option></optgroup><optgroup label="South America"><option value="AR">Argentina</option><option value="BO">Bolivia</option><option value="BR">Brazil</option><option value="CL">Chile</option><option value="CO">Colombia</option><option value="EC">Ecuador</option><option value="FK">Falkland Islands</option><option value="GF">French Guiana</option><option value="GY">Guyana</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="SR">Suriname</option><option value="UY">Uruguay</option><option value="VE">Venezuela</option></optgroup><optgroup label="Oceania"><option value="AS">American Samoa</option><option value="AU">Australia</option><option value="CK">Cook Islands</option><option value="TL">East Timor</option><option value="FJ">Fiji</option><option value="PF">French Polynesia</option><option value="GU">Guam</option><option value="KI">Kiribati</option><option value="MH">Marshall Islands</option><option value="FM">Micronesia</option><option value="NR">Nauru</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="PW">Palau</option><option value="PG">Papua New Guinea</option><option value="PN">Pitcairn Islands</option><option value="WS">Samoa</option><option value="SB">Solomon Islands</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TV">Tuvalu</option><option value="UM">U.S. Minor Outlying Islands</option><option value="VU">Vanuatu</option><option value="WF">Wallis and Futuna</option></optgroup>
+                </select>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p><span class="label label-inverse">Uniform</span></p>
+            <div class="row-fluid">
+              <div class="span4">
+                <select class="uni_style">
+                  <option>Lorem ipsum dolor sit amet amet, lorem ipsum</option>
+                  <option>Lorem ipsum dolor sit amet</option>
+                  <option>Lorem ipsum dolor sit amet</option>
+                  <option>Lorem ipsum dolor sit amet</option>
+                  <option>Lorem ipsum dolor sit amet</option>
+                </select>
+                <input type="file" name="uni_file" id="uni_file"  class="uni_style" />
+              </div>
+              <div class="span4">
+                <label class="uni-checkbox">
+                  <input type="checkbox" value="option1" name="uni_c1" class="uni_style" />
+                  Lorem ipsum dolor sit amet
+                </label>
+                <label class="uni-checkbox">
+                  <input type="checkbox" value="option2" name="uni_c2" class="uni_style" />
+                  Lorem ipsum dolor sit amet
+                </label>
+                <label class="uni-checkbox">
+                  <input type="checkbox" value="option3" name="uni_c3" class="uni_style" />
+                  Lorem ipsum dolor sit amet
+                </label>
+                <label class="uni-checkbox">
+                  <input type="checkbox" value="option3" name="uni_c3" disabled="disabled" class="uni_style" />
+                  Disabled
+                </label>
+              </div>
+              <div class="span4">
+                <label class="uni-radio">
+                  <input type="radio" checked="" value="option1" id="uni_r1a" name="uni_r" class="uni_style" />
+                  Lorem ipsum dolor sit amet
+                </label>
+                <label class="uni-radio">
+                  <input type="radio" value="option2" id="uni_r1b" name="uni_r" class="uni_style" />
+                  Lorem ipsum dolor sit amet
+                </label>
+                <label class="uni-radio">
+                  <input type="radio" value="option2" id="uni_r1c" name="uni_r" disabled="disabled" class="uni_style" />
+                  Disabled
+                </label>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p><span class="label label-inverse">File upload</span></p>
+            <div class="row-fluid">
+              <div class="span4">
+                <div data-fileupload="file" class="fileupload fileupload-new"><input type="hidden" />
+                  <div class="input-append">
+                    <div class="uneditable-input span2"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span><a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="span4">
+                <div data-fileupload="file" class="fileupload fileupload-new"><input type="hidden" value="" name="">
+                  <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" name=""></span>
+                  <span class="fileupload-preview"></span>
+                  <a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">&times;</a>
+                </div>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div class="span4">
+                <div data-fileupload="image" class="fileupload fileupload-new"><input type="hidden">
+                  <div style="width: 200px; height: 150px;" class="fileupload-new thumbnail"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /></div>
+                  <div style="max-width: 200px; max-height: 150px; line-height: 0px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                    <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="span4">
+                <div data-fileupload="image" class="fileupload fileupload-new"><input type="hidden" />
+                  <div style="width: 200px; height: 150px; line-height: 150px;" class="fileupload-preview thumbnail"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                    <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="span4">
+                <div data-fileupload="image" class="fileupload fileupload-new"><input type="hidden" />
+                  <div style="width: 50px; height: 50px;" class="fileupload-new thumbnail"><img src="http://www.placehold.it/50x50/EFEFEF/AAAAAA" alt="" /></div>
+                  <div style="width: 50px; height: 50px; line-height: 50px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+                  <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                  <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+                </div>
+                <br/>
+                <div style="text-align: right" data-fileupload="image" class="fileupload fileupload-new visible-desktop"><input type="hidden" />
+                  <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                  <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+                  <div style="width: 50px; height: 50px;" class="fileupload-new thumbnail"><img src="http://www.placehold.it/50x50/EFEFEF/AAAAAA" alt="" /></div>
+                  <div style="width: 50px; height: 50px; line-height: 50px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+                </div>
+              </div>
+            </div>    
+    </div>
+    <div class="formSep">
+            <p><span class="label label-inverse">Masked inputs</span></p>
+            <div class="row-fluid">
+              <div class="span3">
+                <label for="mask_date">Date</label>
+                <input type="text" class="span8" id="mask_date" />
+                <span class="help-block">99/99/9999</span>
+              </div>
+              <div class="span3">
+                <label for="mask_phone">Phone</label>
+                <input type="text" class="span8" id="mask_phone" />
+                <span class="help-block">(999) 999-9999</span>
+              </div>
+              <div class="span3">
+                <label for="mask_cep">Phone</label>
+                <input type="text" class="span8" id="mask_cep" />
+                <span class="help-block">(999) 999-9999</span>
+              </div>
+              <div class="span3">
+                <label for="mask_ssn">SSN Number</label>
+                <input type="text" class="span8" id="mask_ssn" />
+                <span class="help-block">999-99-9999</span>
+              </div>
+              <div class="span3">
+                <label for="mask_product">Product number</label>
+                <input type="text" class="span8" id="mask_product" />
+                <span class="help-block">AA-999-A999</span>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p class="sepH_c"><span class="label label-inverse">Datepickers</span></p>
+            <div class="row-fluid">
+              <div class="span3">
+                <input type="text" class="span8" id="dp1" />
+                <span class="help-block">Default datepicker</span>
+              </div>
+              <div class="span3">
+                <div class="input-append date" id="dp2" data-date-format="dd/mm/yyyy">
+                  <input class="span6" type="text" readonly="readonly" /><span class="add-on"><i class="splashy-calendar_day"></i></span>
+                </div>
+                <span class="help-block">As component</span>
+              </div>
+              <div class="span3">
+                <div class="input-append date" id="dp_start">
+                  <input class="span6" type="text" readonly="readonly" /><span class="add-on"><i class="splashy-calendar_day_up"></i></span>
+                </div>
+                <span class="help-block">Daterange - date start</span>
+              </div>
+              <div class="span3">
+                <div class="input-append date" id="dp_end">
+                  <input class="span6" type="text" readonly="readonly" /><span class="add-on"><i class="splashy-calendar_day_down"></i></span>
+                </div>
+                <span class="help-block">Daterange - date end</span>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p class="sepH_c"><span class="label label-inverse">Colorpicker</span></p>
+            <div class="row-fluid">
+              <div class="span3">
+                <input type="text" class="span6" id="cp1" value="#2eb97a" />
+                <span class="help-block">Hex format</span>
+              </div>
+              <div class="span3">
+                <input type="text" class="span8" value="rgb(0,194,255,0.78)" id="cp2" data-color-format="rgba" />
+                <span class="help-block">Rgba format</span>
+              </div>
+              <div class="span3">
+                <div class="input-append color" data-color="rgb(218,57,41)" data-color-format="rgb" id="cp3">
+                  <input type="text" class="span6" value="" readonly /><span class="add-on"><i style="background-color: rgb(218,57,41)"></i></span>
+                </div>
+                <span class="help-block">As component</span>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p class="sepH_c"><span class="label label-inverse">Timepickers</span></p>
+            <div class="row-fluid">
+              <div class="span3">
+                <input type="text" class="span8" id="tp_1" />
+                <span class="help-block">Show as modal (24h)</span>
+              </div>
+              <div class="span3">
+                <input type="text" class="span8" id="tp_2" />
+                <span class="help-block">Show as dropdown (12h)</span>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p class="sepH_c"><span class="label label-inverse">Textarea word and character limiter</span></p>
+            <div class="row-fluid">
+              <div class="span6">
+                <textarea name="txtarea_limit_chars" id="txtarea_limit_chars" cols="1" rows="4" class="span12"></textarea>
+              </div>
+              <div class="span6">
+                <textarea name="txtarea_limit_words" id="txtarea_limit_words" cols="1" rows="4" class="span12"></textarea>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p class="sepH_c"><span class="label label-inverse">Auto-Expanding Textarea</span></p>
+            <div class="row-fluid">
+              <div class="span12">
+                <textarea name="auto_expand" id="auto_expand" cols="1" rows="4" class="span12"></textarea>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p><span class="label label-inverse">Tag Handler</span></p>
+            <div class="row-fluid">
+              <div class="span6">
+                <ul id="array_tag_handler"></ul>
+                <span class="help-block">The Tag Handler initialized with preset tags, and autocomplete is turned on</span>
+              </div>
+              <div class="span6">
+                <ul id="max_tags_tag_handler"></ul>
+                <span class="help-block">Maximum 5 tags allowed.</span>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p><span class="label label-inverse">Spinners</span></p>
+            <div class="row-fluid">
+              <div class="span2">
+                <label for="sp_basic">Basic</label>
+                <input type="text" id="sp_basic" name="sp_basic" class="span12" value="100"/>
+              </div>
+              <div class="span2">
+                <label for="sp_dec">Decimal</label>
+                <input type="text" id="sp_dec" name="sp_dec" class="span12" value="10.25"/>
+              </div>
+              <div class="span2">
+                <label for="sp_currency">Currency</label>
+                <input type="text" id="sp_currency" name="sp_currency" class="span12" value="2" />
+                <span class="help-block">min:2, max:20</span>
+              </div>
+              <div class="span3">
+                <label>Data list</label>
+                <ul id="sp_list">
+                  <li>item 1</li>
+                  <li>item 2</li>
+                  <li>item 3</li>
+                  <li>item 4</li>
+                  <li>item 5</li>
+                  <li>item 6</li>
+                  <li>item 7</li>
+                  <li>item 8</li>
+                  <li>item 9</li>
+                  <li>item 10</li>
+                </ul>
+              </div>
+              <div class="span3">
+                <label>Users</label>
+                <div id="sp_users"></div>
+              </div>
+            </div>
+    </div>
+    <div class="formSep">
+            <p><span class="label label-inverse">WYSIWG Editor with integrated File Manager</span></p>
+            <textarea name="wysiwg_full" id="wysiwg_full" cols="30" rows="10"></textarea>
+    </div>
+    <p><span class="label label-inverse">Multiupload</span></p>
+    <div id="multi_upload" class="gebo-upload">
+      <p>You browser doesn't have Flash, Silverlight or HTML5 support.</p>
+    </div>
+                  
+  </div>
+</div> -->

@@ -4,6 +4,7 @@ class CreateComments < ActiveRecord::Migration
       t.references :user
       t.references :chamado
       t.text :descricao
+      t.boolean :finalizarChamado, :default => false
 
       t.timestamps
     end

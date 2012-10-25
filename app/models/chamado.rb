@@ -4,11 +4,12 @@ class Chamado < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   attr_accessible :assunto, :cortesia, :descricao, :finalizaSolicitacao, 
   				  :observacao, :prioridade, :solucionado, 
-  				  :tipoAtendimento, :valorGeral, :produto_id, :user_id, :produto_name, :name
-validates_presence_of :produto_name, :assunto, :descricao, :observacao
+  				  :tipoAtendimento, :valorGeral, :produto_id, :user_id, :produto, :status
+validates_presence_of :produto, :assunto, :descricao, :observacao, :prioridade, :tipoAtendimento
 
 TIPODEATENDIMENTO = %w(Online Balcao Domiciliar Visita)
 PRIORIDADE = %w(Normal Urgente Extraurgente)
+STATUS = %w(10 20 30 40 50 60 70 80 90 100)
 
 
 

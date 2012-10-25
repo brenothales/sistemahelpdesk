@@ -28,13 +28,14 @@
     </thead>
     <tbody>
       <% objects.each do |objeto| %>
-      <!-- if can? :update, objeto %> -->
+      <% if can? :update, objeto %>
         <tr>
           <td class='name'><%= objeto.name %></td>
+          <!-- <td class='name'><%= objeto.user.name   %></td><!-- if objeto.user.name.present? --> 
           <td class='situation'><%= link_to_situation(objeto) %></td>
           <%= show_actions(objeto) %>
         </tr>
-      <!-- end %> -->
+      <% end %> 
        <% end %>
     </tbody>
   </table>

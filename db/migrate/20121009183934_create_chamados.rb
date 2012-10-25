@@ -11,6 +11,7 @@ class CreateChamados < ActiveRecord::Migration
       t.boolean    :finalizaSolicitacao
       t.decimal    :valorGeral
       t.string     :produto
+      t.string     :status
       t.references :user
       t.references :produto
 

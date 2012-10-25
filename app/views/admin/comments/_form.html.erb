@@ -2,15 +2,14 @@
 
 
   <div class="field">
-    <%= f.label :descricao %><br />
-    <%= f.input :descricao,  :input_html => { :placeholder => "Observação", :class => "span12", :rows => 2, :id => "auto_expand"  } %>
+    <%= f.input :descricao,  :input_html => { :placeholder => "Observação", :class => "span12", :rows => 8, :id => "auto_expand"  } %>
  <% if current_user.is_role?(:administrador) %>
 	   <%= f.hidden_field :user_id, :value => 1   %>
  <% else %>
     <%= f.hidden_field :user_id, :value => current_user.id, :label_method => :name   %>
 <% end -%>
   </div>
-
+ <!-- f.input :finalizarChamado %> -->
   <div class="actions">
     <%= submit_and_back_buttons(admin_chamados_path,{:label_name => "Enviar"}) %>
   </div>

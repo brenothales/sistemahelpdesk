@@ -1,9 +1,13 @@
 <%= div_for comment, :class => "comment" do %>
-  <p>
-
-    <%= comment.descricao %><br/>
-    <%= comment.user_id %><br/>
-    <%= comment.user.name %><br/>
-    Criado <%= time_ago_in_words comment.created_at %><br />
-  </p>
+  
+<%= content_tag_for :div, comment, :class => cycle(:info , :success) do %>
+<% if comment.user.id == current_user.id %>
+   <span class="label label-warning"> <%= comment.user.name %></span><br/>
+ <% else %>
+ <span class="label label-info"> <%= comment.user.name %></span><br/>
+ <% end -%>
+   <%= comment.descricao %><br/>
+    
+    Criado <%= time_ago_in_words comment.created_at %>| <%= comment.created_at %><br/><br />
+<% end -%>
 <% end %>
