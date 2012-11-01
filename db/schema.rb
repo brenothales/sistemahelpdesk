@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024034943) do
+ActiveRecord::Schema.define(:version => 20121031035301) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
@@ -47,20 +47,20 @@ ActiveRecord::Schema.define(:version => 20121024034943) do
 
   create_table "chamados", :force => true do |t|
     t.string   "assunto"
-    t.text     "descricao"
-    t.string   "prioridade"
-    t.string   "tipoAtendimento"
-    t.boolean  "cortesia"
+    t.text     "descricao",           :limit => 30
+    t.string   "prioridade",          :limit => 30
+    t.string   "tipoAtendimento",     :limit => 30
+    t.boolean  "cortesia",                                                         :default => false
     t.text     "observacao"
-    t.boolean  "solucionado"
-    t.boolean  "finalizaSolicitacao"
-    t.decimal  "valorGeral"
-    t.string   "produto"
-    t.string   "status"
+    t.boolean  "solucionado",                                                      :default => false
+    t.boolean  "finalizaSolicitacao",                                              :default => false
+    t.decimal  "valorGeral",                        :precision => 10, :scale => 2
+    t.string   "produto",             :limit => 30
+    t.string   "status",              :limit => 30
     t.integer  "user_id"
     t.integer  "produto_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
   end
 
   add_index "chamados", ["produto_id"], :name => "index_chamados_on_produto_id"
@@ -145,6 +145,17 @@ ActiveRecord::Schema.define(:version => 20121024034943) do
   add_index "interacoes", ["chamado_id"], :name => "index_interacoes_on_chamado_id"
   add_index "interacoes", ["user_id"], :name => "index_interacoes_on_user_id"
 
+  create_table "pecas", :force => true do |t|
+    t.string   "nome"
+    t.string   "codigo"
+    t.decimal  "valorPeca",  :precision => 10, :scale => 2
+    t.boolean  "trocarPeca",                                :default => false
+    t.text     "observacao"
+    t.integer  "servico_id"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
+
   create_table "posts", :force => true do |t|
     t.string   "name"
     t.integer  "category_id"
@@ -182,6 +193,23 @@ ActiveRecord::Schema.define(:version => 20121024034943) do
     t.boolean  "situation",  :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "servicos", :force => true do |t|
+    t.string   "nome"
+    t.text     "observacao"
+    t.boolean  "completado",                                  :default => false, :null => false
+    t.decimal  "valorServico", :precision => 10, :scale => 2
+    t.integer  "chamado_id"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.boolean  "complete",   :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "tipo_clientes", :force => true do |t|

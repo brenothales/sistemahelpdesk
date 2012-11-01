@@ -1,0 +1,15 @@
+<fieldset>
+  <%= f.label :nome, "Peça" %>
+  <%= f.text_field :nome %>
+  <%= f.label :codigo, "Código da Peça" %>
+  <%= f.text_field :codigo %>
+  <%= f.label :valorPeca, "Valor da Peça" %>
+  <%= f.text_field :valorPeca %>
+  <%= f.label :trocarPeca, "Trocar Peça" %> <%= f.check_box :trocarPeca %>
+  
+  <%= f.label :observacao, "Observação" %>
+  <%= f.text_area :observacao, :class => "span10", :rows => 2, :id => "auto_expand" %><br>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remover", '#', class: "remove_fields btn btn-danger" %>
+  <h1>&nbsp</h1>
+</fieldset>

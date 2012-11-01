@@ -2,16 +2,16 @@ class CreateChamados < ActiveRecord::Migration
   def change
     create_table   :chamados do |t|
       t.string     :assunto
-      t.text       :descricao
-      t.string     :prioridade
-      t.string     :tipoAtendimento
-      t.boolean    :cortesia
+      t.text       :descricao, :limit => "30"
+      t.string     :prioridade, :limit => "30"
+      t.string     :tipoAtendimento, :limit => "30"
+      t.boolean    :cortesia, :default => false
       t.text       :observacao
-      t.boolean    :solucionado
-      t.boolean    :finalizaSolicitacao
-      t.decimal    :valorGeral
-      t.string     :produto
-      t.string     :status
+      t.boolean    :solucionado, :default => false
+      t.boolean    :finalizaSolicitacao, :default => false
+      t.decimal    :valorGeral, :precision => 10, :scale => 2#, :null => false    
+      t.string     :produto, :limit => "30"
+      t.string     :status, :limit => "30"
       t.references :user
       t.references :produto
 

@@ -2,7 +2,7 @@
 
 
   <div class="field">
-    <%= f.input :descricao,  :input_html => { :placeholder => "Observação", :class => "span12", :rows => 8, :id => "auto_expand"  } %>
+    <%= f.input :descricao,  :input_html => { :placeholder => "Especifique detalhadamente a solicitação do seu chamado, quando mais descrever melhor será nosso entendimento obrigado!", :class => "span12", :rows => 8, :id => "auto_expand"  }, :label=> false %>
  <% if current_user.is_role?(:administrador) %>
 	   <%= f.hidden_field :user_id, :value => 1   %>
  <% else %>

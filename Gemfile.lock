@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/rweng/jquery-datatables-rails.git
+  revision: 727a8dbe6eacc052431a8222ca3566a87282d912
+  specs:
+    jquery-datatables-rails (1.11.1)
+      jquery-rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -145,6 +152,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   hirb
+  jquery-datatables-rails!
   jquery-rails
   rack-pjax
   rails (= 3.2.6)

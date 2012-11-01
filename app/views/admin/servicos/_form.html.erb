@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin, @servico], remote: true do |f| %>
+
+  <%= f.input :nome, label:"Nome do Serviço" %>
+  <%= f.association :chamado, :label_method => (:assunto), :value_method => :id, :include_blank => false, :collection => Chamado.where(:finalizaSolicitacao == false), :prompt => "Escolher Chamado" %>
+  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+  <%= f.submit :class=> "btn" %>
+
+
+<% end %>
+

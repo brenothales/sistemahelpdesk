@@ -15,8 +15,8 @@ class Produto < ActiveRecord::Base
                       
  # validates_numericality_of :valorDespreciacao, :numeroContrato, :greater_than => 0, :allow_nil => true
 
-  validates :name,  :presence => true,
-                    :length => { :minimum => 10 }  
+  # validates :name,  :presence => true,
+  #                   :length => { :minimum => 10 }  
   validates_length_of   :name, :in => 3..50
 
   scope :actived?, where(:situation => true) 

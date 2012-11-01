@@ -1,0 +1,298 @@
+<% content_for :title, @chamado ? @chamado.assunto : "Products" %>
+
+<div class="template_time">Template random: <strong><%= rand(900)+100 %></strong></div>
+
+<h1>Products</h1>
+
+<% for chamado in @chamados %>
+  <div class="product">
+    <h2>
+      <%= link_to chamado.assunto, :chamado_id => chamado %>
+      <span class="price"><%= number_to_currency(chamado.valorGeral) %></span>
+    </h2>
+  </div>
+<% end %>
+
+<p><%= link_to "New Product", new_chamado_path %></p>
+<div id="product_details">
+<div class="alert alert-block">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+<div data-pjax-container>
+  <% if @chamado %>
+  
+    <h3><%= @chamado.assunto %></h3>
+    <dl>
+      <dt>Price:</dt>
+      <dd><%= number_to_currency(@chamado.valorGeral) %></dd>
+      <dt>Category:</dt>
+      <dd><%= @chamado.status %></dd>
+    </dl>
+    <p class="actions">
+      <%= link_to "Edit", edit_chamado_path(@chamado) %> |
+      <%= link_to "Destroy", @chamado, method: :delete, confirm: "Are you sure?" %>
+    </p>
+  </div>
+  <% end %>
+</div>
+</div>
+
+
+
+
+
+
+
+<!-- ############################ -->
+
+
+
+
+
+
+
+
+<% @chamados = Chamado.all %>
+<script type="text/javascript" src="http://ajax.googleapis.com/
+ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+<script> 
+$(document).ready(function() {
+ 
+  
+   $('.blockTwitter').click(function()
+   {
+   var id= $(this).attr('id');
+
+   // Fun de ajax
+
+   	$.ajax({
+			url: '/admin/produtos/produtouser/'+$(this).val()+'.json',
+			context: document.body,
+			cache: false,
+			success: function(data,ts,jqXHR){
+				for (var i = 0; i < data.length; i++) {
+					$o=$('<option>');
+					$($o).attr('value', data[i].id);
+					$($o).html(data[i].name);
+					$("#chamadotest").append($o);
+
+				};
+			}});
+		});  
+   // fim da fun
+   var msg= $(this).html(); // .block DIV data
+   var txt= $(this).html().split('|'); 
+   var data_id= txt[0];
+   var msg_id= txt[1];
+   var msg2_id= txt[2];
+  
+    var panel= $('.panel');
+	var panel_width=$('.panel').css('left');
+	
+	
+	if(data_id==id)
+	{
+	panel.animate({left: parseInt(panel.css('left'),0) == 0 ? +panel.outerWidth() : 0});
+	}
+	else
+	{
+	
+	
+	if(panel_width=='341px')
+	{
+	
+	}
+	else
+	{
+	
+    panel.animate({left: parseInt(panel.css('left'),0) == 0 ? +panel.outerWidth() : 0});
+	
+	}
+	
+	}
+	$('.data').html(data_id);
+	// $('.final').html(msg_id+'<br>'+msg2_id);
+	$('.final').html(msg2_id);
+	return false;
+	
+  });
+  
+ 
+  
+  $('.close').click(function() 
+   {
+   
+    var panel= $('.panel');
+    panel.animate({left: parseInt(panel.css('left'),0) == 0 ? +panel.outerWidth() : 0});
+	return false;
+	
+  });
+  
+  
+  
+});
+ 
+
+jQuery(function() {
+  return $('.product a').pjax('[data-pjax-container]');
+}); 
+</script> 
+<style> 
+ 
+/*body
+{
+font-family:'Georgia',Times New Roman, Times, serif;
+background:#f2f2f2;
+}
+h4
+{
+padding:5px;
+}
+a{ color:#333 }
+a:hover {color:#cc0000}
+ 
+#containerTwitter
+{
+width:700px;margin:0 auto; background-color:#fff; min-height:500px; overflow:auto;
+ 
+-moz-border-radius:5px;-webkit-border-radius:6px;
+border:solid 1px #999999;
+ 
+}
+ 
+.right
+{
+float:right; width:350px;
+}
+.esquerda
+{
+float:left; background-color:#fff; width:350px; min-height:300px;
+ position:relative;
+}
+.blockTwitter
+{
+border-bottom: dashed 1px #999999;
+padding:15px;
+border-right:solid 1px #999999;
+ }
+ .blockTwitter:hover
+ {
+ background-color:#ffc72e;
+cursor:pointer;
+ 
+ 
+ }
+ 
+#panel-frame
+{
+position:relative; max-width:700px; position:fixed;
+}
+.panel
+{
+ 
+background-color:#f2f2f2; width:340px; height:550px;
+margin-top:20px;
+position:relative;
+position:absolute;
+border:solid 1px #999999;
+border-left:0px;
+left:0;
+ 
+ 
+ 
+}
+.data
+{
+font-size:176px
+ 
+}
+.final
+{
+/*overflow:hidden;*/
+padding:20px;
+font-size:24px;
+}
+.head
+{
+background-color:#ffc72e;
+padding:10px;
+text-align:right;
+}
+#logo
+{
+width:700px;margin:0 auto;
+text-align:left;
+}*/
+
+
+.product {
+  h2 {
+    font-size: 16px;
+    .price {
+      font-weight: normal;
+      color: #333;
+      font-size: 14px;
+    }
+  }
+  margin: 18px 0;
+}
+
+#product_details {
+
+
+
+
+
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  padding: 10px 30px;
+  dt, dd {
+    margin: 0;
+    padding: 0;
+  }
+  dt {
+    margin-top: 15px;
+    margin-bottom: 4px;
+  }
+  dd {
+    font-weight: bold;
+  }
+  h3 {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+}
+
+</style> 
+<div id='containerTwitter'> 
+ 
+<div class='right'> 
+<h4>9lessons programming blog tutorials focused about jquery, ajax, php, database and web development. This tutorial <a href='http://9lessons.info/2010/10/new-twitter-design-css-jquery.html' style='color:#cc0000'>click here</a></h4> 
+sdsdd
+</div> 
+<div id="panel-frame"> 
+<div class="panel"> 
+<div class="head"> 
+<a href="#" class="close">Close</a> 
+</div> 
+<div class="data" style="padding:20px">
+</div> 
+<div class="final"></div>
+</div> 
+</div> 
+
+		
+		<div class="esquerda"> 
+<% @chamados.each do |chamado| %> 
+		<div class="blockTwitter" id="<%= chamado.id %>">
+			<%= chamado.id %> | <%= chamado.assunto %> |<%= chamado.user.name %> 
+			<br>
+		</div> 
+
+<% end -%>
+</div> 
+
+
+ 
+ 
+</div> 

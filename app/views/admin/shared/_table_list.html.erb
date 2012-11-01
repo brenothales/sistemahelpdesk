@@ -2,7 +2,9 @@
   
   <div class='show_itens_and_per_page'>
     <span class="label label-info">
-      Registros encontrados : <%= objects.size %>
+      <% if can? :update, objects %>
+        Registros encontrados : <%= objects.size %>
+      <% end -%>
     </span>  
 
     <%= itens_per_page %>

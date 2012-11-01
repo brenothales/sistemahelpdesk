@@ -16,3 +16,7 @@
 //= require js/gebo_forms.js
 //= require lib/plupload/js/plupload.full
 //= require lib/plupload/js/jquery.plupload.queue/jquery.plupload.queue.full
+
+//= require lib/datatables/jquery.dataTables.min.js
+//= require lib/datatables/extras/Scroller/media/js/Scroller.min
+//= require js/gebo_datatables

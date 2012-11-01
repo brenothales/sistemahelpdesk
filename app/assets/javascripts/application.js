@@ -12,10 +12,9 @@
 //
 
 
-
+//= require js/jquery.min
 //= require jquery
 //= require jquery_ujs
-//= require js/jquery.min
 //= require select2
 //= require js/jquery.debouncedresize.min
 //= require js/jquery.actual.min
@@ -48,10 +47,21 @@
 //= require js/gebo_forms.js
 //= require lib/plupload/js/plupload.full
 //= require lib/plupload/js/jquery.plupload.queue/jquery.plupload.queue.full
-//= require jquery.pjax
 //= require chamados
 //= require clientes
 //= require comments
+//= require servicos
+//= require ordemservico
+//= require jquery.pjax
+//= require tasks
+
+
+
+
+//= require lib/datatables/jquery.dataTables.min.js
+//= require lib/datatables/extras/Scroller/media/js/Scroller.min
+//= require js/gebo_datatables
+
 
 
 

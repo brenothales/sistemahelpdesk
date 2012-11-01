@@ -1,18 +1,12 @@
-  <nav>
     <div id="jCrumbs" class="breadCrumb module">
-        <ul>
-            <li>
-                <a href="#"><i class="icon-home"></i></a>
-            </li>
-            <li>
-                <%= link_to "Produtos", admin_produtos_path %>
-            </li>
-              <li>
-                <%= link_to "Novo"%>
-            </li>
-        </ul>
-    </div>
-  </nav>
+    <ul>
+        <li><%= link_to  :controller => "produtos", :action => "index", :id => @produtos do %>
+                <i class="icon-home"></i> Todos Produtos 
+            <% end -%>
+
+        </li>
+    </ul>
+</div>  
 <h3 class="heading">Novo Produto</h3>
 
 <%= render 'form' %>

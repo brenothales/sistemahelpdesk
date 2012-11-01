@@ -1,4 +1,4 @@
-<div data-pjax-container>
+
 	<div id="jCrumbs" class="breadCrumb module">
     <ul>
         <li><%= link_to  :controller => "produtos", :action => "index", :id => @produtos do %>
@@ -7,14 +7,83 @@
 
         </li>
          <li>
-            <%= link_to "Novo Produto", new_admin_produto_path %>
+            <%= link_to new_admin_produto_path do %>
+            <i class=" icon-plus"></i> Novo Produto
+            <% end -%>
         </li>
     </ul>
 </div>          
-  <%= form_search(new_admin_produto_path, admin_produtos_path, 'Novo Produto') %>
-  <%= table_list(@produtos) %>
 
+
+
+
+
+<div data-pjax-container>
+
+<div class="row-fluid">
+
+                        <div class="span12">
+                            <h3 class="heading">Produtos</h3>
+                            <div class="clearfix sepH_b">
+                                <div class="btn-group pull-right">
+                                    <a href="#" data-toggle="dropdown" class="btn btn-inverse dropdown-toggle">Visualizar <span class="caret"></span></a>
+                                    <ul class="dropdown-menu tableMenu" id="dt_d_nav">
+                                        <li><label class="checkbox" for="dt_col_0"><input type="checkbox" value="0" id="dt_col_0" name="toggle-cols" checked="checked"/> ID</label></li>
+                                        <li><label class="checkbox" for="dt_col_1"><input type="checkbox" value="1" id="dt_col_1" name="toggle-cols" checked="checked"/> Produtos</label></li>
+                                        <li><label class="checkbox" for="dt_col_2"><input type="checkbox" value="2" id="dt_col_2" name="toggle-cols" checked="checked"/> Cliente</label></li>
+                                        <li><label class="checkbox" for="dt_col_3"><input type="checkbox" value="3" id="dt_col_3" name="toggle-cols" checked="checked"/> Categoria</label></li>
+                                        <li><label class="checkbox" for="dt_col_4"><input type="checkbox" value="4" id="dt_col_4" name="toggle-cols" checked="checked"/> Valor</label></li>
+                                         <li><label class="checkbox" for="dt_col_4"><input type="checkbox" value="4" id="dt_col_4" name="toggle-cols" checked="checked"/> Detalhes</label></li>
+                                        <li><label class="checkbox" for="dt_col_5"><input type="checkbox" value="5" id="dt_col_5" name="toggle-cols" checked="checked"/> Ações</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-bordered dTableR" id="dt_d">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Produto</th>
+                                        <% if current_user.is_role?(:administrador) %>
+                                        <th>Cliente</th>
+                                        <% end -%>
+                                        <th>Categoria</th>
+                                        <th>Valor</th>
+                                        <th>Detalhes</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% @produtos.each do |produto| %>
+                                  <% if can? :update, produto %>
+                                    <tr>
+                                      <td class='name'><%= produto.id %></td>
+                                      <td class='name'><%= produto.name %></td>
+                                        <% if current_user.is_role?(:administrador) %>
+                                      <td class='name'><%= produto.user.name %></td>
+                                        <% end -%>
+                                      <td class='name'><%= produto.category.name %></td>
+                                      <td class='name'><%= number_to_currency produto.valorDespreciacao %></td>
+                                      <!-- <td class='name'><%= produto.user.name   %></td><!-- if produto.user.name.present? --> 
+                                      <td class='situation'><%= link_to_situation(produto) %></td>
+                                      <%= show_actions(produto) %>
+                                    </tr>
+                                   <% end %>
+                                 <% end %>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+</div>
 </div>
 
+ <!-- javascript_include_tag "js/gebo_common.js" %> -->
+<!-- javascript_include_tag "lib/datatables/jquery.dataTables.min.js" %> -->
+<!-- javascript_include_tag "lib/datatables/extras/Scroller/media/js/Scroller.min.js" %> -->
+<!-- javascript_include_tag "js/gebo_datatables.js" %> -->
 
 
+
+<script src="/assets/lib/datatables/jquery.dataTables.min.js?body=1" type="text/javascript"></script>
+<script src="/assets/lib/datatables/extras/Scroller/media/js/Scroller.min.js?body=1" type="text/javascript"></script>
+<script src="/assets/js/gebo_datatables.js?body=1" type="text/javascript"></script>

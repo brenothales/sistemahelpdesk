@@ -13,3 +13,4 @@ jQuery ->
 
 $(document).ready ->
   $("#e1").select2()
+

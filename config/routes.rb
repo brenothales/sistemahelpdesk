@@ -4,7 +4,7 @@ PrimeiraApp::Application.routes.draw do
   resources :posts, :only => [:index, :show]
 
   get "home/index"
-
+resources :chamados
   root :to => "home#index"
 
   #rotas devise
@@ -19,6 +19,7 @@ PrimeiraApp::Application.routes.draw do
     root :to => "home#index"
     resources :chamados do
         resources :comments
+        resources :produtos
     end
     resources :clientes
     resources :produtos
@@ -26,6 +27,8 @@ PrimeiraApp::Application.routes.draw do
     resources :categories
     resources :users
     resources :posts
+    resources :tasks
+    resources :servicos
     match 'produtos/produtouser/:id' => "produtos#produtouser"
   end
 

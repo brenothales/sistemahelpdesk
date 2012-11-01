@@ -1,0 +1,17 @@
+<fieldset>
+  <%= f.label :name, "Nome do Serviço" %><br />
+  <%= f.text_field :nome %><br />
+  <%= f.label :valorServico, "Valor do Serviço" %><br />
+  <%= f.text_field :valorServico %><br />
+  <%= f.label :observacao, "Observação" %><br />
+  <%= f.text_field :observacao %><br />
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, "Remover Serviço" %>
+<fieldset>Nova Peça</fieldset>
+  <%= f.fields_for :pecas do |builder| %>
+    <%= render 'peca_fields', f: builder %>
+  <% end %>
+     
+  <%= link_to_add_fields "Add Peças", f, :pecas %>
+ <h1 class="heading">&nbsp</h1>
+</fieldset>

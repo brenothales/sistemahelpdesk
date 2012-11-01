@@ -27,7 +27,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
   gem 'will_paginate'
 end
-
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-rails'
 #gem 'pjax_rails'
 gem 'rack-pjax'

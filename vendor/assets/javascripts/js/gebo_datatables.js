@@ -8,6 +8,7 @@
 		//* large table
 		gebo_datatbles.dt_c();
 		//* hideable columns
+		gebo_datatbles.chamado();
 		gebo_datatbles.dt_d();
 		//* server side proccessing with hiden row
 		gebo_datatbles.dt_e();
@@ -82,6 +83,34 @@
 				fnShowHide( $(this).val() );
 			});
 		},
+
+
+			chamado: function() {
+			function fnShowHide( iCol ) {
+				/* Get the DataTables object again - this is not a recreation, just a get of the object */
+				var oTable = $('#chamado').dataTable();
+				 
+				var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
+				oTable.fnSetColumnVis( iCol, bVis ? false : true );
+			}
+			
+			var oTable = $('#chamado').dataTable({
+				"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+				"sPaginationType": "bootstrap"
+			});
+			
+			$('#chamado_nav').on('click','li input',function(){
+				fnShowHide( $(this).val() );
+			});
+		},
+
+
+
+
+
+
+
+
 		dt_e: function(){
 			if($('#dt_e').length) {
 				

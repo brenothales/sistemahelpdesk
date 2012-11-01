@@ -1,0 +1,31 @@
+h2 {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.formulario {
+margin-bottom: 12px;
+padding-bottom: 12px;
+border-bottom: 1px dashed #dcdcdc;}
+
+#incomplete_servicos form {
+  margin: 5px 0;
+  @extend .formulario;
+}
+
+#complete_servicos form {
+  font-size: 12px;
+  color: #777;
+  margin: 3px 0;
+  @extend .formulario;
+  label { text-decoration: line-through; }
+}
+
+
+.edit_servico {
+  a {
+    font-size: 12px;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}

@@ -1,0 +1,5 @@
+<% if @servico.completado? %>
+  $('#edit_servico_<%= @servico.id %>').appendTo('#complete_servicos');
+<% else %>
+  $('#edit_servico_<%= @servico.id %>').appendTo('#incomplete_servicos');
+<% end %>
