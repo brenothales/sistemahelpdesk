@@ -20,3 +20,35 @@
 	</div>
 </div>
 
+<!-- <div id="post_form">< render :partial => 'peca' %></div> -->
+<!-- 
+<h1>Posts</h1>
+ <div id="dialog-modal" title="Basic modal dialog">
+<div id="post_form">
+   render 'formpeca' %>
+</div>
+ </div>
+<ul id="posts">
+   render :partial => @pecas.reverse %>
+</ul>
+ --> 
+
+
+
+<table class="table table-striped table-bordered dTableR">
+<thead>
+    <tr>
+        <th>ID</th>
+        <th>Chamado</th>
+    </tr>
+</thead>
+<tbody>
+<% @pecas.each do |peca| %>
+    <tr>
+      <td class='name'><%= peca.id %></td>
+      <td class='name'><%= peca.nome %></td>
+
+    </tr>
+   <% end %>
+</tbody>
+</table>

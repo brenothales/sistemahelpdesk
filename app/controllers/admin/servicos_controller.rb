@@ -1,18 +1,28 @@
 class Admin::ServicosController < ApplicationController
   layout 'admin'
+  before_filter :load
+
+  def load
+    @pecas = Peca.all
+    @peca =  Peca.new
+    @servicos = Servico.all
+    @servico = Servico.new
+  end
+
+
   def index
     sleep 1
     @incomplete_servicos = Servico.where(completado: false).order('created_at ASC').paginate(:page => params[:page], :per_page => 20)
     @complete_servicos   = Servico.where(completado:  true).order('created_at ASC').paginate(:page => params[:page], :per_page => 20)
   end
 
-  def new
-    @servico = Servico.new
-  end
-  def show
-    @servico = Servico.find(params[:id])
-    respond_with @servico, :location => admin_servico_path
-  end
+  # def new
+  #   @servico = Servico.new
+  # end
+  # def show
+  #   @servico = Servico.find(params[:id])
+  #   respond_with @servico, :location => admin_servico_path
+  # end
 
   def create
     @servico = Servico.create!(params[:servico])

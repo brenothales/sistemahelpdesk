@@ -25,34 +25,32 @@
                   <!-- Se for admin do sistema -->
                     <% if current_user.is_role?(:administrador) %>
                     <!-- Escolher o Usuário -->
+                       <fieldset>
+                          <legend class='required'>
+                           Cadastrar Produto
+                          </legend>
+                             <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a"}, :label => "Cliente"  %>
+                           <%= f.label :produto, { :class=> "span5" }  %><p></p>
+
+                           <select name="chamado[produto_id]" id="producttest">
+                             
+                           </select>
+
+                           <a href="#" id="bt-cadastra"><span class="class="btn btn-primary""><i class="icon-plus"></i></span></a><p></p>
+                        </fieldset>
                     
                     <%else%>
                     <!-- pegar o id do cliente -->
                       <%= f.hidden_field :user_id, :value => current_user.id %>
                       <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id) %>
-                      <div class="nb_boxes clearfix">
-                          <a data-toggle="modal" data-backdrop="static" href="#addProduto" class="label ttip_b" oldtitle="Novos Chamados" aria-describedby="ui-tooltip-0">Adicionar Produto <i class="splashy-mail_light"></i></a>
-                          <a data-toggle="modal" data-backdrop="static" href="#myTasks" class="label ttip_b" oldtitle="Novas Tarefas">10 <i class="splashy-calendar_week"></i></a>
-                      </div>
+     
 
                     <% end -%>
                     <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span7", :rows => 5 }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
                                   </div>
                <% if current_user.is_role?(:administrador) %>
                   <div class="tab-pane" id="tab_br2">
-                   
-                         <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a"}, :label => "Cliente"  %>
-                     <%= f.label :produto, { :class=> "span5" }  %><p></p>
-
-                     <select name="chamado[produto_id]" id="producttest">
-                       
-                     </select>
-
-                     <a href="#" id="bt-cadastra"><span class="class="btn btn-primary""><i class="icon-plus"></i></span></a><p></p>
-
-                     <h1>&nbsp;</h1>
-                     <h1>&nbsp;</h1>
-                     <h1>&nbsp;</h1>
+                  
                       
                        <!-- f.input :produto_id, :collection => @users, :as => :grouped_select, :group_method => :produtos, :input_html => {:class=>"chzn_b", :id=>"chosen_b" }, :value_method => :id, :include_blank => false, :prompt => "Selecionar Produto" %>  --> 
 
@@ -74,7 +72,7 @@
                      <%= f.fields_for :servicos, :class => 'form-inline'  do |builder| %>
                      <%= render 'servico_fields', f: builder %>
                      <% end %>
-                     <%= link_to_add_fields "Add Serviço", f, :servicos %>
+                     <%= link_to_add_campos "Add Serviço", f, :servicos %>
                     
                   </div>
                   <% end -%>
@@ -115,20 +113,3 @@
 
 <% end -%>
 
-<div class="modal hide fade" id="addProduto">
-                    <div class="modal-header">  
-                        <button class="close" data-dismiss="modal">×</button>
-
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-info">Chamados aberto.</div>
-                     <%= render "admin/produtos/form" -%>
-                         <div id='lateral'>
-
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="javascript:void(0)" class="btn">Ir para chamados</a>
-                    </div>
-                </div>

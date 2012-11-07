@@ -2,7 +2,7 @@
 <%= error_message_for(@produto) %>
  <%= f.input :name, :input_html => { :class => 'input-xlarge' }, :label => "Nome do Produto" %>
   <% if current_user.is_role?(:administrador) %>
-     <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :input_html => { :class => 'chzn_a' }, :label => "Cliente" %>
+     <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :input_html => { :class => 'chzn_a span5' }, :label => "Cliente" %>
   <% end -%>
  <%= f.association :category, :input_html => { :class => 'chzn_a ', :id => ""},
                     :include_blank => false, :label => 'Categoria' %>

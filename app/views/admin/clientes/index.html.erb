@@ -25,7 +25,7 @@
     <tbody>
       <% @clientes.each do |cliente| %>
         <tr>
-         <td><%= cliente.user.name %> <br/>
+         <td><%= cliente.user.name unless current_user.name %> <br/>
              <%= cliente.tipo_cliente.nome %>
          </td>
            <%if cliente.tipo_cliente_id == 2 %>
@@ -64,15 +64,14 @@
 
 
 
-<% @users.each do |user| %>
-  <% if current_user.id == user.id %>
-    <% unless @users.empty? %>
-  <h1>Olá <%= user.name %>, vamos criar seu perfil </h1>
+<% @clientes.each do |cliente| %>
+  <% if cliente.user_id.present? == nil %>
+     <!-- unless @users.empty? %> -->
+  <h1>Olá <%= current_user.name %>, vamos criar seu perfil </h1>
   <%= link_to new_admin_cliente_path, :class=> "btn" do %>
-    <i class="icon-plus"></i>Criar seu Perfil
+    <i class="icon-plus"></i>Criar seu Perfil 1
     <% end -%>
-  <% end %>
-  <% end %>
+<% end -%>
 <% end -%>
 
 <% @clientes.each do |cliente| %>

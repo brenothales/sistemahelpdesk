@@ -2,7 +2,7 @@
 <%= form_for [:admin, servico], remote: true do |f| %>
 	  <%= f.check_box :completado, :class=>"left"  %> -
 	  <%= f.submit "Update" %>
-	  <%= link_to("#{servico.nome.html_safe}","#{}", :class => " pop_over ", :title => "Espercificação do Chamdo #{servico.nome}", "data-placement"=> 'right',  "data-content" => 
+	  <%= link_to("#{servico.nome.html_safe}","#{}", :class => " pop_over ", :title => "Espercificação do Chamdo #{servico.nome}", "data-placement"=> 'top',  "data-content" => 
 	  	  	"Assunto: #{servico.nome} <br/>
 	  	  	Número do : #{servico.chamado_id} <br/>
 	  	  	#{time_ago_in_words(servico.created_at)} <br/>
@@ -20,7 +20,7 @@
 	  <small><%= time_ago_in_words(servico.created_at)%></small> |
 	  <small><%= time_ago_in_words(servico.updated_at)%></small>
 	  <%= f.label :chamado, servico.chamado_id %>
-  <%= content_tag(:span, :class => 'right') do  %>	  <%= link_to [:admin, servico], method: :delete, data: {confirm: "Are you sure?"}, remote: true do %>
+  <%= content_tag(:span, :class => 'right') do  %>	  <%= link_to [:admin, servico], method: :delete, data: {confirm: "Tem certeza que deseja deletar o serviços?"}, remote: true do %>
 	  <i class="icon-trash"></i>
 	  <% end -%>
   <% end -%>

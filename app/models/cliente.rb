@@ -14,6 +14,7 @@ class Cliente < ActiveRecord::Base
   accepts_nested_attributes_for :endereco 
 
   has_many :contato_telefones, :dependent => :destroy
+  has_many :chamados, :dependent => :destroy
   accepts_nested_attributes_for :contato_telefones, :reject_if => proc{|a| a["numero"].blank? }
   
   has_many :contato_emails, :dependent => :destroy

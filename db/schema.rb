@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031035301) do
+ActiveRecord::Schema.define(:version => 20121106160216) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121031035301) do
     t.text     "observacao"
     t.boolean  "solucionado",                                                      :default => false
     t.boolean  "finalizaSolicitacao",                                              :default => false
+    t.boolean  "cancelar",                                                         :default => false
     t.decimal  "valorGeral",                        :precision => 10, :scale => 2
     t.string   "produto",             :limit => 30
     t.string   "status",              :limit => 30
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20121031035301) do
     t.integer  "produto_id"
     t.datetime "created_at",                                                                          :null => false
     t.datetime "updated_at",                                                                          :null => false
+    t.string   "slug"
   end
 
   add_index "chamados", ["produto_id"], :name => "index_chamados_on_produto_id"

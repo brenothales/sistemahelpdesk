@@ -11,7 +11,9 @@ class Admin::ChamadosController < ApplicationController
 
   def show
     @chamado = Chamado.find(params[:id])
-    respond_with @chamado, :location => admin_chamado_path
+    @user = User.find( @chamado.user_id )
+    @cliente = Cliente.find_by_user_id( @user.id )
+    respond_with @chamado, @user, @cliente, :location => admin_chamado_path
   end
 
   def new

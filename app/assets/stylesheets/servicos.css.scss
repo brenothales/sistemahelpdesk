@@ -2,7 +2,10 @@ h2 {
   font-size: 16px;
   margin-top: 20px;
 }
-
+.label-important,.badge-error {background: #C62626}
+.label-success,.badge-success {background: #70A415}
+.label-warning,.badge-warning {background: #F5AA1A}
+.label-info,.badge-info {background: #058DC7}
 .formulario {
 margin-bottom: 12px;
 padding-bottom: 12px;
@@ -18,7 +21,11 @@ border-bottom: 1px dashed #dcdcdc;}
   color: #777;
   margin: 3px 0;
   @extend .formulario;
+
   label { text-decoration: line-through; }
+  .label-success{
+    @extend .label-success;
+  }
 }
 
 

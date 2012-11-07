@@ -1,23 +1,60 @@
-<div class="row-fluid ">
-<div class="span12">
-  <div class="span12 well">
-    <span class="label label-info">Assunto:</span><h3 class="heading inline"><%= @chamado.assunto %> <small>Nº do <%= @chamado.id %></small> 
-    <small class="offset4">Criando <%= time_ago_in_words @chamado.created_at %> <%= post_date @chamado.created_at %></small></h3>
+<!--  current_user.cliente.rg  %></h1> -->
+<!--  current_user.cliente.cpf %></h1> -->
+<!--  @user.cliente.cpf        %></h1> -->
+<!--  @user.cliente.cpf        %></h1> -->
+<!--  @cliente.sexo            %> -->
+<!--  @user.cliente.cpf        %></h1> -->
+  <div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        <li><%= link_to  :controller => "chamados", :action => "index", :id => @chamados do %>
+        <i class="icon-home"></i> Todos Chamdoss 
+          <% end -%>
 
-  <div class="row-fluid painel">
+        </li>
+         <li>
+            <%= link_to new_admin_chamado_path do %>
+            <i class=" icon-plus"></i> Novo Chamdos
+            <% end -%>
+        </li>
+    </ul>
+</div>    
+
+<div class="">
+  <div class=" well">
+    <h1 class="inline"><small>Número do Chamado:</small> <span class="label label-info" > <%= @chamado.id %> </span></h1>
+    <small>Assunto:</small><h3 class="heading inline"><%= @chamado.assunto %> 
+    <small class=" pull-right">Criando <%= time_ago_in_words @chamado.created_at %> <%= I18n.localize(@chamado.created_at, :format => "%d/%m/%Y") %> 
+   
+    </small></h3>
+    <h1>  </h1>  <div class="row-fluid painel">
     <div class="span4">
-      <span class="label label-info">Produto:</span><br/>
+      <span>Produto:</span><br/>
       <%= link_to("#{@chamado.produto.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Produto", "data-placement"=> 'right',  "data-content" => "Modelo: #{@chamado.produto.modelo} <br/>
-                      ID: #{@chamado.produto.id} <br/>
-                      Categoria: #{@chamado.produto.category.name} <br/>
-                      Marca: #{@chamado.produto.marca} <br/>
-                      Nº: #{@chamado.produto.numeroSerie} <br/>
-                      Acessórios: #{@chamado.produto.acessorios} <br/>
-                      Observação: #{@chamado.produto.observacao} <br/>
-                      Setor: #{@chamado.produto.seto}").html_safe %>
+                      ID:<b> #{@chamado.produto.id}</b> <br/>
+                      Categoria:<b> #{@chamado.produto.category.name}</b> <br/>
+                      Marca:<b> #{@chamado.produto.marca}</b> <br/>
+                      Nº:<b> #{@chamado.produto.numeroSerie}</b> <br/>
+                      Acessórios:<b> #{@chamado.produto.acessorios}</b> <br/>
+                      Observação:<b> #{@chamado.produto.observacao}</b> <br/>
+                      Setor:<b> #{@chamado.produto.seto} </b>").html_safe %>
     </div>
     <div class="span4">
-      <span class="label label-info">Cliente:</span><br/></b><span class= "btn btn-large btn"> <%= @chamado.user.name %></span> <br/>
+      <span >Cliente:</span><br/>
+        <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
+                        Email: <b>#{@user.email}</b> <br/>
+                        Tipo: <b>#{@cliente.tipo_cliente.nome}</b> <br/>
+                        CPF/CNPJ: <b>#{if @cliente.tipo_cliente_id == 2 
+                          @cliente.cnpj
+                        else 
+                          @cliente.cpf
+                        end } </b><br>         
+                        Nº RG: <b>#{@cliente.rg}</b> <br/>
+                        Aniversário: #{@cliente.dataNascimento if @cliente.dataNascimento}</b> <br/>
+                        Rua: <b>#{@cliente.endereco.logradouro if @cliente.endereco.logradouro}</b> <br/>
+                        Bairro: <b>#{@cliente.endereco.bairro  if @cliente.endereco.bairro}</b> <br/>
+                        Cidade: <b>#{@cliente.endereco.cidade  if @cliente.endereco.cidade}</b> <br/>
+                        Número: <b>#{@cliente.endereco.numero  if @cliente.endereco.numero}</b> <br/>").html_safe %>
+
     </div>
   <div class=" span3">
     <h4 class="alert-heading">
@@ -37,16 +74,16 @@
     </div>
     <div class="span3">
       Cortesia:<% if @chamado.cortesia == false  %> 
-                    <span class="badge badge-important">Não</span>
+                    <span class="label label-important">Não</span>
                   <% else %>
-                    <span class="badge badge-success">Sim</span>
+                    <span class="label label-success">Sim</span>
                   <% end -%>
     </div>    
     <div class="span3">
       Solucionado:<% if @chamado.solucionado == false  %> 
-                    <span class="badge badge-important">Não</span>
+                    <span class="label label-important">Não</span>
                   <% else %>
-                    <span class="badge badge-success">Sim</span>
+                    <span class="label label-success">Sim</span>
                   <% end -%>
     </div>
   </div>
@@ -55,17 +92,24 @@
 
 <div class="row-fluid">
   <div class="span12">
-    <div class="span6">
-      <span class="label">Operação:</span><br/>
+    <div class="span4">
+      <span class="">Operação:</span><br/>
       Solicitação Finalizada:
     <% if @chamado.finalizaSolicitacao == false  %>
-        <span class="badge badge-important">Não</span>
+        <span class="label label-important">Não</span>
     <% else %>
-        <span class="badge badge-success">Sim</span>
+        <span class="label label-success">Sim</span>
     <% end -%>
   </div>
+  <div class="span4">
+      <span class="">Situação:</span><br/>
+      <%= ("<span class='label label-warning'> Pedido Aberto </span>").html_safe if @chamado.cancelar == false and @chamado.finalizaSolicitacao == false %>
+      <%= ("<span class='label label-success'> Finalizando com Sucesso</span>").html_safe if @chamado.cancelar == true and @chamado.finalizaSolicitacao == true %>
+      <%= ("<span class='label label-success'> Aprovado pelo Cliente </span>").html_safe if @chamado.cancelar == true  %>
+       
+  </div
     <div class="span5">
-      <span class="label">Status:</span><br/>
+      <span class="">Status:</span><br/>
 <% if  @chamado.status.present? %>
          <% if  @chamado.finalizaSolicitacao == true  %>
          <div class="sepH_b progress progress-success">
@@ -107,10 +151,13 @@
                   <div class="tab-pane active" id="tab_br1">
                     <h3 class="heading inline">Descrição do Chamado:</h3>
                       <div> <%= @chamado.descricao %></div><br>
-                      <div id="comments" class="span12">
+                      <div id="comments" class="">
                         <div class="">
                           <%- if @chamado.comments.any? -%>
-                            <%= render :partial => @chamado.comments %>
+                            <%= render :partial =>  @chamado.comments %>
+                            <div>
+                           <%= "Chamado Finalizado a #{time_ago_in_words @chamado.updated_at}" %> <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") if @chamado.finalizaSolicitacao == true %> 
+                            </div>
                           <%- else -%>
                             <p>Chamado sem Feedback.</p>
                           <%- end -%>
@@ -142,7 +189,7 @@
                                  <h3 class="heading">Peças </h3>
                                   <% servico.pecas.each do |peca| %>
                                     <div class=" ">
-                                      <div>Identificação: <span class="badge badge-info"><%= peca.id %></span></div>
+                                      <div>Identificação: <span class="label label-info"><%= peca.id %></span></div>
                                       <div>Nome da Peça:   <b><%= peca.nome %></b></div>
                                       <div><%= ("Códido da Peça: <b> #{peca.codigo}</b>").html_safe  unless peca.codigo.blank?%> </div>
                                       <div><%= ("Valor da Peça: <b> #{number_to_currency peca.valorPeca} </b>").html_safe  unless peca.valorPeca.blank? %></div> 
@@ -183,14 +230,28 @@
                 </div>
 <br>
 <% if @chamado.finalizaSolicitacao == false %>
+
     <div class="row-fluid">
       <div class="span12 well">
-        <h3 class="heading">Descrever</h3>
-        <%= render "admin/comments/form", :chamado => @chamado, :comment => Comment.new  %>
-        <%= render 'confirmar' %>
+        <h3 class="heading">Descrever</h3> 
+        <div id="comment_form span12"> 
+           <!-- @chamado.comments.length  -%> Conta quantos chamado existem-->
+      <% if @chamado.finalizaSolicitacao == false %>
+        <%= render "admin/comments/form", :chamado => @chamado, :comment => Comment.new %> 
+      <% end -%>
+          </div>
+  <% end -%>
+     <% if current_user.is_role?(:moderador) %>
+            <% if @chamado.comments.length >= 1  %>
+              <%= render 'cancelamento' if @chamado.cancelar == false %>
+            <% end -%>
+      <% end -%>
+     <% if current_user.is_role?(:administrador) %>
+              <%= render 'confirmar' if @chamado.finalizaSolicitacao == false %>
+      <% end -%>
        </div>
     </div> 
-<% end -%>
+
   </div>
 </div>
 

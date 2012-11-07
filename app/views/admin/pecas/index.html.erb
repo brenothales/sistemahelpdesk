@@ -1,0 +1,14 @@
+
+<%= link_to 'New Post', new_admin_peca_path %>
+
+
+<h1>Posts</h1>
+ <div id="dialog-modal" title="Basic modal dialog">
+<div id="post_form">
+  <%= render 'admin/pecas/form' %>
+</div>
+ </div>
+<ul id="posts">
+  <%= render :partial => @posts.reverse %>
+</ul>
+

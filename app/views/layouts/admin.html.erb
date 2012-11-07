@@ -166,56 +166,17 @@
                 <div class="modal hide fade" id="myMail">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
-                        <h3>Novos Chamados</h3>s
+                        <h3>Gerenciamento de Tarefas</h3>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-info">Chamados aberto.</div>
-                        <table class="table table-condensed table-striped" data-rowlink="a">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Assunto</th>
-                                    <th>Data</th>
-                                    <th>Hora</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-
-
-             
-                                    <td>Thiago Chaves</td>
-                                    <td><a href="javascript:void(0)"> afakj a kahfas kjhaf s</a></td>
-                                    <td>23/10/2012</td>
-                                    <td>10:10</td>
-                                </tr>
-                                <tr>
-                                    <td>Samuel braz</td>
-                                    <td><a href="javascript:void(0)">sfsdf  nnasfnds m,namfds </a></td>
-                                    <td>24/10/2012</td>
-                                    <td>10:20</td>
-                                </tr>
-                                <tr>
-                                    <td>Sandra</td>
-                                    <td><a href="javascript:void(0)">sfsfdfd afksahf a khjafkh f</a></td>
-                                    <td>25/10/2012</td>
-                                    <td>10:40</td>
-                                </tr>
-                                <tr>
-                                    <td>Breno Thales</td>
-                                    <td><a href="javascript:void(0)">fhsfhshf flsad fdsf afh </a></td>
-                                    <td>25/10/2012</td>
-                                    <td>10:30</td>
-                                </tr>
-                            </tbody>
-                        </table>
                          <div id='lateral'>
-                          <%= chamados_list %>
+
+                          <%= render "admin/servicos/index" %>
 
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="javascript:void(0)" class="btn">Ir para chamados</a>
+                        <%= link_to "Ir para Tarefas", admin_servicos_path, :class=>"btn" %>
                     </div>
                 </div>
                 <div class="modal hide fade" id="myTasks">
@@ -328,10 +289,11 @@
                   <!-- Início do chamadd -->
                   <div class="accordion-heading <%= @sdb_h_active %>">
                       <a href="#chamados" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                        <i class="icon-wrench"></i> Chamado
+                        <i class="icon-wrench" display:none></i> Chamado
                       </a>
                   </div>
                   <!-- Fim do Chamado -->
+
                     <div class="accordion-body collapse" id="chamados">
                       <div class="accordion-inner">
                         <ul class="nav nav-list">
@@ -368,6 +330,7 @@
                       <div class="accordion-inner">
                         <ul class="nav nav-list">
                           <li><%= link_to "Cadastrar Clientes", admin_clientes_path %></li>
+</li>
                         </ul>
                         
                       </div>

@@ -9,6 +9,7 @@ class CreateChamados < ActiveRecord::Migration
       t.text       :observacao
       t.boolean    :solucionado, :default => false
       t.boolean    :finalizaSolicitacao, :default => false
+      t.boolean :cancelar, :default => false
       t.decimal    :valorGeral, :precision => 10, :scale => 2#, :null => false    
       t.string     :produto, :limit => "30"
       t.string     :status, :limit => "30"

@@ -1,15 +1,13 @@
 #coding : utf-8
 class User < ActiveRecord::Base
 
- 
-
   belongs_to :role
   has_many :chamados
   has_many :posts, :class_name => 'Post', :foreign_key => 'author_id'
   has_many :produtos
-  has_many :chamados
+  has_many :chamados, :dependent => :destroy
   has_many :comments, :class_name => 'User', :foreign_key => 'id'
-  has_one  :cliente
+  has_one  :cliente,  :dependent => :destroy
  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

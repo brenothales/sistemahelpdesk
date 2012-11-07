@@ -1,4 +1,4 @@
- <%= simple_form_for [:admin, @produto], :html => { :class => 'new_contato',  :id=>'new_contato'} do |f| %>
+ <%= simple_form_for [:admin,@chamado, @produto], :html => { :remote => true, :class => 'new_contato',  :id=>'new_contato'} do |f| %>
 
   <%= f.input :name, :input_html => { :class => 'input-xlarge' }, :label => "Nome do Produto" %>
   <% if current_user.is_role?(:administrador) %>
