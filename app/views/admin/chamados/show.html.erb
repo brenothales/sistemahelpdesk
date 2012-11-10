@@ -29,6 +29,7 @@
     <h1>  </h1>  <div class="row-fluid painel">
     <div class="span4">
       <span>Produto:</span><br/>
+<% if @chamado.produto%>
       <%= link_to("#{@chamado.produto.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Produto", "data-placement"=> 'right',  "data-content" => "Modelo: #{@chamado.produto.modelo} <br/>
                       ID:<b> #{@chamado.produto.id}</b> <br/>
                       Categoria:<b> #{@chamado.produto.category.name}</b> <br/>
@@ -36,9 +37,11 @@
                       Nº:<b> #{@chamado.produto.numeroSerie}</b> <br/>
                       Acessórios:<b> #{@chamado.produto.acessorios}</b> <br/>
                       Observação:<b> #{@chamado.produto.observacao}</b> <br/>
-                      Setor:<b> #{@chamado.produto.seto} </b>").html_safe %>
+                      Setor:<b> #{@chamado.produto.seto} </b>").html_safe  %>
+<% end -%>
     </div>
     <div class="span4">
+      <% if @chamado.user%>
       <span >Cliente:</span><br/>
         <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
                         Email: <b>#{@user.email}</b> <br/>
@@ -56,6 +59,7 @@
                         Número: <b>#{@cliente.endereco.numero  if @cliente.endereco.numero}</b> <br/>").html_safe %>
 
     </div>
+    <% end -%>
   <div class=" span3">
     <h4 class="alert-heading">
    <%= ("<b> Total #{number_to_currency  @chamado.valorGeral} </b>").html_safe unless @chamado.valorGeral.blank? %>

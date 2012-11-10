@@ -2,6 +2,9 @@
 
   <%= f.input :nome, label:"Nome do Serviço" %>
   <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:finalizaSolicitacao == false), :prompt => "Escolher Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
+  <%= f.label "Data" %>
+  <%= f.text_field :published_on, label:"Data" %>
+  <%= f.input :valorServico%>
   <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
 
 

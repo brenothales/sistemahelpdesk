@@ -13,6 +13,7 @@ class CreateChamados < ActiveRecord::Migration
       t.decimal    :valorGeral, :precision => 10, :scale => 2#, :null => false    
       t.string     :produto, :limit => "30"
       t.string     :status, :limit => "30"
+      t.string      :slug
       t.references :user
       t.references :produto
 

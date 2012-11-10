@@ -28,7 +28,9 @@ resources :chamados
     resources :users
     resources :posts
     resources :tasks
-    resources :servicos
+    resources :servicos do
+      collection { post :sort }
+    end
     match 'produtos/produtouser/:id' => "produtos#produtouser"
   end
 

@@ -23,7 +23,7 @@ class Admin::ChamadosController < ApplicationController
 
     @produto = Produto.new   
     @produtos = Produto.all
-     respond_with [@chamado, @produtos] 
+     respond_with [@chamado, @produto] 
   end
 
   def edit

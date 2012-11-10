@@ -4,6 +4,7 @@
 	  <%= f.submit "Update" %>
 	  <%= link_to("#{servico.nome.html_safe}","#{}", :class => " pop_over ", :title => "Espercificação do Chamdo #{servico.nome}", "data-placement"=> 'top',  "data-content" => 
 	  	  	"Assunto: #{servico.nome} <br/>
+	  	  	Valor : #{servico.valorServico} <br/>
 	  	  	Número do : #{servico.chamado_id} <br/>
 	  	  	#{time_ago_in_words(servico.created_at)} <br/>
 			 #{if servico.completado == true 

@@ -4,13 +4,17 @@
               <div class="tabbable tabbable-bordered">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_br1" data-toggle="tab">Novo Chamado</a></li>
-                   <% if current_user.is_role?(:administrador) %>
-                  <li class=""><a href="#tab_br2" data-toggle="tab">Adicionar Produtos</a></li>
-                  <li class=""><a href="#tab_br3" data-toggle="tab">Serviços e Peças</a></li>
-                  <% end -%>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_br1">
+                    <% if current_user.is_role?(:administrador) %>
+                    <fieldset>
+                      <legend>Usuário</legend>
+                              <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %>
+                    </fieldset>
+                  <% end -%>
+                  <fieldset>
+                      <legend>Solicitação</legend>
                       <%= f.input :assunto, :input_html => { :class=> "span8" }  %>
                       <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
                       <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atedimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atedimento" %> 
@@ -22,39 +26,34 @@
                         <%= f.input :status, :as=> "select", :collection => Chamado::STATUS, :input_html => {:id=>"ui_slider3_sel", :class=>"span2"}, :prompt => "status", :value=> 0 %>
                         <%= f.input :valorGeral, :label => "Valor Geral", :input_html => { :class => 'input-mini', :maxlength => 15} %>
                       <% end -%>
+                    </fieldset>
                   <!-- Se for admin do sistema -->
                     <% if current_user.is_role?(:administrador) %>
-                    <!-- Escolher o Usuário -->
-                       <fieldset>
+                    <!-- <!-- Escolher o Usuário -->
+                       <!-- <fieldset>
                           <legend class='required'>
                            Cadastrar Produto
                           </legend>
-                             <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a"}, :label => "Cliente"  %>
-                           <%= f.label :produto, { :class=> "span5" }  %><p></p>
+                              f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %>
+                            f.label :produto, { :class=> "span5" }  %><p></p>
 
                            <select name="chamado[produto_id]" id="producttest">
                              
                            </select>
 
                            <a href="#" id="bt-cadastra"><span class="class="btn btn-primary""><i class="icon-plus"></i></span></a><p></p>
-                        </fieldset>
-                    
+                        </fieldset> -->
+
                     <%else%>
                     <!-- pegar o id do cliente -->
                       <%= f.hidden_field :user_id, :value => current_user.id %>
-                      <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id) %>
+                      <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id), :prompt => "Escolha Produto" %>
      
 
                     <% end -%>
                     <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span7", :rows => 5 }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
                                   </div>
                <% if current_user.is_role?(:administrador) %>
-                  <div class="tab-pane" id="tab_br2">
-                  
-                      
-                       <!-- f.input :produto_id, :collection => @users, :as => :grouped_select, :group_method => :produtos, :input_html => {:class=>"chzn_b", :id=>"chosen_b" }, :value_method => :id, :include_blank => false, :prompt => "Selecionar Produto" %>  --> 
-
-
                       <!--  f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.all %> -->
 
                     <!-- autocomplete -->
@@ -67,15 +66,6 @@
                  
                   </div>
              <% end -%>
-                  <% if current_user.is_role?(:administrador) %>
-                  <div class="tab-pane" id="tab_br3">
-                     <%= f.fields_for :servicos, :class => 'form-inline'  do |builder| %>
-                     <%= render 'servico_fields', f: builder %>
-                     <% end %>
-                     <%= link_to_add_campos "Add Serviço", f, :servicos %>
-                    
-                  </div>
-                  <% end -%>
                 </div>
               </div>
             </div>
@@ -84,7 +74,7 @@
   <div class="well">
   <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
     <div class="form-actions">
-    <%= submit_and_back_buttons(admin_chamados_path,{:label_name => "Enviar"}) %>
+    <%= submit_and_back_buttons(admin_chamados_path,{:label_name => "Gravar Chamado"}) %>
   </div>
 </div>
    <!-- f.input :finalizaSolicitacao, :label => "Solicitação Finalizada" %> -->
@@ -106,7 +96,7 @@
 <% if current_user.is_role?(:administrador) %>
       <div id="dialog-cadastro" title="Cadastro de Pessoas"> 
         <!-- <form action="../../produtos.js" method="post" id="new_contato">  -->
-           <%=  render "new_produto" %> 
+             <!-- render "new_produto" %>  -->
         <!-- </form> -->
       </div>
 

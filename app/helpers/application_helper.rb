@@ -1,6 +1,18 @@
 #encoding : utf-8
 module ApplicationHelper
 
+    def servicos_chart_series(servicos, start_time)
+    servicos_by_day = servicos.where(:published_on => start_time.beginning_of_day..Time.zone.now.end_of_day).
+                    group("date(published_on)").
+                    select("published_on, sum(valorServico) as valorServico")
+    (start_time.to_date..Date.today).map do |date|
+      servico = servicos_by_day.detect { |servico| servico.published_on.to_date == date }
+      servico && servico.valorServico.to_f || 0
+    end.inspect
+  end
+
+
+
   def link_to_add_fields(name, f, association)
       new_object = f.object.send(association).klass.new
       id = new_object.object_id

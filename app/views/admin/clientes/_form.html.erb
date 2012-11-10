@@ -69,7 +69,7 @@
                 </div>
               <!-- fim telefones -->
               <!-- Email -->
-            <legend>Email</legend>
+            <legend>Email Secundário</legend>
                <div id="contato_emails">    
                   <%= f.fields_for :contato_emails do |c|%>
                     <%= render :partial => "admin/contato_emails/add_more", :locals => { :f => c} %>
@@ -91,6 +91,7 @@
                <%= e.input :numero, :label_html => {:class=>"control-label"}, :input_html => {:class=>"span2 "}, :label=>"Número" %> 
                <%= e.input :bairro, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-medium "}, :label=>"Bairro" %>
                <%= e.input :cidade, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-medium "}, :label=>"Cidade" %>
+               <%= e.input :uf, :label_html => {:class=>"control-label"}, :input_html => {:class=>"span1" }, :label=>"UF" %>
 
                <%= e.input :cep, :label_html => {:class=>"control-label"}, :input_html => {:class=>"input-medium ", :id=> "mask_cep"}, :label=>"CEP" %>
             <% end %>

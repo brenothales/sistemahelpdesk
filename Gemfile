@@ -12,6 +12,8 @@ gem "cancan"
 gem "hirb"
 gem 'carrierwave'
 gem 'rmagick'
+gem "highcharts-rails", "~> 2.3.0"
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,7 +25,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-
+  gem 'jquery-ui-rails'
   gem 'twitter-bootstrap-rails'
   gem 'will_paginate'
 end

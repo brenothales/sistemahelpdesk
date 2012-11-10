@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
            <title>Painel Administrativo </title>
            <%= stylesheet_link_tag    "application", :media => "all" %>
+            <%= yield(:header) if @content_for_header %>
+
+            
       
            <%= csrf_meta_tags %>
       
@@ -93,7 +96,7 @@
                             <ul class="nav user_menu pull-right">
                                 <li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix">
-                                        <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="Novos Chamados">25 <i class="splashy-mail_light"></i></a>
+                                        <!-- <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="Novos Chamados">25 <i class="splashy-mail_light"></i></a> -->
                                         <a data-toggle="modal" data-backdrop="static" href="#myTasks" class="label ttip_b" title="Novas Tarefas">10 <i class="splashy-calendar_week"></i></a>
                                     </div>
                                 </li>
@@ -114,8 +117,7 @@
                                   <%=  link_to("#{current_user.name} <b class='caret'></b>".html_safe, '#', :class => 'dropdown-toggle', :data => { :toggle => 'dropdown' }) + content_tag(:ul, :class => 'dropdown-menu') do  %>
                                   <% end -%>
                                     <ul class="dropdown-menu">
-                    <li><a href="user_profile.html">Minha Conta</a></li>
-                        <li><a href="javascrip:void(0)">Menu</a></li>
+                                        <li><%= link_to "Minha Conta", admin_clientes_path %></li>
                                         <li class="divider"></li>
                                         <li><%= link_to('Sair',destroy_user_session_path,:method => :delete) %></li>
                                     </ul>
@@ -136,22 +138,23 @@
                                                 <li><a href="form_validation.html">Form Validation</a></li>
                                             </ul>
                                         </li> -->
+                                        
                                         <li class="dropdown">
-                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-wrench icon-white"></i> Ferramentas <b class="caret"></b></a>
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-wrench icon-white"></i> Chamados <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Flash</a></li>
-                                                <li><a href="#">Antivirus</a></li>
-                                                <li><a href="#">FireWall</a></li>
-                                                <li><a href="#">Adobe PDF</a></li>
-                                                <li><a href="#">Recuperador de Arquivos</a></li>
+                                                <li><%= link_to "Abrir Chamado", :controller => "chamados", :action => "new", :id => @chamado %></li>
+                                                <li><%= link_to "Todos Chamados", admin_chamados_path -%></li>
                                             </ul>                                       </li>
+                                            
+                                      <% if current_user.is_role?(:administrador) %>
                                         <li class="dropdown">
                                             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-file icon-white"></i> Ordem de Serviço <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Abrir</a></li>
+                                                <li><%= link_to " Gerenciar Tarefas", admin_servicos_path -%></li>
                                                 <li><a href="#">Todas</a></li>
                                             </ul>
                                         </li>
+                                      <% end -%>
                                         <li>
                                         </li>
                                         <li>
@@ -163,7 +166,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal hide fade" id="myMail">
+                <!-- <div class="modal hide fade" id="myMail">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
                         <h3>Gerenciamento de Tarefas</h3>
@@ -171,14 +174,14 @@
                     <div class="modal-body">
                          <div id='lateral'>
 
-                          <%= render "admin/servicos/index" %>
+                          render admin/servicos/index %>
 
                         </div>
                     </div>
                     <div class="modal-footer">
                         <%= link_to "Ir para Tarefas", admin_servicos_path, :class=>"btn" %>
                     </div>
-                </div>
+                </div> -->
                 <div class="modal hide fade" id="myTasks">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
@@ -258,9 +261,9 @@
             <div class="antiscroll-content">
           
               <div class="sidebar_inner">
-                <form action="#" class="input-append" method="post" >
+                <!-- <form action="#" class="input-append" method="post" >
                   <input autocomplete="off" name="query" class="search_query input-medium" size="16" type="text" placeholder="Buscar..." /><button type="submit" class="btn"><i class="icon-search"></i></button>
-                </form>
+                </form> -->
                 <div id="side_accordion" class="accordion">
                   
                   <div class="accordion-group">
@@ -298,12 +301,13 @@
                       <div class="accordion-inner">
                         <ul class="nav nav-list">
                               <li><%= link_to "Abrir Chamado", :controller => "chamados", :action => "new", :id => @chamado %></li>
-                              <li><%= link_to "Listar", admin_chamados_path %></li>
+                              <li><%= link_to "Todos Clientes", admin_chamados_path %></li>
                         </ul>
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-group">
+                   <% if current_user.is_role?(:administrador) %>
+                    <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapseTwo" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
                         <i class="icon-th"></i> Peças
@@ -319,7 +323,8 @@
                         </ul>
                       </div>
                     </div>
-                  </div>
+                    </div>
+                  <% end -%>
                   <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapseThree" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
@@ -329,13 +334,14 @@
                     <div class="accordion-body collapse" id="collapseThree">
                       <div class="accordion-inner">
                         <ul class="nav nav-list">
-                          <li><%= link_to "Cadastrar Clientes", admin_clientes_path %></li>
+                          <li><%= link_to "Minha Conta", admin_clientes_path %></li>
 </li>
                         </ul>
                         
                       </div>
                     </div>
                   </div>
+                  <% if current_user.is_role?(:administrador) %>
                   <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapseFour" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
@@ -359,7 +365,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-group">
+                  <!-- <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapseLong" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
                         <i class="icon-leaf"></i> Histórico (Log)
@@ -370,11 +376,11 @@
                         Texto aqui 
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapse7" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                         <i class="icon-th"></i> Calculatora
+                         <i class="icon-th"></i> Calculadora
                       </a>
                     </div>
                     <div class="accordion-body collapse in" id="collapse7">
@@ -412,12 +418,13 @@
                       </div>
                      </div>
                   </div>
+                  <% end -%>
                 </div>
                 
                 <div class="push"></div>
               </div>
                  
-              <div class="sidebar_info">
+         <!--      <div class="sidebar_info">
                 <ul class="unstyled">
                   <li>
                     <span class="act act-warning">65</span>
@@ -433,7 +440,7 @@
                     <strong>Membros online</strong>
                   </li>
                 </ul>
-              </div> 
+              </div>  -->
             
             </div>
           </div>

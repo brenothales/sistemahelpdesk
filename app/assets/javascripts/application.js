@@ -51,9 +51,15 @@
 //= require clientes
 //= require comments
 //= require servicos
+
 //= require ordemservico
 //= require jquery.pjax
 //= require tasks
+//= require jquery.ui.datepicker
+
+
+//= require raphael
+//= require morris
 
 
 

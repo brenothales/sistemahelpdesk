@@ -6,6 +6,11 @@ class Admin::ClientesController < ApplicationController
   def index
     @clientes = Cliente.all
     @users = User.all
+    @cliente = Cliente.new
+    @cliente_novo = current_user.id
+
+
+    
     respond_with @clientes, :location => admin_clientes_path
   end
 
@@ -27,6 +32,7 @@ class Admin::ClientesController < ApplicationController
     @cliente.build_endereco if @cliente.endereco.nil?
     @cliente.contato_telefones.build
     @cliente.contato_emails.build
+
   end
 
   def create
@@ -36,13 +42,14 @@ class Admin::ClientesController < ApplicationController
     @cliente.user = current_user 
     end 
     flash[:notice] = "Cliente salvo com sucesso!" if @cliente.save
-    respond_with @cliente, :location => [:admin, @cliente]
+    # respond_with @cliente, :location => [:admin, @cliente]
+    redirect_to admin_clientes_path
   end
 
   def update
     @cliente = Cliente.find(params[:id])
     flash[:notice] = "Cliente atualizado com sucesso!" if @cliente.update_attributes(params[:cliente])
-    respond_with @cliente, :location => [:admin, @cliente]
+    redirect_to admin_clientes_path
   end
 
   def destroy
