@@ -2,15 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+# jQuery ->
+#   $('.btn.btn-danger, .btn.btn-success').pjax('[data-pjax-container]')
+#   $('.pagination a').pjax('[data-pjax-container]')
+#   $('.ordem_asc').pjax('[data-pjax-container]')
+#   $('.ordem_desc').pjax('[data-pjax-container]')
+#   $('.dropdown-menu li a').pjax('[data-pjax-container]')
+#   $('.btn-primary').pjax('[data-pjax-container]')
+
+
+# $(document).ready ->
+#   $("#e1").select2()
+
 jQuery ->
-  $('.btn.btn-danger, .btn.btn-success').pjax('[data-pjax-container]')
-  $('.pagination a').pjax('[data-pjax-container]')
-  $('.ordem_asc').pjax('[data-pjax-container]')
-  $('.ordem_desc').pjax('[data-pjax-container]')
-  $('.dropdown-menu li a').pjax('[data-pjax-container]')
-  $('.btn-primary').pjax('[data-pjax-container]')
-
-
-$(document).ready ->
-  $("#e1").select2()
-
+  $('#produto_produto_name').autocomplete
+    source: $('#produto_produto_name').data('autocomplete-source')

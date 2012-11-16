@@ -5,6 +5,13 @@ class Ability
     user ||= User.new
     if user.is_role?(:administrador)
       can :manage, :all
+    elsif user.is_role?(:funcionario)        
+      can :manage, Category
+      can :manage, Produto 
+      can :manage, Cliente
+      can :manage, Chamado
+      can :manage, Servico
+      can :manage, Funcionario
     elsif user.is_role?(:moderador)        
       can :manage, Category
       can :manage, Produto, :user_id => user.id

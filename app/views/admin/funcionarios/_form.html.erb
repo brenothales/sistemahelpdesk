@@ -1,0 +1,35 @@
+<%= simple_form_for [:admin, @funcionario] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<% if current_user.is_role?(:administrador) %>
+        <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :input_html => { :class => 'chzn_a span4' }, :label => "Usuário" %>
+     <% else %>
+         <%= f.hidden_field :user_id, :value => current_user.id %>
+    <% end -%>
+    <%= f.input :funcao, :input_html => { :class => 'span4 text_field', :placeholder => "Função"} %>
+    <%= f.input :ctps,   :input_html => { :class => 'span3 text_field', :placehold => "Carteira de Trabalho"}, 
+    label: "Nº Carteira de Trabalho" %>
+    <%= f.input :cpf, :input_html => { :class => 'span2 text_field', :placeholder => "CPF", :id => "mask_cpf"},
+                  :label_html => { :class => 'control-label'}, :label => "CPF" %>
+    <%= f.input :rg , :input_html => { :class => 'span2 text_field', :placeholder => "RG"} %>
+    <%= f.input :sexo, :collection => Cliente::SEXO, :as => :radio_buttons, :item_wrapper_class => 'inline', :label => 'Sexo' %>
+    <%= f.input :dataNascimento,  :label_html => {:class=>"control-label"}, :input_html => {:class=>"span2", :id => "mask_date"}, :label=>"Data Nascimento" %>
+
+                <legend>Telefones</legend>
+            <div id="contato_telefones">  
+                <%= f.fields_for :contato_telefones do  |c|%>
+                  <%= render :partial => "admin/contato_telefones/add_more", :locals => { :f => c} %>
+                  <%end%>
+            </div>
+            <div class="control-group">
+                  <div class="controls">
+                    <%= link_to_add_fields "Adicionar mais telefones", f, :contato_telefones, "admin/contato_telefones/add_more" %>
+                  </div>
+                </div
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

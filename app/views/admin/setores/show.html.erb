@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @setor.nome %>
+</p>
+
+<p>
+  <b>Sala:</b>
+  <%= @setor.sala %>
+</p>
+
+<p>
+  <b>Sigla:</b>
+  <%= @setor.sigla %>
+</p>
+
+<p>
+  <b>Codigo:</b>
+  <%= @setor.codigo %>
+</p>
+
+<p>
+  <b>Unidade:</b>
+  <%= @setor.unidade.nome %>
+</p>
+
+<p>
+
+
+<%= link_to 'Editar', edit_admin_setor_path(@setor) %> |
+<%= link_to 'Voltar', admin_setores_path %>

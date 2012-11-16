@@ -16,11 +16,13 @@ class ChamadosController < ApplicationController
 
   def new
     @chamado = Chamado.new
+    @unidades = Unidade.all
     respond_with @chamado, :location => new_admin_chamado_path
   end
 
   def edit
     @chamado = Chamado.find(params[:id])
+    @unidades = Unidade.all
   end
 
   def create

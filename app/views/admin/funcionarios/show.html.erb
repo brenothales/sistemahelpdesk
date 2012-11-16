@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Funcao:</b>
+  <%= @funcionario.user.name %>
+  <%= @funcionario.funcao %>
+
+</p>
+
+<p>
+  <b>Ctps:</b>
+  <%= @funcionario.ctps %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @funcionario.user.name %>
+</p>
+
+
+<%= link_to 'Editar', edit_admin_funcionario_path(@funcionario) %> |
+<%= link_to 'Voltar', admin_funcionarios_path %>

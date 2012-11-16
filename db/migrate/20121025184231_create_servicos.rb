@@ -6,6 +6,7 @@ class CreateServicos < ActiveRecord::Migration
       t.date    :published_on
       t.boolean :completado, default: false, null: false
       t.decimal :valorServico, :precision => 10, :scale => 2
+      t.integer :produto_id
       t.integer :chamado_id
 
       t.timestamps

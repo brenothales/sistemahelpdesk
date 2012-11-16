@@ -1,4 +1,5 @@
 class ContatoTelefone < ActiveRecord::Base
   belongs_to :cliente
-  attr_accessible :DDD, :fax, :numero, :ramal, :cliente
+  belongs_to :funcionario
+  attr_accessible :DDD, :fax, :numero, :ramal, :cliente, :funcionario
 end

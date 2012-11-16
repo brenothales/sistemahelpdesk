@@ -14,4 +14,5 @@
     inflect.irregular 'chamado', 'chamados'
     inflect.irregular 'endereco', 'enderecos'
     inflect.irregular 'interacao', 'interacoes'
+    inflect.irregular 'setor', 'setores'
 end

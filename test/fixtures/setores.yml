@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nome: MyString
+  sala: MyString
+  sigla: MyString
+  codigo: MyString
+  unidade: 
+  produto: 
+
+two:
+  nome: MyString
+  sala: MyString
+  sigla: MyString
+  codigo: MyString
+  unidade: 
+  produto: 

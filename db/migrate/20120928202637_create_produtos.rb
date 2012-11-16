@@ -13,11 +13,13 @@ class CreateProdutos < ActiveRecord::Migration
       t.text :observacao       
       t.boolean :situation, :default => true       
       t.references :category   
+      t.references :setor   
       t.references :user   
 
       t.timestamps
     end
     add_index :produtos, :category_id
     add_index :produtos, :user_id
+    add_index :produtos, :setor_id
   end
 end

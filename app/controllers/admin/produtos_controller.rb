@@ -25,11 +25,13 @@ class Admin::ProdutosController < ApplicationController
 
   def new
     @produto = Produto.new
+    @unidades = Unidade.all
     respond_with @produto, :location => new_admin_produto_path
   end
 
   def edit
     @produto = Produto.find(params[:id])
+    @unidades = Unidade.all
   end
 
   def create
@@ -45,7 +47,7 @@ class Admin::ProdutosController < ApplicationController
     else
       @user = User.new
     end
-    respond_with [@produto, @user], :location => new_admin_produto_path
+    respond_with [@produto, @user], :location => admin_produtos_path
   end
 
   def update

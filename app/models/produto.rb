@@ -1,17 +1,21 @@
 class Produto < ActiveRecord::Base
   belongs_to :category
+  belongs_to :setor
   belongs_to :user
-  has_many :chamados
+  belongs_to :produto, :class_name => "Produto"
+
+ 
 
   attr_accessible :acessorios, :marca, :modelo, :name, :nome,
   :numeroContrato, :numeroSerie, :observacao, :patrimonio, :seto, 
   :valorDespreciaco, :situation, :category_id, :valorDespreciacao, :user_id, 
-  :produto_name, :produto, :produto_id
+  :produto_name, :produto_id, :servicos_attributes, :setor_id, :unidade_id, :nome, :nome
+  # Produto tem muito Serviços e servicos depende da existência de Produto
+  has_many :servicos, :dependent => :destroy
+  accepts_nested_attributes_for :servicos, allow_destroy: true
 
- # validates_presence_of :acessorios, :marca, :modelo, 
- #                        :name, :numeroContrato, :numeroSerie, 
- #                        :observacao, :patrimonio, :seto, :category_name,
- #                        :valorDespreciacao, :category_id
+  validates_presence_of  :marca, :modelo, :name, :numeroContrato, :numeroSerie, 
+                         :patrimonio, :valorDespreciacao, :category_id
                       
  # validates_numericality_of :valorDespreciacao, :numeroContrato, :greater_than => 0, :allow_nil => true
 
@@ -30,12 +34,12 @@ class Produto < ActiveRecord::Base
     end
   end
 
-  def category_name
-    category.try(:name)
+  def produto_name
+    produto.try(:name)
   end
  
-  def category_name=(name)
-    self.category = Category.find_or_create_by_name(name) if name.present?
+  def produto_name=(name)
+    self.produto = Produto.find_or_create_by_name(name) if name.present?
   end
 
   

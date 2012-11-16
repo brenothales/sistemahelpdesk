@@ -15,6 +15,7 @@
 //= require js/jquery.min
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require select2
 //= require js/jquery.debouncedresize.min
 //= require js/jquery.actual.min
@@ -51,6 +52,7 @@
 //= require clientes
 //= require comments
 //= require servicos
+//= require produtos
 
 //= require ordemservico
 //= require jquery.pjax

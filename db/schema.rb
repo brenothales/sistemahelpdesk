@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106160216) do
+ActiveRecord::Schema.define(:version => 20121113032237) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
@@ -55,17 +55,22 @@ ActiveRecord::Schema.define(:version => 20121106160216) do
     t.boolean  "solucionado",                                                      :default => false
     t.boolean  "finalizaSolicitacao",                                              :default => false
     t.boolean  "cancelar",                                                         :default => false
+    t.boolean  "querofinalizar",                                                   :default => false
     t.decimal  "valorGeral",                        :precision => 10, :scale => 2
     t.string   "produto",             :limit => 30
     t.string   "status",              :limit => 30
     t.string   "slug"
     t.integer  "user_id"
-    t.integer  "produto_id"
+    t.integer  "setor_id"
+    t.integer  "cliente_id"
+    t.integer  "funcionario_id"
     t.datetime "created_at",                                                                          :null => false
     t.datetime "updated_at",                                                                          :null => false
   end
 
-  add_index "chamados", ["produto_id"], :name => "index_chamados_on_produto_id"
+  add_index "chamados", ["cliente_id"], :name => "index_chamados_on_cliente_id"
+  add_index "chamados", ["funcionario_id"], :name => "index_chamados_on_funcionario_id"
+  add_index "chamados", ["setor_id"], :name => "index_chamados_on_setor_id"
   add_index "chamados", ["user_id"], :name => "index_chamados_on_user_id"
 
   create_table "clientes", :force => true do |t|
@@ -116,11 +121,13 @@ ActiveRecord::Schema.define(:version => 20121106160216) do
     t.string   "ramal"
     t.boolean  "fax"
     t.integer  "cliente_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "funcionario_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "contato_telefones", ["cliente_id"], :name => "index_contato_telefones_on_cliente_id"
+  add_index "contato_telefones", ["funcionario_id"], :name => "index_contato_telefones_on_funcionario_id"
 
   create_table "enderecos", :force => true do |t|
     t.string   "logradouro", :limit => 50
@@ -135,6 +142,22 @@ ActiveRecord::Schema.define(:version => 20121106160216) do
   end
 
   add_index "enderecos", ["cliente_id"], :name => "index_enderecos_on_cliente_id"
+
+  create_table "funcionarios", :force => true do |t|
+    t.string   "funcao",         :limit => 30
+    t.string   "ctps",           :limit => 38
+    t.string   "cpf",            :limit => 14
+    t.string   "rg",             :limit => 20
+    t.string   "sexo",           :limit => 20
+    t.string   "curso",          :limit => 20
+    t.string   "dataNascimento", :limit => 10
+    t.text     "complemento",    :limit => 140
+    t.integer  "user_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "funcionarios", ["user_id"], :name => "index_funcionarios_on_user_id"
 
   create_table "pecas", :force => true do |t|
     t.string   "nome"
@@ -171,12 +194,14 @@ ActiveRecord::Schema.define(:version => 20121106160216) do
     t.text     "observacao"
     t.boolean  "situation",                                                       :default => true
     t.integer  "category_id"
+    t.integer  "setor_id"
     t.integer  "user_id"
     t.datetime "created_at",                                                                        :null => false
     t.datetime "updated_at",                                                                        :null => false
   end
 
   add_index "produtos", ["category_id"], :name => "index_produtos_on_category_id"
+  add_index "produtos", ["setor_id"], :name => "index_produtos_on_setor_id"
   add_index "produtos", ["user_id"], :name => "index_produtos_on_user_id"
 
   create_table "roles", :force => true do |t|
@@ -192,10 +217,23 @@ ActiveRecord::Schema.define(:version => 20121106160216) do
     t.date     "published_on"
     t.boolean  "completado",                                                :default => false, :null => false
     t.decimal  "valorServico",               :precision => 10, :scale => 2
+    t.integer  "produto_id"
     t.integer  "chamado_id"
     t.datetime "created_at",                                                                   :null => false
     t.datetime "updated_at",                                                                   :null => false
   end
+
+  create_table "setores", :force => true do |t|
+    t.string   "nome"
+    t.string   "sala"
+    t.string   "sigla"
+    t.string   "codigo"
+    t.integer  "unidade_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "setores", ["unidade_id"], :name => "index_setores_on_unidade_id"
 
   create_table "tasks", :force => true do |t|
     t.string   "name"
@@ -206,6 +244,16 @@ ActiveRecord::Schema.define(:version => 20121106160216) do
 
   create_table "tipo_clientes", :force => true do |t|
     t.string   "nome"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "unidades", :force => true do |t|
+    t.string   "nome"
+    t.string   "sigla"
+    t.string   "fone"
+    t.string   "cnpj"
+    t.integer  "ramal"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

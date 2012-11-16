@@ -1,7 +1,19 @@
 <% if @servico.completado? %>
   $('#edit_servico_<%= @servico.id %>').appendTo('#complete_servicos');
+  $.each( $('#edit_servico_<%= @servico.id %>  > .pop_over') , function(){
+  	var c = $(this).attr('data-content');
+  	c = c.replace('label-important','label-success');
+  	c = c.replace(' Incompleto',' Completo');
+  	$(this).attr('data-content',c);
+  });
 <% else %>
   $('#edit_servico_<%= @servico.id %>').appendTo('#incomplete_servicos');
+  $.each( $('#edit_servico_<%= @servico.id %>  > .pop_over') , function(){
+  	var c = $(this).attr('data-content');
+  	c = c.replace('label-success','label-important');
+  	c = c.replace(' Completo',' Incompleto');
+  	$(this).attr('data-content',c);
+  	});
 <% end %>
 
 // $('form').html('<%= escape_javascript render("form") %>');

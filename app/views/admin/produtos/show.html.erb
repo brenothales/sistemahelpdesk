@@ -19,6 +19,8 @@
     <%= show_field_value("Setor", @produto.seto) %>
     <%= show_field_value("Valor de Depreciado",  (number_to_currency @produto.valorDespreciacao)) %>
     <%= show_field_value("Observação", @produto.observacao) %>
+    <%= show_field_value("Unidade", @produto.setor.unidade.nome) %>
+    <%= show_field_value("Setor", @produto.setor.nome) %>
     
   </tbody>
 </table>

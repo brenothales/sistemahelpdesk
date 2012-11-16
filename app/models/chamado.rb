@@ -1,19 +1,22 @@
 # encoding: UTF-8  
 class Chamado < ActiveRecord::Base
   belongs_to :user
-  # belongs_to :cliente
-  belongs_to :produto
+  belongs_to :setor
+  belongs_to :funcionario
+  belongs_to :cliente
+  belongs_to :funcionario
   has_many :comments, :dependent => :destroy
   attr_accessible :assunto, :cortesia, :descricao, :finalizaSolicitacao, 
   				  :observacao, :prioridade, :solucionado, 
-  				  :tipoAtendimento, :valorGeral, :produto_id, :user_id, :produto, :status, :servicos_attributes, :cancelar
-validates_presence_of  :assunto, :descricao, :prioridade, :tipoAtendimento, :slug
+  				  :tipoAtendimento, :valorGeral, :produto_id, :user_id, :produto, :status,
+             :servicos_attributes, :cancelar, :setor_id, :cliente_id, :funcionario_id, :querofinalizar
+validates_presence_of  :assunto, :descricao, :prioridade, :tipoAtendimento, :slug, :setor_id
 
 has_many :servicos, :dependent => :destroy
   accepts_nested_attributes_for :servicos, allow_destroy: true
 
 # TIPODEATENDIMENTO = %w(1,2,3,4".split(",").map { |s| s.to_i })
-TIPODEATENDIMENTO = %w('Online' 'Balcão' 'Domiciliar' 'Visita-cliente')
+TIPODEATENDIMENTO = %w(Online Balcão Domiciliar Visita-cliente)
 PRIORIDADE = %w(Normal Urgente Extraurgente)
 # STATUS = %w(0 10 20 30 40 50 60 70 80 90 100)
 STATUS = %w("Aguardando Atendimento", "Aguardando Peça", "Aguardando Aprovação Orçamento",  "Aprovação", "Finalização", "Listagens")
@@ -23,6 +26,8 @@ validates_numericality_of :valorGeral, :greater_than => -1, :allow_nil => true
 def identificacao_chamado
   " N #{id} - #{assunto} - #{user.name}"
 end
+
+
 before_validation :generate_slug
 
 

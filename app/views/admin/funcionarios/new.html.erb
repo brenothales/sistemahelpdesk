@@ -1,0 +1,10 @@
+<h1>Novo Funcionário</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Voltar', admin_funcionarios_path %>
+
+
+<%= content_for :head do %>
+   <%=  stylesheet_link_tag "css/blue.css" %>
+<% end %>

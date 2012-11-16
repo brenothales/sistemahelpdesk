@@ -42,5 +42,20 @@ class User < ActiveRecord::Base
     self.role.name.to_sym.eql?(role)
   end
 
+  def get_cliente
+    @cliente = Cliente.find_by_user_id(self.id)
+  end
+
+  def is_cliente
+    self.get_cliente() != nil
+  end
+
+  def get_funcionario
+    @funcionario = Funcionario.find_by_user_id(self.id)
+  end
+
+  def is_funcionario
+    self.get_funcionario() != nil
+  end
 end
 

@@ -6,21 +6,22 @@ class Admin::ChamadosController < ApplicationController
     @chamados = Chamado.all
     @produtos = Produto.all
     @produto = Produto.new
+    @unidades = Unidade.all
     respond_with @chamados, :location => admin_chamados_path
   end
 
   def show
     @chamado = Chamado.find(params[:id])
-    @user = User.find( @chamado.user_id )
-    @cliente = Cliente.find_by_user_id( @user.id )
-    respond_with @chamado, @user, @cliente, :location => admin_chamado_path
+    # @user = User.find( @chamado.user_id )
+    # @cliente = Cliente.find_by_user_id( @user.id )
+    respond_with @chamado, @user, @cliente, @funcionario, :location => admin_chamado_path
   end
 
   def new
     @chamado = Chamado.new
-    @chamado.build_produto
+    # @chamado.build_produto
     @users = User.all
-
+    @unidades = Unidade.all
     @produto = Produto.new   
     @produtos = Produto.all
      respond_with [@chamado, @produto] 
@@ -28,9 +29,10 @@ class Admin::ChamadosController < ApplicationController
 
   def edit
     @chamado = Chamado.find(params[:id])
-    @produto = Produto.find( @chamado.produto_id )
+    # @produto = Produto.find( @chamado.produto_id )
     # @produto = Produto.new
-    @chamado.build_produto
+    @unidades = Unidade.all
+    # @chamado.build_produto
     @users = User.all
   end
 
@@ -43,7 +45,7 @@ class Admin::ChamadosController < ApplicationController
 
   def update
     @chamado = Chamado.find(params[:id])
-    @produto = Produto.find( @chamado.produto_id )
+    # @produto = Produto.find( @chamado.produto_id )
     flash[:notice] = "Chamado atualizado com sucesso!" if @chamado.update_attributes(params[:chamado])
     respond_with @chamado, :location => [:admin, @chamado]
   end
@@ -60,88 +62,3 @@ protected
   end
 end
 
-
-# class Admin::ChamadosController < ApplicationController
-#   layout 'admin'
-#   # GET /chamados
-#   # GET /chamados.json
-#   def index
-#     @chamados = Chamado.all
-
-#     respond_to do |format|
-#       format.html # index.html.erb
-#       format.json { render json: @chamados }
-#     end
-#   end
-
-#   # GET /chamados/1
-#   # GET /chamados/1.json
-#   def show
-#     @chamado = Chamado.find(params[:id])
-
-#     respond_to do |format|
-#       format.html # show.html.erb
-#       format.json { render json: @chamado }
-#     end
-#   end
-
-#   # GET /chamados/new
-#   # GET /chamados/new.json
-#   def new
-#     @chamado = Chamado.new
-
-#     respond_to do |format|
-#       format.html # new.html.erb
-#       format.json { render json: @chamado }
-#     end
-#   end
-
-#   # GET /chamados/1/edit
-#   def edit
-#     @chamado = Chamado.find(params[:id])
-#   end
-
-#   # POST /chamados
-#   # POST /chamados.json
-#   def create
-#     @chamado = Chamado.new(params[:chamado])
-
-#     respond_to do |format|
-#       if @chamado.save
-#         format.html { redirect_to @chamado, notice: 'Chamado was successfully created.' }
-#         format.json { render json: @chamado, status: :created, location: @chamado }
-#       else
-#         format.html { render action: "new" }
-#         format.json { render json: @chamado.errors, status: :unprocessable_entity }
-#       end
-#     end
-#   end
-
-#   # PUT /chamados/1
-#   # PUT /chamados/1.json
-#   def update
-#     @chamado = Chamado.find(params[:id])
-
-#     respond_to do |format|
-#       if @chamado.update_attributes(params[:chamado])
-#         format.html { redirect_to @chamado, notice: 'Chamado was successfully updated.' }
-#         format.json { head :no_content }
-#       else
-#         format.html { render action: "edit" }
-#         format.json { render json: @chamado.errors, status: :unprocessable_entity }
-#       end
-#     end
-#   end
-
-#   # DELETE /chamados/1
-#   # DELETE /chamados/1.json
-#   def destroy
-#     @chamado = Chamado.find(params[:id])
-#     @chamado.destroy
-
-#     respond_to do |format|
-#       format.html { redirect_to chamados_url }
-#       format.json { head :no_content }
-#     end
-#   end
-# end

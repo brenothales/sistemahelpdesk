@@ -10,22 +10,20 @@
                     <% if current_user.is_role?(:administrador) %>
                     <fieldset>
                       <legend>Usuário</legend>
-                              <%= f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %>
+                              <!-- f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %> -->
+                              <%= f.select( :cliente_id, Cliente.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
+                      <legend>Técnico</legend>
+                        <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
                     </fieldset>
                   <% end -%>
                   <fieldset>
                       <legend>Solicitação</legend>
-                      <%= f.input :assunto, :input_html => { :class=> "span8" }  %>
-                      <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
-                      <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atedimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atedimento" %> 
 
-                      <% if current_user.is_role?(:administrador) %>
-                        <%= f.input :cortesia %>
-                        <%= f.input :finalizaSolicitacao, :label => "Finalizar" %>
-                        <%= f.input :solucionado %>
-                        <%= f.input :status, :as=> "select", :collection => Chamado::STATUS, :input_html => {:id=>"ui_slider3_sel", :class=>"span2"}, :prompt => "status", :value=> 0 %>
-                        <%= f.input :valorGeral, :label => "Valor Geral", :input_html => { :class => 'input-mini', :maxlength => 15} %>
-                      <% end -%>
+                       <%= f.input :setor_id, :collection => @unidades, :as => :grouped_select, :group_method => :setores, :input_html => { :class => 'chzn_a span5' }, :label => "Setor", :prompt=> "Escolher o setor", :value_method => :id, :include_blank => false  %> 
+                      <%= f.input :assunto, :input_html => { :class=> "span5", :placehold => "Assunto do Chamado" }  %>
+                      <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
+                      <%= f.input :status, :priority => [ "Aguardando Atendimento" ], :collection => [ "Aguardando Atendimento", "Cancelado", "Finalizado"], label: "Status", prompt: "Tipo de Status" if current_user.is_role?(:administrador) %>
+                      <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atedimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atedimento" %> 
                     </fieldset>
                   <!-- Se for admin do sistema -->
                     <% if current_user.is_role?(:administrador) %>
@@ -47,7 +45,7 @@
                     <%else%>
                     <!-- pegar o id do cliente -->
                       <%= f.hidden_field :user_id, :value => current_user.id %>
-                      <%= f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id), :prompt => "Escolha Produto" %>
+                      <!-- f.association :produto, :label_method => :name, :value_method => :id, :include_blank => false, :collection => Produto.where(:user_id => current_user.id), :prompt => "Escolha Produto" %> -->
      
 
                     <% end -%>
@@ -93,13 +91,12 @@
 
   
 <% end %>
-<% if current_user.is_role?(:administrador) %>
-      <div id="dialog-cadastro" title="Cadastro de Pessoas"> 
-        <!-- <form action="../../produtos.js" method="post" id="new_contato">  -->
+ <!-- current_user.is_role?(:administrador) %> -->
+      <!-- <div id="dialog-cadastro" title="Cadastro de Pessoas">  -->
+        <form action="../../produtos.js" method="post" id="new_contato"> 
              <!-- render "new_produto" %>  -->
-        <!-- </form> -->
-      </div>
-
-
-<% end -%>
+        </form>
+      <!-- </div> -->
+<!--  -->
+ <!-- end -%> -->
 

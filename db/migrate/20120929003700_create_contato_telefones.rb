@@ -6,9 +6,11 @@ class CreateContatoTelefones < ActiveRecord::Migration
       t.string :ramal
       t.boolean :fax
       t.references :cliente
+      t.references :funcionario
 
       t.timestamps
     end
     add_index :contato_telefones, :cliente_id
+    add_index :contato_telefones, :funcionario_id
   end
 end

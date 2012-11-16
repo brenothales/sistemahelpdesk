@@ -1,132 +1,64 @@
-<h1>Servicos</h1>
-
-<%= content_tag :div, "", id: "servicos_chart", data: {servicos: Servico.chart_data} %>
-
-
-<!-- <div id="post_form">< render :partial => 'peca' %></div> -->
-<!-- 
-<h1>Posts</h1>
- <div id="dialog-modal" title="Basic modal dialog">
-<div id="post_form">
-   render 'formpeca' %>
-</div>
- </div>
-<ul id="posts">
-   render :partial => @pecas.reverse %>
-</ul>
- -->
-
-<br>
 <div class="span12">
-  <div class="span12"><button class="btn btn-large btn pull-right " type="button" class="icon-refresh" onClick="history.go(0)"><i class="icon-refresh i"></i> Atualizar </button></div>
-  <h3 class="heading">Compromissos</h3>
+  <h2>
+    Todas Solicitações | <%= "#{@produto.name}" %>
+  </h2>
+  <table class="table table-bordered table-striped nav-tabs nav-stacked">
+    <tr>
+      <th>Assunto</th>
+      <th>Peças</th>
+      <th>Size</th>
+      <th>Type</th>
+    </tr>
+    <% @servicos.each do |servico| %>
+      <tr>
+        <td><%= servico.nome %></td>
+        <td><%= servico.observacao %></td>
+        <td><%= servico.pecas.count %></td>
+        <td></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to [:admin, @produto, servico], :class=>'btn btn-primary' do %>
+              <i class="icon-white icon-user"></i> Abrir
+            <% end -%>
+              
 
-  <div class="tabbable">
-    <ul class="nav nav-tabs">
-      <li class=""><a href="#tab1" data-toggle="tab">Calendario de Servicos</a></li>
-      <li class=""><a href="#tab2" data-toggle="tab">Tarefas</a></li>
-      <li class="active"><a href="#tab3" data-toggle="tab">Adicionar Tarefas</a></li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane" id="tab1">
-        <div class="pull-left">
-          <div class="row-fluid">
-            <div class="span12">
-              <h2 class="heading">Calendario</h2>
-              <div id="servicos">
-                <div class="fc-header" style="width:100%">
-                  <div>
-                    <div class="fc-header-left"> <span class="fc-btn fc-button-prev fc-corner-left fc-corner-right"> <%= link_to  date: @date.prev_month do %> <i class="icon-chevron-left cal_prev"></i>
-                      <% end -%>
-                      </span> <span class="fc-header-space"></span> <span class="fc-btn fc-button-next fc-corner-left fc-corner-right"> <%= link_to  date: @date.next_month do %> <i class="icon-chevron-right cal_next"></i>
-                      <% end -%>
-                      </span> </div>
-                    <div class="fc-header-center"><span class="fc-header-title">
-                      <h2><%= I18n.localize(@date, :format => " %B %Y") %></h2>
-                      </span><!-- <span class="fc-btn fc-button-today fc-corner-left fc-corner-right fc-state-disabled">today</span> --></div>
-                    <!--  <div class="fc-header-right"><span class="fc-btn fc-button-month fc-corner-left fc-state-active">Mês</span><span class="fc-btn fc-button-agendaWeek">Semana</span><span class="fc-btn fc-button-agendaDay fc-corner-right">Dia</span></div> --> 
-                  </div>
-                </div>
-                <!-- <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="Novos Chamados">25 <i class="splashy-mail_light"></i></a> --> 
-                
-                <%= calendar @date do |date| %> <%= date.day %>
-                <% if @servicos_by_date[date] %>
-                <ul>
-                  <% @servicos_by_date[date].each do |servico| %>
-                  <li> <%= div_for(servico)  do  %> <span class="label label-warning"> <%= link_to("#{servico.nome.html_safe}","#my", :class => " pop_over ", :title => "Detalhes", "data-placement"=> 'top',  "data-content" => "Assundo: <b>#{servico.nome}</b> <br/>
-                        Data da Atividade: <b>#{ I18n.localize(servico.published_on, :format => "%d/%m/%Y")  if servico.published_on}</b>
-                        Data da Criação: <b>#{time_ago_in_words servico.created_at  if servico.created_at}</b>
-                        Chamado: <b>#{servico.observacao  if servico.observacao}</b>").html_safe %> </span>
-                    <% end -%>
-                  </li>
-                  <% end %>
-                </ul>
-                <% end %>
-                <% end %>
-              </div>
-            </div>
+            <a class="btn btn-primary dropdown-toggle" "data-toggle" = "dropdown" href = "myModal">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to edit_admin_produto_servico_path(@produto, servico) do %>
+                  <i class="icon-pencil"></i> Editar
+                <% end -%>
+              </li>
+              <li>
+                <%= link_to [:admin, @produto, servico], :confirm => 'Are you | sure?', :method => :delete do %>
+                  <i class="icon-trash"></i> Deletar 
+                <% end -%>
+              </li>
+              <li>
+                <a href = "#">
+                  <i class="icon-ban-circle"></i>Ban
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href = "#myModal"><i class="i">
+                  </i>
+                  Make admin                      |
+                </a>
+              </li>
+            </ul>
           </div>
-        </div>
-      </div>
-      <div class="tab-pane" id="tab2">
-        <div>
-          <div class="span12 pull-left">
-            <!-- <h1>Ordem de Serviço</h1> -->
-             <!-- link_to "Novo Serviços", new_admin_servico_path, id: "new_link", :class=> "btn", remote: true %> -->
-            <p></p>
-          </div>
-          <div class="pull-left span11">
-            <div class="span6">
-              <h2>Serviços Pendentes <span class="label label-important">&nbsp &nbsp</span> </h2>
-              <div class="servico form-inline well " id="incomplete_servicos"> <%= render @incomplete_servicos.reverse %> </div>
-              <span class='paginate'><%= page_navigation_links(@incomplete_servicos)%></span> </div>
-            <div class="span6">
-              <h2 class="panel">Serviços Finalizados <span class="label label-success">&nbsp &nbsp</span></h2>
-              <div class="servico form-inline well" id="complete_servicos"> <%= render @complete_servicos.reverse %> </div>
-              <span class='paginate'><%= page_navigation_links(@complete_servicos)%></span> </div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane active" id="tab3">
-          <h1>Servicos</h1>
-         <div class="">
-          <div class="span6 pull-left">
-            <div id="servico_form"> <%= simple_form_for [:admin, @servico], remote: true do |f| %>
-
-  <%= f.input :nome, label:"Nome do Serviço" %>
-  <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:finalizaSolicitacao == false), :prompt => "Escolher Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
-  <%= f.label "Data" %>
-  <%= f.text_field :published_on, label:"Data" %>
-  <%= f.input :valorServico%>
-  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
-
-
-
-
-
-  <%= f.submit :class=> "btn" %>
-
-
-<% end %>
-</div>
-         </div>
-        <div class="span6 pull-right well">
-          <% @servicos.each do |servico| %>
-            <%= div_for(servico)  do  %>
-              <ul>
-                <lo>  <span class="label label-info"> <%= servico.id %> </span> <%= link_to (servico.nome), [:admin, servico], :remote => true %></lo>
-              </ul>
-              <div class="details"></div>
-            <% end %>
-        <% end %>
-
-        </div>
-      
-        <ul id="servicos">
-           <!-- render :partial => @servicos %> -->
-        </ul>
-        </div> 
-      </div>
-    </div>
+        </td>
+      </tr>
+      <% end -%>
+  </table>
+  <br/>
+  <div class="btn btn-large">
+    <%= link_to new_admin_produto_servico_path(@produto, @servico) do %>
+      <i class="icon-plus-sign"></i> Abri nova ordem de serviço
+    <% end -%>
   </div>
 </div>
+​

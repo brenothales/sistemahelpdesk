@@ -1,3 +1,7 @@
+ <!-- "Eh funcionario e cliente" if current_user.is_cliente and current_user.is_funcionario %> -->
+<% if current_user.is_role?(:funcionario) %>
+ "Eh funcionario e cliente" 
+<% end -%>
 <% if current_user.is_role?(:administrador) %>
 
 <% unless @clientes.empty? %>
@@ -53,9 +57,14 @@
 <% end %>
 <% end %>
   <% else %> <!-- se não é administrador visualiza perfil -->
-<!-- Busca o Ultimo id  -->
-<% @ultimo_clinete = @clientes.last.user_id %>
-<%= link_to "Configurar Sua Conta", new_admin_cliente_path, :class=> "btn btn-large btn-block  btn-primary span6"   if @ultimo_clinete  != current_user.id   %> 
+<%= link_to "Configurar Sua Conta", new_admin_cliente_path, :class=> "btn btn-large btn-block  btn-primary span6"   if not current_user.is_cliente   %> 
+
+ 
+ <!-- "Eh apenas cliente" if current_user.is_cliente and not current_user.is_funcionario %> -->
+ <!-- "Eh apenas funcionario" if not current_user.is_cliente and current_user.is_funcionario %> -->
+
+<!-- current_user.get_cliente.cpf %> -->
+ <!-- current_user.get_cliente.tipo_cliente.nome %> -->
 
 <% if can? :update, @clientes %>
   <% if @ultimo_clinete != @ultimo_clinete %>

@@ -1,4 +1,10 @@
 PrimeiraApp::Application.routes.draw do
+  
+
+
+
+  
+
   get "comments/index"
 
   resources :posts, :only => [:index, :show]
@@ -21,17 +27,22 @@ resources :chamados
         resources :comments
         resources :produtos
     end
+    resources :funcionarios
     resources :clientes
-    resources :produtos
+    resources :produtos do
+      resources :servicos 
+    end
     resources :archives
     resources :categories
     resources :users
+    resources :unidades
+    resources :setores
     resources :posts
     resources :tasks
     resources :servicos do
       collection { post :sort }
     end
-    match 'produtos/produtouser/:id' => "produtos#produtouser"
+
   end
 
   # The priority is based upon order of creation:

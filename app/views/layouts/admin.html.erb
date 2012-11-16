@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
            <title>Painel Administrativo </title>
            <%= stylesheet_link_tag    "application", :media => "all" %>
-            <%= yield(:header) if @content_for_header %>
+             <!-- yield(:header) if @content_for_header %> -->
 
-            
+            <%= yield(:head) %> 
       
            <%= csrf_meta_tags %>
       
@@ -354,7 +354,7 @@
                           <li class="nav-header">Pessoas</li>
                           <li><%= link_to "Cadastrar Usuário", admin_users_path %></li>
                           <li><%= link_to "Cadastrar Clientes", admin_clientes_path %></li>
-                          <li><%= link_to "Cadastrar Funcionário", admin_clientes_path %></li>
+                          <li><%= link_to "Cadastrar Funcionário", admin_funcionarios_path %></li>
                           <li class="nav-header">Sistema</li>
                           <li><a href="javascript:void(0)">Informação</a></li>
                           <li><a href="javascript:void(0)">Menu</a></li>

@@ -10,6 +10,7 @@ class Cliente < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :tipo_cliente
+  has_one :setor
   has_one :endereco
   accepts_nested_attributes_for :endereco 
 

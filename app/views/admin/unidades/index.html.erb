@@ -1,0 +1,90 @@
+<div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        
+        <li><%= link_to  :controller => "unidades", :action => "index", :id => @unidades do %>
+                <i class="icon-home"></i> Todas Unidades 
+            <% end -%>
+
+        </li>
+        <li><%= link_to  :controller => "setores", :action => "index", :id => @setores do %>
+                <i class="icon-map-marker"></i> Todos Setores 
+            <% end -%>
+
+        </li>
+         <li>
+            <%= link_to new_admin_setor_path do %>
+            <i class=" icon-plus"></i> Cadastrar Setor
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_unidade_path(@unidade) do %>
+            <i class=" icon-plus"></i> Cadastrar Unidades
+            <% end -%>
+        </li>
+    </ul>
+</div>
+<div data-pjax-container>
+  <div class="row-fluid">
+
+                        <div class="span12">
+                            <h3 class="heading">Unidades</h3>
+                            <table class="table table-striped table-bordered dTableR" id="dt_d">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Unidade</th>
+                                        <th>Sigla</th>
+                                        <th>CNPJ</th>
+                                        <th>Telefone</th>
+                                        <th>Ramal</th>
+                                        <th>Ações</th>
+
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% @unidades.each do |unidade| %>
+                                  <% if can? :update, unidade %>
+                                    <tr>
+                                      <td class='name'><%= unidade.id %></td>
+                                      <td class='name'><%= unidade.name %></td>
+                                      <td class='name'><%= unidade.sigla %></td>
+                                      <td class='name'><%= unidade.cnpj %></td>
+                                      <td class='name'><%= unidade.fone %></td>
+                                      <td class='name'><%= unidade.ramal %></td>
+                                      <td class='situation'>
+                                              <div class="btn-group dropup">
+                                                <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+                                                  Ações
+                                                  <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                  <li class="divider"></li>
+                                                  <li> <%= link_to [:admin, unidade] do %>
+                                                       <i class="icon-eye-open"></i> Detalhes
+                                                        <% end -%>
+                                                  </li>
+                                                  <li> <%= link_to edit_admin_unidade_path(unidade) do %>
+                                                        <i class="icon-edit"></i> Editar
+                                                       <% end -%>
+                                                  </li>
+                                                  
+                                                
+                                                  <li> 
+                                                    <%= link_to [:admin, unidade], :confirm => 'Você tem certeza?', :method => :delete do %>
+                                                    <i class="icon-trash"></i> Deletar 
+                                                    <% end -%>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                      </td>
+
+                                    </tr>
+                                   <% end %>
+                                 <% end %>
+
+                                </tbody>
+                            </table>
+                        </div>
+  </div>
+</div>

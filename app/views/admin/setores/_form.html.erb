@@ -1,0 +1,17 @@
+<%= simple_form_for [:admin, @setor] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :unidade, :label_method => :nome, :value_method => :id, :include_blank => false, :collection => Unidade.all, :input_html => { :class=>"chzn_a span4", :prompt => "Escolha a Unidade"} %>
+    <%= f.input :nome, input_html: { class: "span4", placeholder: "Nome do Setor"} %>
+    <%= f.input :sala, :input_html => { :class=>"span2", placeholder: "Nº da sala"} %>
+    <%= f.input :sigla,:input_html => { :class=>"span1", placeholder: "Sigla"} %>
+    <%= f.input :codigo, label: "Código", :input_html => { :class=>"span2", placeholder: "Código"} %>
+    
+    
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

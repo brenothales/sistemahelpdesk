@@ -1,12 +1,13 @@
 class Servico < ActiveRecord::Base
  
-  attr_accessible :descricacao, :nome, :chamado_id, :pecas_attributes, :valorServico, :observacao, :completado, :published_on
+  attr_accessible :descricacao, :nome, :chamado_id, :produto_id, :pecas_attributes, :valorServico, :observacao, :completado, :published_on
   belongs_to :chamado
+  belongs_to :produto
   has_many :pecas, :dependent => :destroy
 
   accepts_nested_attributes_for :pecas, allow_destroy: true
   
-validates_presence_of :nome, :chamado
+  validates_presence_of :nome
   validates_numericality_of :valorServico, :greater_than => 0, :allow_nil => true
 
 

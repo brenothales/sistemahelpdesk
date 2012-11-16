@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @unidade.nome %>
+</p>
+
+<p>
+  <b>Sigla:</b>
+  <%= @unidade.sigla %>
+</p>
+
+<p>
+  <b>Fone:</b>
+  <%= @unidade.fone %>
+</p>
+
+<p>
+  <b>Cnpj:</b>
+  <%= @unidade.cnpj %>
+</p>
+
+<p>
+  <b>Ramal:</b>
+  <%= @unidade.ramal %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_unidade_path(@unidade) %> |
+<%= link_to 'Back', admin_unidades_path %>
