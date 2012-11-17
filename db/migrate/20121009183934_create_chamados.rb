@@ -1,7 +1,7 @@
 class CreateChamados < ActiveRecord::Migration
   def change
     create_table   :chamados do |t|
-      t.string     :assunto, :limit => "150"
+      t.string     :assunto
       t.text       :descricao, :limit => "30"
       t.string     :prioridade, :limit => "30"
       t.string     :tipoAtendimento, :limit => "30"
