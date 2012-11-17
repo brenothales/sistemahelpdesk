@@ -13,7 +13,6 @@
 
 
 //= require js/jquery.min
-//= require jquery
 //= require jquery_ujs
 //= require jquery-ui
 //= require select2
@@ -57,7 +56,7 @@
 
 //= require jquery.pjax
 //= require tasks
-//= require jquery.ui.datepicker
+
 
 
 //= require raphael

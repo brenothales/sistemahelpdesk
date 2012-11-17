@@ -7,7 +7,7 @@ class Admin::SetoresController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @setores,  :location => admin_produto_path }
+      format.json { render json: @setores,  :location => admin_setores_path }
     end
   end
 
@@ -54,7 +54,7 @@ class Admin::SetoresController < ApplicationController
 
     respond_to do |format|
       if @setor.update_attributes(params[:setor])
-        format.html { redirect_to [:admin, @setores], notice: 'Setor was successfully updated.' }
+        format.html { redirect_to [:admin, @setores], notice: 'Setor Atualizando com Sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
