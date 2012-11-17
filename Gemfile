@@ -41,9 +41,9 @@ group :development, :test do
   gem 'mysql2'
 end
 
-group :production do 
+# group :production do 
   gem 'pg'
-end
+# end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
