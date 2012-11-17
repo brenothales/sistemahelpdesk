@@ -9,7 +9,7 @@ class CreateFuncionarios < ActiveRecord::Migration
       t.string :curso, :limit => "20"
       t.string :dataNascimento, :limit => "10"
       t.string :funcao, :limit => "30"
-      t.text   :complemento, :limit => "140"
+      t.text   :complemento
 
 
 
