@@ -5,7 +5,7 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+# gem 'sqlite3'
 gem 'simple_form'
 gem 'devise'
 gem "cancan"
@@ -28,14 +28,22 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-ui-rails'
   # gem 'twitter-bootstrap-rails'
-   gem 'bootstrap-sass'
+  gem 'bootstrap-sass'
   gem 'will_paginate'
 end
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-rails'
 #gem 'pjax_rails'
 gem 'rack-pjax'
+gem 'heroku'
 
+group :development, :test do
+  gem 'mysql2'
+end
+
+group :production do 
+  gem 'pg'
+end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

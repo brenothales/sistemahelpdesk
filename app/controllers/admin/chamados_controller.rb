@@ -12,8 +12,8 @@ class Admin::ChamadosController < ApplicationController
 
   def show
     @chamado = Chamado.find(params[:id])
-    # @user = User.find( @chamado.user_id )
-    # @cliente = Cliente.find_by_user_id( @user.id )
+    @user = User.find( @chamado.user_id )
+    @cliente = Cliente.find_by_user_id( @user.id )
     respond_with @chamado, @user, @cliente, @funcionario, :location => admin_chamado_path
   end
 
@@ -36,12 +36,24 @@ class Admin::ChamadosController < ApplicationController
     @users = User.all
   end
 
+  # def create
+  #   @chamado = Chamado.new(params[:chamado])  
+  #   @users = User.all
+  #   flash[:notice] = "Chamado salvo com sucesso!" if @chamado.save
+  #   respond_with @chamado, :location => [:admin, @chamado]
+  # end
+
   def create
     @chamado = Chamado.new(params[:chamado])  
     @users = User.all
-    flash[:notice] = "Chamado salvo com sucesso!" if @chamado.save
+    if @chamado.save
+      flash[:notice] = "Chamado salvo com sucesso!" 
+    else
+      format.html { render action: "new" }
+    end
     respond_with @chamado, :location => [:admin, @chamado]
   end
+
 
   def update
     @chamado = Chamado.find(params[:id])

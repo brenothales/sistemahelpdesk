@@ -119,3 +119,12 @@
 <% end %>
 
 
+<%= content_for :head do %>
+  <%=  javascript_include_tag "js/forms/jquery.ui.touch-punch.min" %>
+  <%=  javascript_include_tag "js/forms/jquery.inputmask.min" %>
+  <%=  javascript_include_tag "js/forms/jquery.autosize.min" %>
+  <%=  javascript_include_tag "js/forms/jquery.counter.min" %>
+  <%=  javascript_include_tag "lib/multiselect/js/jquery.multi-select.min" %>
+<!-- Para escolher o tipo de pessoas -->
+  <%=  javascript_include_tag "js/forms/jquery.spinners.min" %>
+<% end %>

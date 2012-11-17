@@ -1,11 +1,11 @@
-# jQuery ->
-  # Morris.Line
-    # element: 'servicos_chart'
-    # data: $('#servicos_chart').data('servicos')
-    # xkey: 'published_on'
-    # ykeys: ['valoServico', 'completado_valorServico', 'incompleto_valorServico']
-    # labels: ['Total do Serviços', 'Serviços Completo', 'Servicos Incompleto']
-    # preUnits: 'R$'
+jQuery ->
+  Morris.Line
+    element: 'servicos_chart'
+    data: $('#servicos_chart').data('servicos')
+    xkey: 'published_on'
+    ykeys: ['valoServico', 'completado_valorServico', 'incompleto_valorServico']
+    labels: ['Total do Serviços', 'Serviços Completo', 'Servicos Incompleto']
+    preUnits: 'R$'
 
 
 jQuery ->

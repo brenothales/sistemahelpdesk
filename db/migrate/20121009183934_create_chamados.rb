@@ -1,7 +1,7 @@
 class CreateChamados < ActiveRecord::Migration
   def change
     create_table   :chamados do |t|
-      t.string     :assunto
+      t.string     :assunto, :limit => "150"
       t.text       :descricao, :limit => "30"
       t.string     :prioridade, :limit => "30"
       t.string     :tipoAtendimento, :limit => "30"
@@ -9,11 +9,11 @@ class CreateChamados < ActiveRecord::Migration
       t.text       :observacao
       t.boolean    :solucionado, :default => false
       t.boolean    :finalizaSolicitacao, :default => false
-      t.boolean :cancelar, :default => false
+      t.boolean    :cancelar, :default => false
       t.boolean    :querofinalizar, :default => false
       t.decimal    :valorGeral, :precision => 10, :scale => 2#, :null => false    
       t.string     :produto, :limit => "30"
-      t.string     :status, :limit => "30"
+      t.string     :status, :limit => "30", default: "Aguardando Atendimento"
       t.string      :slug
       t.references :user
       t.references :setor

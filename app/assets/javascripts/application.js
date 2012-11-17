@@ -51,10 +51,10 @@
 //= require chamados
 //= require clientes
 //= require comments
-//= require servicos
+
 //= require produtos
 
-//= require ordemservico
+
 //= require jquery.pjax
 //= require tasks
 //= require jquery.ui.datepicker

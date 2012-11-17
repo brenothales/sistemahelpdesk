@@ -10,8 +10,13 @@
                     <% if current_user.is_role?(:administrador) %>
                     <fieldset>
                       <legend>Usuário</legend>
-                              <!-- f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %> -->
-                              <%= f.select( :cliente_id, Cliente.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
+                               <%=  f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %> 
+
+
+                               <!-- f.select( :cliente_id, Cliente.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %> --> 
+
+                               <!-- f.select( :cliente_id, Cliente.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %> -->
+
                       <legend>Técnico</legend>
                         <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
                     </fieldset>
@@ -100,3 +105,4 @@
 <!--  -->
  <!-- end -%> -->
 
+c

@@ -1,0 +1,41 @@
+//= require js/jquery.min
+//= require js/jquery.debouncedresize.min
+//= require js/jquery.actual.min
+//= require js/jquery.cookie.min
+//= require bootstrap/js/bootstrap
+//= require js/bootstrap.plugins.min
+//= require lib/qtip2/jquery.qtip.min
+//= require lib/jBreadcrumbs/js/jquery.jBreadCrumb.1.1.min
+//= require lib/sticky/sticky.min
+//= require js/ios-orientationchange-fix
+//= require lib/antiscroll/antiscroll
+//= require lib/antiscroll/jquery-mousewheel
+//= require lib/colorbox/jquery.colorbox.min
+//= require js/gebo_common
+//= require lib/jquery-ui/jquery-ui-1.8.20.custom.min
+//= require js/forms/jquery.ui.touch-punch.min
+//= require js/forms/jquery.inputmask.min
+//= require js/forms/jquery.autosize.min
+//= require js/forms/jquery.counter.min
+//= require lib/datepicker/bootstrap-datepicker.min
+//= require lib/datepicker/bootstrap-timepicker.min
+//= require lib/tag_handler/jquery.taghandler.min
+//= require js/forms/jquery.spinners.min
+//= require lib/uniform/jquery.uniform.min
+//= require js/forms/jquery.progressbar.anim
+//= require lib/multiselect/js/jquery.multi-select.min
+//= require lib/chosen/chosen.jquery.min
+//= require lib/tiny_mce/jquery.tinymce
+//= require lib/plupload/js/plupload.full
+//= require lib/plupload/js/jquery.plupload.queue/jquery.plupload.queue.full
+//= require lib/colorpicker/bootstrap-colorpicker
+//= require js/gebo_forms.js
+
+
+$(document).ready(function() {
+	//* show all elements & remove preloader
+	setTimeout('$("html").removeClass("js")',1000);
+});
+
+
+<!-- Formulario -->

@@ -42,7 +42,7 @@ resources :chamados
     resources :servicos do
       collection { post :sort }
     end
-
+    match 'produtos/produtouser/:id' => "produtos#produtouser"
   end
 
   # The priority is based upon order of creation:

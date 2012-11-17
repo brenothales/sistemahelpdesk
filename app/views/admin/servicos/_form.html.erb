@@ -16,3 +16,9 @@
 
 <% end %>
 
+<%= content_for :head do %>
+  <%=  javascript_include_tag "js/forms/jquery.ui.touch-punch.min" %>
+  <%=  javascript_include_tag "js/forms/jquery.inputmask.min" %>
+  <%=  javascript_include_tag "js/forms/jquery.autosize.min" %>
+  <%=  javascript_include_tag "js/forms/jquery.counter.min" %>
+<% end %>

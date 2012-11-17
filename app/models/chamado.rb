@@ -50,7 +50,13 @@ before_validation :generate_slug
     # self.produto = Produto.find_or_create_by_name(name) unless name.blank?
     self.produto = Produto.find_by_name(name) unless name.blank?
   end
+  # before_create :novo_chamado
 protected
+    # def novo_chamado
+    #    self.status = "Aguardando Atendimento"
+    # end
+
+
 
   def generate_slug
     self.slug = assunto unless slug.present?

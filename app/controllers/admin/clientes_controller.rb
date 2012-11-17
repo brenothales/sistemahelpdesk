@@ -32,6 +32,7 @@ class Admin::ClientesController < ApplicationController
     @cliente.build_endereco if @cliente.endereco.nil?
     @cliente.contato_telefones.build
     @cliente.contato_emails.build
+    
 
   end
 

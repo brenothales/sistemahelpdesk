@@ -41,23 +41,23 @@
   </div>
 <% end -%>
 <!-- Informa o usuário do sistema -->
-<% if @chamado.cliente %>
+<% if @chamado.user %>
   <div class="span4">
     <span >Cliente:</span><br/>
-        <%= link_to("#{@chamado.cliente.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
-                        Email: <b>#{@chamado.cliente.user.email}</b> <br/>
-                        Tipo: <b>#{@chamado.cliente.tipo_cliente.nome}</b> <br/>
-                        CPF/CNPJ: <b>#{if @chamado.cliente.tipo_cliente_id == 2 
-                          @chamado.cliente.cnpj
+        <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
+                        Email: <b>#{@user.email}</b> <br/>
+                        Tipo: <b>#{@cliente.tipo_cliente.nome}</b> <br/>
+                        CPF/CNPJ: <b>#{if @cliente.tipo_cliente_id == 2 
+                          @cliente.cnpj
                         else 
-                          @chamado.cliente.cpf
+                          @cliente.cpf
                         end } </b><br>         
-                        Nº RG: <b>#{@chamado.cliente.rg}</b> <br/>
-                        Aniversário: #{@chamado.cliente.dataNascimento if @chamado.cliente.dataNascimento}</b> <br/>
-                        Rua: <b>#{@chamado.cliente.endereco.logradouro if @chamado.cliente.endereco.logradouro}</b> <br/>
-                        Bairro: <b>#{@chamado.cliente.endereco.bairro  if @chamado.cliente.endereco.bairro}</b> <br/>
-                        Cidade: <b>#{@chamado.cliente.endereco.cidade  if @chamado.cliente.endereco.cidade}</b> <br/>
-                        Número: <b>#{@chamado.cliente.endereco.numero  if @chamado.cliente.endereco.numero}</b> <br/>").html_safe %>
+                        Nº RG: <b>#{@cliente.rg}</b> <br/>
+                        Aniversário: #{@cliente.dataNascimento if @cliente.dataNascimento}</b> <br/>
+                        Rua: <b>#{@cliente.endereco.logradouro if @cliente.endereco.logradouro}</b> <br/>
+                        Bairro: <b>#{@cliente.endereco.bairro  if @cliente.endereco.bairro}</b> <br/>
+                        Cidade: <b>#{@cliente.endereco.cidade  if @cliente.endereco.cidade}</b> <br/>
+                        Número: <b>#{@cliente.endereco.numero  if @cliente.endereco.numero}</b> <br/>").html_safe %>
   </div>
 
 <% end -%>
