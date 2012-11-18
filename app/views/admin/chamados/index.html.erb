@@ -55,7 +55,7 @@
                                       <th>Status</th>
                                       <% if current_user.is_role?(:administrador) %> <th>Cliente</th><% end -%>
                                       <% if current_user.is_role?(:administrador) %> <th>Técnico</th><% end -%>
-                                      <% if current_user.is_role?(:administrador) %> <th>Ações</th>  <% end -%>
+
                                   </tr>
                               </thead>
                               <tbody>
@@ -112,7 +112,6 @@
                                       <th>Status</th>
                                       <% if current_user.is_role?(:administrador) %> <th>Cliente</th><% end -%>
                                       <% if current_user.is_role?(:administrador) %> <th>Técnico</th><% end -%>
-                                      <% if current_user.is_role?(:administrador) %> <th>Ações</th>  <% end -%>
                                   </tr>
                               </thead>
                               <tbody>
@@ -137,17 +136,6 @@
                                         <td class='name'><%= chamado.status unless chamado.status.blank? %>  </td> 
                                        <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.user.name unless chamado.user.blank? %>  </td> <% end -%>
                                       <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.funcionario.user.name unless chamado.funcionario.blank? %>  </td> <% end -%>
-                                        
-                                    <% if current_user.is_role?(:administrador) %>
-                                        <td>
-                                          <% if chamado.finalizaSolicitacao == false %> 
-                                            <%= link_to edit_admin_chamado_path(chamado), :class => 'btn btn-info' do %> 
-                                              <i class="icon-share-alt icon-white"></i> Interagir 
-                                          <% end -%>
-                                        </td>
-                                    <% end -%>                        
-                                  </tr>
-                                <% end -%>          
                               <% end %>
                               <% end %>
 
@@ -167,7 +155,6 @@
                                       <th>Status</th>
                                       <% if current_user.is_role?(:administrador) %> <th>Cliente</th><% end -%>
                                       <% if current_user.is_role?(:administrador) %> <th>Técnico</th><% end -%>
-                                      <% if current_user.is_role?(:administrador) %> <th>Ações</th>  <% end -%>
                                   </tr>
                               </thead>
                               <tbody>
@@ -192,17 +179,6 @@
                                         <td class='name'><%= chamado.status unless chamado.status.blank? %>  </td> 
                                        <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.user.name unless chamado.user.blank? %>  </td> <% end -%>
                                       <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.funcionario.user.name unless chamado.funcionario.blank? %>  </td> <% end -%>
-                                        
-                                    <% if current_user.is_role?(:administrador) %>
-                                        <td>
-                                          <% if chamado.finalizaSolicitacao == false %> 
-                                            <%= link_to edit_admin_chamado_path(chamado), :class => 'btn btn-info' do %> 
-                                              <i class="icon-share-alt icon-white"></i> Interagir 
-                                          <% end -%>
-                                        </td>
-                                    <% end -%>                        
-                                  </tr>
-                                <% end -%>          
                               <% end %>
                               <% end %>
 

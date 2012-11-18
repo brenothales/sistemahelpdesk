@@ -101,13 +101,19 @@
       Atendimento:  <b> <%= @chamado.tipoAtendimento %></b>
     </div>
     <div class="span4">
-      Status:<% if @chamado.status == "Aguardando Atendimento"  %> 
-                    <span class="label label-warning">Aguardando Atendimento</span>
+      Status:
+                <% if @chamado.status == "Aguardando Atendimento"  %> 
+                   <span class="label label-important">
+                      Aguardando Atendimento  
+                        <%= I18n.localize(@chamado.created_at, :format => "%d/%m/%Y") %></span> 
                   <% elsif @chamado.status == "Cancelado" %>
-                    <span class="label label-success">Cancelado</span>
+                    <span class="label">Cancelado 
+                      <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
                   <% else %>
-                  <span class="label label-success">Finalizado</span>
-              <% end -%>
+                  <span class="label label-success">
+                    <%= "Finalizado #{time_ago_in_words @chamado.updated_at}" %> 
+                        <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
+                  <% end -%>
     </div>    
   </div>
 </div>
@@ -129,18 +135,19 @@
                   <div class="tab-pane active" id="tab_br1">
                     <h3 class="heading inline">Descrição do Chamado:</h3>
                       <div> <%= @chamado.descricao %></div><br>
-                      <div id="comments" class="">
-                        <div class="">
+                      <div id="comments" class="span12"> <br>
+                        <div class="span6">
                           <%- if @chamado.comments.any? -%>
                             <%= render :partial =>  @chamado.comments %>
-                            <div>
-                           <%= "Chamado Finalizado a #{time_ago_in_words @chamado.updated_at}" %> <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") if @chamado.finalizaSolicitacao == true %> 
-                            </div>
                           <%- else -%>
-                            <p>Chamado sem Feedback.</p>
+                            <b class=''>Chamado sem Feedback.</b>
                           <%- end -%>
+                           </div>
+                          <div class="span5 well">
+                            <%= render "lista_chamados" %>
 
-                        </div>
+                          </div>
+                     
                       </div>
                   </div>
                  <% if @chamado.servicos.present? %>
@@ -154,7 +161,7 @@
                               <a href="#collapseOne<%= servico.id %>" data-parent="#accordion<%= servico.id %>" data-toggle="collapse" class="accordion-toggle">
                                 <%= servico.id %> <%= servico.nome %> 
                                 <% @ultimo_servico = Servico.last %>
-                                <% if @chamado.finalizaSolicitacao == false %>
+                                <% if not @chamado.status == "Finalizado" %>
                                 <% if @ultimo_servico.id == servico.id and servico.updated_at <= Time.now %>
                                 <span class="label label-important">último</span>
                                 <% end -%>
@@ -207,26 +214,31 @@
                   </div> -->
                 </div>
 <br>
-<% if @chamado.finalizaSolicitacao == false %>
+<% if  @chamado.status == "Aguardando Atendimento" %>
 
     <div class="row-fluid">
       <div class="span12 well">
         <h3 class="heading">Descrever</h3> 
         <div id="comment_form span12"> 
            <!-- @chamado.comments.length  -%> Conta quantos chamado existem-->
-      <% if @chamado.finalizaSolicitacao == false %>
-        <%= render "admin/comments/form", :chamado => @chamado, :comment => Comment.new %> 
-      <% end -%>
+       <div class="span6">
+        <% if  @chamado.status == "Aguardando Atendimento" %>
+          <%= render "admin/comments/form", :chamado => @chamado, :comment => Comment.new %> 
+        <% end -%>
+      </div>    
+      <div class="pull-left span6">
+        <% if current_user.is_role?(:administrador) or current_user.is_role?(:funcionario)  %>
+              <%= render 'confirmar' if  @chamado.status == "Aguardando Atendimento" %>
+        <% end -%>   
+      </div>       
           </div>
   <% end -%>
-     <% if current_user.is_role?(:moderador) %>
+     <% if current_user.is_role?(:cliente) %>
             <% if @chamado.comments.length >= 1  %>
               <%= render 'cancelamento' if @chamado.cancelar == false %>
             <% end -%>
       <% end -%>
-     <% if current_user.is_role?(:administrador) %>
-              <%= render 'confirmar' if @chamado.finalizaSolicitacao == false %>
-      <% end -%>
+     
        </div>
     </div> 
 

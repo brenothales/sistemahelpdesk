@@ -1,18 +1,17 @@
-
-<%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal' } do |f| %>
-<div class="span12">
-<div class="span5"></div>
-  <div class="span2">
-  
-      <%=  f.input :finalizaSolicitacao,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"habi", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Finalizar Chamado" %>
-  </div>
-  <div class="span5"></div>
+<%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal inline' } do |f| %>
+<div id="status_chamado_show">
+<div class="pane">
+      <!-- f.input :finalizaSolicitacao,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"habi", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Finalizar Chamado" %> -->
+      <%= f.input :status, :priority => [ "Aguardando Atendimento" ], :collection => [ "Aguardando Atendimento", "Cancelado", "Finalizado"], label: "Status:", prompt: "Tipo de Status", label_html: { class: "" } if current_user.is_role?(:administrador) %>
+    <%= f.button :submit, input_html: { class: "btn"}, :confirm => 'Você tem certeza quer alterar o status do chamado ?' %>
+</div>
 </div>
 
 <div class="span12">
-  <div class="span3"></div>
+
     <div class="span6">
-      <%= confirmar_chamado(admin_chamados_path,{:label_name => "Finalizar Chamado"}) %>
+
+
     </div>
   <div class="span3"></div>
 </div>
