@@ -36,23 +36,23 @@ class Admin::ChamadosController < ApplicationController
     @users = User.all
   end
 
-  # def create
-  #   @chamado = Chamado.new(params[:chamado])  
-  #   @users = User.all
-  #   flash[:notice] = "Chamado salvo com sucesso!" if @chamado.save
-  #   respond_with @chamado, :location => [:admin, @chamado]
-  # end
-
   def create
     @chamado = Chamado.new(params[:chamado])  
     @users = User.all
-    if @chamado.save
-      flash[:notice] = "Chamado salvo com sucesso!" 
-    else
-      format.html { render action: "new" }
-    end
+    flash[:notice] = "Chamado salvo com sucesso!" if @chamado.save
     respond_with @chamado, :location => [:admin, @chamado]
   end
+
+  # def create
+  #   @chamado = Chamado.new(params[:chamado])  
+  #   @users = User.all
+  #   if @chamado.save
+  #     flash[:notice] = "Chamado salvo com sucesso!" 
+  #   else
+  #     format.html { render action: "new" }
+  #   end
+  #   respond_with @chamado, :location => [:admin, @chamado]
+  # end
 
 
   def update

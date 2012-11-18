@@ -29,6 +29,9 @@ group :assets do
   gem 'jquery-ui-rails'
   gem 'twitter-bootstrap-rails' 
   # gem 'bootstrap-sass'
+  gem "therubyracer"
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem "twitter-bootstrap-rails"
   gem 'will_paginate'
 end
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
@@ -41,7 +44,8 @@ group :development, :test do
   gem 'mysql2'
 end
 
-group :production do 
+group :production do
+  gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too
   gem 'pg'
 end
 # To use ActiveModel has_secure_password
