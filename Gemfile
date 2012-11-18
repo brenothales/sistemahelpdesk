@@ -39,13 +39,12 @@ gem 'jquery-rails'
 #gem 'pjax_rails'
 gem 'rack-pjax'
 gem 'heroku'
-
+gem 'activerecord-postgresql-adapter'
 group :development, :test do
   gem 'mysql2'
 end
 
 group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too
   gem 'pg'
 end
 # To use ActiveModel has_secure_password
