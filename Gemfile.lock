@@ -38,7 +38,6 @@ GEM
     addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.1.0.1)
     builder (3.0.4)
     cancan (1.6.8)
     carrierwave (0.7.1)
@@ -58,17 +57,17 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     erubis (2.7.0)
-    excon (0.16.4)
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    heroku (2.32.13)
-      heroku-api (~> 0.3.5)
+    heroku (2.33.1)
+      heroku-api (~> 0.3.6)
       launchy (>= 0.3.2)
       netrc (~> 0.7.7)
       rest-client (~> 1.6.1)
       rubyzip
-    heroku-api (0.3.5)
-      excon (~> 0.16.1)
+    heroku-api (0.3.6)
+      excon (~> 0.16.7)
     highcharts-rails (2.3.3)
       railties (~> 3.1)
     hike (1.2.1)
@@ -128,11 +127,6 @@ GEM
       mime-types (>= 1.16)
     rmagick (2.13.1)
     rubyzip (0.9.9)
-    sass (3.2.3)
-    sass-rails (3.2.5)
-      railties (~> 3.2.0)
-      sass (>= 3.1.10)
-      tilt (~> 1.3)
     simple_form (2.0.4)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -145,6 +139,10 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    twitter-bootstrap-rails (2.1.6)
+      actionpack (>= 3.1)
+      execjs
+      railties (>= 3.1)
     tzinfo (0.3.35)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -157,7 +155,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass
   cancan
   carrierwave
   coffee-rails (~> 3.2.1)
@@ -174,7 +171,7 @@ DEPENDENCIES
   rack-pjax
   rails (= 3.2.6)
   rmagick
-  sass-rails (~> 3.2.3)
   simple_form
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   will_paginate
