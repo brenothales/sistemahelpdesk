@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
 
-
+*= require_self 
 *= require bootstrap/css/bootstrap.min
 *= require bootstrap/css/bootstrap-responsive.min
 *= require lib/jquery-ui/css/Aristo/Aristo
@@ -31,7 +31,7 @@
 *= require css/style
 *= require select2
 
-
+*= require_tree .
 
  */ 
 
