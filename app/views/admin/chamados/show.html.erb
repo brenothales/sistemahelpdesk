@@ -46,18 +46,13 @@
     <span >Cliente:</span><br/>
         <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
                         Email: <b>#{@user.email}</b> <br/>
-                        Tipo: <b>#{@cliente.tipo_cliente.nome}</b> <br/>
-                        CPF/CNPJ: <b>#{if @cliente.tipo_cliente_id == 2 
-                          @cliente.cnpj
-                        else 
-                          @cliente.cpf
-                        end } </b><br>         
-                        Nº RG: <b>#{@cliente.rg}</b> <br/>
-                        Aniversário: #{@cliente.dataNascimento if @cliente.dataNascimento}</b> <br/>
-                        Rua: <b>#{@cliente.endereco.logradouro if @cliente.endereco.logradouro}</b> <br/>
-                        Bairro: <b>#{@cliente.endereco.bairro  if @cliente.endereco.bairro}</b> <br/>
-                        Cidade: <b>#{@cliente.endereco.cidade  if @cliente.endereco.cidade}</b> <br/>
-                        Número: <b>#{@cliente.endereco.numero  if @cliente.endereco.numero}</b> <br/>").html_safe %>
+                        Tipo: <b>#{@cliente.tipo_cliente.nome unless @cliente.blank?}</b> <br/>
+                        Nº RG: <b>#{@cliente.rg unless @cliente.blank? }</b> <br/>
+                        Aniversário: #{@cliente.dataNascimento unless @cliente.blank?} </b> <br/>
+                        Rua: <b>#{@cliente.endereco.logradouro unless @cliente.blank?}</b> <br/>
+                        Bairro: <b>#{@cliente.endereco.bairro  unless @cliente.blank?}</b> <br/>
+                        Cidade: <b>#{@cliente.endereco.cidade  unless @cliente.blank?}</b> <br/>
+                        Número: <b>#{@cliente.endereco.numero  unless @cliente.blank?}</b> <br/>").html_safe %>
   </div>
 
 <% end -%>
@@ -143,11 +138,7 @@
                             <b class=''>Chamado sem Feedback.</b>
                           <%- end -%>
                            </div>
-                          <div class="span5 well">
-                            <%= render "lista_chamados" %>
-
-                          </div>
-                     
+                            <%= render "lista_chamados" %>                     
                       </div>
                   </div>
                  <% if @chamado.servicos.present? %>
@@ -230,14 +221,15 @@
         <% if current_user.is_role?(:administrador) or current_user.is_role?(:funcionario)  %>
               <%= render 'confirmar' if  @chamado.status == "Aguardando Atendimento" %>
         <% end -%>   
+        <% if current_user.is_role?(:cliente) %>
+            <% if @chamado.comments.length >= 1  %>
+              <%= render 'cancelamento' if @chamado.cancelar == nil %>
+            <% end -%>
+      <% end -%>
       </div>       
           </div>
   <% end -%>
-     <% if current_user.is_role?(:cliente) %>
-            <% if @chamado.comments.length >= 1  %>
-              <%= render 'cancelamento' if @chamado.cancelar == false %>
-            <% end -%>
-      <% end -%>
+     
      
        </div>
     </div> 

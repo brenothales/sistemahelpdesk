@@ -18,7 +18,7 @@
                                <!-- f.select( :cliente_id, Cliente.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %> -->
 
                       <legend>Técnico</legend>
-                        <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
+                         <div class=" offsets3 " ></div> <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
                     </fieldset>
                   <% end -%>
                   <fieldset>
@@ -27,7 +27,7 @@
                        <%= f.input :setor_id, :collection => @unidades, :as => :grouped_select, :group_method => :setores, :input_html => { :class => 'chzn_a span5' }, :label => "Setor", :prompt=> "Escolher o setor", :value_method => :id, :include_blank => false  %> 
                       <%= f.input :assunto, :input_html => { :class=> "span5", :placehold => "Assunto do Chamado" }  %>
                       <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
-                      <%= f.input :status, :priority => [ "Aguardando Atendimento" ], :collection => [ "Aguardando Atendimento", "Cancelado", "Finalizado"], label: "Status", prompt: "Tipo de Status" if current_user.is_role?(:administrador) %>
+                       <!-- f.input :status, :priority => [ "Aguardando Atendimento" ], :collection => [ "Aguardando Atendimento", "Cancelado", "Finalizado"], label: "Status", prompt: "Tipo de Status" if current_user.is_role?(:administrador) %> -->
                       <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atedimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atedimento" %> 
                     </fieldset>
                   <!-- Se for admin do sistema -->

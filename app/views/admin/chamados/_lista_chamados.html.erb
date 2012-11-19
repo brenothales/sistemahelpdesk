@@ -1,8 +1,14 @@
-<% if can? :update, @chamado and @chamado.present?  %>
-<h4 class="heading inline">Meus Chamados:</h4>
-<% @chamados.each do |chamado| %>
-  <div>
-    <div><%= link_to chamado.assunto, admin_chamado_path(chamado) %> <small> <%= chamado.status -%></small></div>
-  </div>
-<% end %>
+
+<% if @chamado.present? and current_user.is_role?(:cliente)  %>
+<div class="span5 well">
+	<h4 class="heading inline">Meus Chamados:</h4>
+	<% @chamados.each do |chamado| %>
+	<% if can? :update, chamado %>
+	  <div>
+	    <div><%= link_to chamado.assunto, admin_chamado_path(chamado) %> <small> <%= chamado.status -%></small></div>
+	    <%= chamado.user.name %>
+	  </div>
+	<% end %>
+ <% end %>
+</div>
 <% end %>

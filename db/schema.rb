@@ -46,26 +46,26 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
   add_index "chamado_produtos", ["user_id"], :name => "index_chamado_produtos_on_user_id"
 
   create_table "chamados", :force => true do |t|
-    t.string   "assunto"
+    t.string   "assunto",             :limit => 130
     t.text     "descricao"
     t.string   "prioridade",          :limit => 30
     t.string   "tipoAtendimento",     :limit => 30
-    t.boolean  "cortesia",                                                         :default => false
+    t.boolean  "cortesia",                                                          :default => false
     t.text     "observacao"
-    t.boolean  "solucionado",                                                      :default => false
-    t.boolean  "finalizaSolicitacao",                                              :default => false
-    t.boolean  "cancelar",                                                         :default => false
-    t.boolean  "querofinalizar",                                                   :default => false
-    t.decimal  "valorGeral",                        :precision => 10, :scale => 2
+    t.boolean  "solucionado",                                                       :default => false
+    t.boolean  "finalizaSolicitacao",                                               :default => false
+    t.string   "cancelar",            :limit => 30
+    t.boolean  "querofinalizar",                                                    :default => false
+    t.decimal  "valorGeral",                         :precision => 10, :scale => 2
     t.string   "produto",             :limit => 30
-    t.string   "status",              :limit => 30,                                :default => "Aguardando Atendimento"
+    t.string   "status",              :limit => 30,                                 :default => "Aguardando Atendimento"
     t.string   "slug"
     t.integer  "user_id"
     t.integer  "setor_id"
     t.integer  "cliente_id"
     t.integer  "funcionario_id"
-    t.datetime "created_at",                                                                                             :null => false
-    t.datetime "updated_at",                                                                                             :null => false
+    t.datetime "created_at",                                                                                              :null => false
+    t.datetime "updated_at",                                                                                              :null => false
   end
 
   add_index "chamados", ["cliente_id"], :name => "index_chamados_on_cliente_id"

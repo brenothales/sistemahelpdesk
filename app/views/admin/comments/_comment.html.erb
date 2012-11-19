@@ -8,8 +8,11 @@
  <% end -%><br>
  <div class="interacao">
 	  <b> <%= comment.descricao %></b><br/>
+	  
  </div>
     <div class="">
-    	Criado <%= time_ago_in_words comment.created_at %> | <%= I18n.localize(comment.created_at, :format => "%d/%m/%Y") %> </div><br/><br />
+ Criado <%= time_ago_in_words comment.created_at %> | 
+ <%= I18n.localize(comment.created_at, :format => "%d/%m/%Y") %> </div><br/><br />
+ <hr>
 <% end -%>
 <% end %>  

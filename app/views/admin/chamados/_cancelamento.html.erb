@@ -1,23 +1,13 @@
 
-<%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal' } do |f| %>
-<div class="span12">
-<div class="span5"></div>
-  <div class="span2">
-  
-      <%=  f.input :cancelar,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"cancelar", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Quero Cancelar" %>
-
-      <%=  f.input :querofinalizar,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"cancelar", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Quero finalizar" %>
-  </div>
-  <div class="span5"></div>
+<%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal inline' } do |f| %>
+<div id="status_chamado_show">
+<div class="pane">
+      <!-- f.input :finalizaSolicitacao,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"habi", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Finalizar Chamado" %> -->
+      <%= f.input :cancelar, :collection => [ "Finalização", "Cancelamento"], label: "Solicitar:", prompt: " Opções", input_html: { :class=>"chzn_a" } if current_user.is_role?(:cliente) %>
+    <%= f.button :submit, input_html: { class: "btn"}, :confirm => 'Sua Solicitação será avaliada pelos nosso técnicos' %>
+</div>
 </div>
 
-<div class="span12">
-  <div class="span3"></div>
-    <div class="span6">
-      <%= confirmar_chamado(admin_chamados_path,{:label_name => "Enviar Aprovação do chamado de Nº #{ @chamado.id } "}) %>
-    </div>
-  <div class="span3"></div>
-</div>
 <% end -%>
 
 <script>

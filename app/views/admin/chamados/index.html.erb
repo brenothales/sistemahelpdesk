@@ -52,7 +52,7 @@
                                       <th>Assunto</th>
                                       <th>Unidade/Setor</th>
                                       <th>Prioridade</th>
-                                      <th>Status</th>
+                                      <th>Solicitações</th>
                                       <% if current_user.is_role?(:administrador) %> <th>Cliente</th><% end -%>
                                       <% if current_user.is_role?(:administrador) %> <th>Técnico</th><% end -%>
 
@@ -66,7 +66,10 @@
                                 <% if can? :update, chamado and chamado.status == "Aguardando Atendimento" %>
                                   <tr>
                                         <td class='name'><%= chamado.id %></td>
-                                        <td class='name'> <%= link_to chamado.assunto, admin_chamado_path(chamado)  %> <br>
+                                        <td class='name'> <%= link_to admin_chamado_path(chamado) do %> 
+                                                          <%= chamado.assunto %> <i class="icon-share-alt"></i>
+                                                          <% end -%>
+                                          <br>
                                             <small class="letrinha"><%= time_ago_in_words chamado.created_at %> <%= I18n.localize(chamado.created_at, :format => "%d/%m/%Y") %></small>
                                         </td>
                                         <td class='name'>
@@ -77,22 +80,22 @@
                                           <% end %>
                                         </td>  
                                         <td class='name'> <span class="label label-warning"> <%= chamado.prioridade unless chamado.prioridade.blank? %>  </span></td> 
-                                        <td class='name'><%= chamado.status unless chamado.status.blank? %>  </td> 
+                                        <td class='name'>
+                                           <% if chamado.cancelar == "Finalização" %>   
+                                             <span class="label label-important"> Pedido de Finalização</span>
+                                            <% end -%>
+                                            <% if chamado.cancelar == "Cancelamento" %>   
+                                             <span class="label label-important"> Pedido de Cancelamento</span>
+                                             <% end -%>
+                                         </td> 
                                        <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.user.name unless chamado.user.blank? %>  </td> <% end -%>
                                       <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.funcionario.user.name unless chamado.funcionario.blank? %>  </td> <% end -%>
                                         
-                                    <% if current_user.is_role?(:administrador) %>
-                                        <td>
-                                          <% if chamado.finalizaSolicitacao == false %> 
-                                            <%= link_to edit_admin_chamado_path(chamado), :class => 'btn btn-info' do %> 
-                                              <i class="icon-share-alt icon-white"></i> Interagir 
-                                          <% end -%>
-                                        </td>
+                                              
                                     <% end -%>                        
                                   </tr>
                                 <% end -%>          
-                              <% end %>
-                              <% end %>
+
 
                               </tbody>
                           </table>

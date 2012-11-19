@@ -1,3 +1,4 @@
+<h1></h1>
 <div class='well span4 login'>
   <legend>Faça seu login</legend>
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -12,5 +13,7 @@
   <% end %>
 <%= render "admin/shared/links" %>
 </div>
-
-
+<div class="span6" id ="logomarca">
+	
+	<%= image_tag("dental.png") %>
+</div>

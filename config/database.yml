@@ -20,7 +20,15 @@ test:
   username: root
   password: root
   socket: /Applications/MAMP/tmp/mysql/mysql.sock
-
+# production:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: Helpdesk_production
+#   pool: 5
+#   username: root
+#   password: root
+#   socket: /Applications/MAMP/tmp/mysql/mysql.sock
 
 production:
   adapter: postgresql
