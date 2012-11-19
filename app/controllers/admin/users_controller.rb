@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
   before_filter :load_roles, :only => [:new, :create, :update, :edit]
  
   def index
-    @users = User.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page])
+    @users = User.all #.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page])
     respond_with @users, :location => admin_users_path
   end
 
