@@ -1,4 +1,55 @@
-<div data-pjax-container>
-  <%= form_search(new_admin_user_path, admin_users_path, 'Novo Usuário') %>
-  <%= table_list(@users) %>
-</div>
+<table class="table table-striped table-bordered dTableR" id="dt_d">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Email</th>
+      <th>Permissão</th>
+      <th>Ações</th>
+  </tr>
+</thead>
+<tbody>
+
+
+
+<% @users.each do |user| %>
+
+  <tr>
+        <td class='name'><%= user.id %></td>
+        <td class='name'> <%= link_to admin_user_path(user) do %>  <%= user.name %> <i class="icon-share-alt"></i><% end -%>
+		<td class='name'> <%= user.email %></td> 
+		<td class='name'> <%= user.role.name %></td> 
+		<td class='situation'>
+                                              <div class="btn-group dropup">
+                                                <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+                                                  Ações
+                                                  <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                  <!-- dropdown menu links -->
+                                                  <li class="divider"></li>
+                                                  <li> <%= link_to [:admin, user] do %>
+                                                       <i class="icon-eye-open"></i> Detalhes
+                                                        <% end -%>
+                                                  </li>
+                                                  <li> <%= link_to edit_admin_user_path(user) do %>
+                                                        <i class="icon-edit"></i> Editar
+                                                       <% end -%>
+                                                  </li>
+                                                  
+                                                
+                                                  <li> 
+                                                    <%= link_to [:admin, user], :confirm => 'Você tem certeza?', :method => :delete do %>
+                                                    <i class="icon-trash"></i> Deletar 
+                                                    <% end -%>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                      </td>
+  </tr>
+    <% end -%>          
+
+
+
+  </tbody>
+</table>
