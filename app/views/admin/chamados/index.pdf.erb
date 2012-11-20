@@ -53,10 +53,8 @@
                                       <th>Unidade/Setor</th>
                                       <th>Prioridade</th>
                                       <th>Solicitações</th>
-                                      <th>PDF</th>
                                       <% if current_user.is_role?(:administrador) %> <th>Cliente</th><% end -%>
                                       <% if current_user.is_role?(:administrador) %> <th>Técnico</th><% end -%>
-
 
                                   </tr>
                               </thead>
@@ -90,11 +88,6 @@
                                              <span class="label label-important"> Pedido de Cancelamento</span>
                                              <% end -%>
                                          </td> 
-                                         <td>
-  <!--  url_a_format_result = url_for :controller=>'chamados', :action=>'show', :format=>:pdf, :id => chamado.id %> -->
-            <!-- link_to 'Gerar PDF', url_format_result, :class=>"btn btn-info", :target=> "_blank" %> -->
-    <p><%= link_to "Printable Receipt (PDF)", admin_chamados_path(chamado, format: "pdf") %></p>
-                                         </td>
                                        <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.user.name unless chamado.user.blank? %>  </td> <% end -%>
                                       <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.funcionario.user.name unless chamado.funcionario.blank? %>  </td> <% end -%>
                                         

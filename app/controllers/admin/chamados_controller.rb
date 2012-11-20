@@ -7,16 +7,44 @@ class Admin::ChamadosController < ApplicationController
     @produtos = Produto.all
     @produto = Produto.new
     @unidades = Unidade.all
-    respond_with @chamados, :location => admin_chamados_path
+    
+    respond_to do |format|
+      format.html
+      format.pdf do 
+        render :pdf => 'file_name',
+               :template => 'admin/chamados/show.pdf.erb',
+               :layout => 'pdf',
+               :encoding => 'UTF-8'
+        end
+      end
+    # respond_with @chamados, :location => admin_chamados_path
   end
 
   def show
     @chamado = Chamado.find(params[:id])
-        @chamados = Chamado.all
+    @chamados = Chamado.all
     @user = User.find( @chamado.user_id )
     @cliente = Cliente.find_by_user_id( @user.id )
-    respond_with @chamado, @user, @cliente, @funcionario, :location => admin_chamado_path
+
+    respond_to do |format|
+      format.html
+      format.pdf do 
+        render :pdf => 'file_name',
+               :template => 'admin/chamados/show.pdf.erb',
+               :layout => 'pdf',
+               :encoding => 'UTF-8'
+        end
+      end
   end
+
+
+
+
+
+
+
+    # respond_with @chamado, @user, @cliente, @funcionario, :location => admin_chamado_path
+
 
   def new
     @chamado = Chamado.new
