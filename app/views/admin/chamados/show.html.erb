@@ -4,6 +4,7 @@
 <!--  @user.cliente.cpf        %></h1> -->
 <!--  @cliente.sexo            %> -->
 <!--  @user.cliente.cpf        %></h1> -->
+
   <div id="jCrumbs" class="breadCrumb module">
     <ul>
         <li><%= link_to  :controller => "chamados", :action => "index", :id => @chamados do %>
@@ -15,6 +16,10 @@
             <%= link_to new_admin_chamado_path do %>
             <i class=" icon-plus"></i> Novo Chamados
             <% end -%>
+        </li>
+        <li>
+          <% url_format_result = url_for :controller => 'chamados', :action => 'show', :format => :pdf, :id => @chamado.id %> 
+  <%= link_to "Gerar PDF", url_format_result, :target => "_blank" %>      
         </li>
     </ul>
 </div>    

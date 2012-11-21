@@ -1,0 +1,27 @@
+    # respond_with @chamados, :location => admin_chamados_path
+
+
+
+
+ #    def show
+ #    @associate = Associate.find(params[:id])
+ #    respond_to do |format|
+ #      format.html # show.html.erb
+ #      format.json { render json: @associate }
+ #      format.pdf do
+ #          @example_text = "some text"
+
+ #          if @associate.affiliated 
+ #            render :pdf => "file_name",
+ #                 :template => 'associates/show.pdf.erb',
+ #                 :layout => 'pdf',
+ #                :encoding                       => 'UTF-8'
+ #          else 
+ #            render :pdf => "file_name",
+ #                 :template => 'associates/show2.pdf.erb',
+ #                 :layout => 'pdf',
+ #                :encoding                       => 'UTF-8'
+ #          end     
+ #    end
+ #    end
+ #  end

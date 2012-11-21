@@ -9,11 +9,7 @@ class Admin::ProdutosController < ApplicationController
   def index
     @produtos = Produto.order(:name).where("name like ?", "%#{params[:term]}%")
     # @produtos = Produto.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page]) comentei para ajudar com plugin database
-    respond_to do |format|
-    format.html # index.html.erb
-    # format.json { render json: [@produtos.map(&:name)] }
-    format.json { render json: ProductsDatatable.new(view_context) }
-    end
+    respond_with @produtos, :location => admin_produtos_path
 
   end
 

@@ -1,240 +1,60 @@
-<!--  current_user.cliente.rg  %></h1> -->
-<!--  current_user.cliente.cpf %></h1> -->
-<!--  @user.cliente.cpf        %></h1> -->
-<!--  @user.cliente.cpf        %></h1> -->
-<!--  @cliente.sexo            %> -->
-<!--  @user.cliente.cpf        %></h1> -->
-  <div id="jCrumbs" class="breadCrumb module">
-    <ul>
-        <li><%= link_to  :controller => "chamados", :action => "index", :id => @chamados do %>
-        <i class="icon-home"></i> Todos Chamados
-          <% end -%>
-
-        </li>
-         <li>
-            <%= link_to new_admin_chamado_path do %>
-            <i class=" icon-plus"></i> Novo Chamados
-            <% end -%>
-        </li>
-    </ul>
-</div>    
-
+<%= wicked_pdf_image_tag "dentalmenor.jpg" %>
+<%= wicked_pdf_stylesheet_link_tag "pdf" %>
+<hr>
+<br>
 <div class="">
+  <fieldset>
+  <legend> <b> Informações do Chamado:</b></legend>
   <div class=" well">
-    <h1 class="inline"><small>Número do Chamado: <%= @chamado.id %></small> </h1>
-    <small>Assunto:</small><h3 class="heading inline"><%= @chamado.assunto %> 
-    <small class=" pull-right">Criando <%= time_ago_in_words @chamado.created_at %> <%= I18n.localize(@chamado.created_at, :format => "%d/%m/%Y") %> 
-   
-    </small></h3>
-    <h1>  </h1>  <div class="row-fluid painel">
-  <% if @chamado.produto%>
+    <label>Assunto:</label> <b><%= @chamado.assunto %> </b> 
+  </div>
+
+<% if @chamado.produto%>
   <div class="span4">
-  <span>Produto:</span><br/>
-      <%= link_to("#{@chamado.produto.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Produto", "data-placement"=> 'right',  "data-content" => "Modelo: #{@chamado.produto.modelo} <br/>
-                      ID:<b> #{@chamado.produto.id}</b> <br/>
-                      Categoria:<b> #{@chamado.produto.category.name}</b> <br/>
-                      Marca:<b> #{@chamado.produto.marca}</b> <br/>
-                      Nº:<b> #{@chamado.produto.numeroSerie}</b> <br/>
-                      Acessórios:<b> #{@chamado.produto.acessorios}</b> <br/>
-                      Observação:<b> #{@chamado.produto.observacao}</b> <br/>
-                      Setor:<b> #{@chamado.produto.seto} </b>").html_safe  %>
+  <span>Produto:</span> <b> <%= @chamado.produto.name %> </b>
   </div>
 <% end -%>
 <!-- Informa o usuário do sistema -->
 <% if @chamado.user %>
   <div class="span4">
-    <span >Cliente:</span><br/>
-        <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
-                        Email: <b>#{@user.email}</b> <br/>
-                        Tipo: <b>#{@cliente.tipo_cliente.nome unless @cliente.blank?}</b> <br/>
-                        Nº RG: <b>#{@cliente.rg unless @cliente.blank? }</b> <br/>
-                        Aniversário: #{@cliente.dataNascimento unless @cliente.blank?} </b> <br/>
-                        Rua: <b>#{@cliente.endereco.logradouro unless @cliente.blank?}</b> <br/>
-                        Bairro: <b>#{@cliente.endereco.bairro  unless @cliente.blank?}</b> <br/>
-                        Cidade: <b>#{@cliente.endereco.cidade  unless @cliente.blank?}</b> <br/>
-                        Número: <b>#{@cliente.endereco.numero  unless @cliente.blank?}</b> <br/>").html_safe %>
+    <span >Cliente:</span> <b> <%= @chamado.user.name %> </b>
   </div>
-
 <% end -%>
 <!-- fim  -->
 <!-- Informa o usuário do sistema -->
+
 <% if @chamado.setor %>
   <div class="span4">
-    <span >Setor:</span><br/>
-    <div class="btn btn-large btn">
-      <%= @chamado.setor.unidade.nome %> - <%= @chamado.setor.nome -%>
+    <span >Local:</span> <b><%= @chamado.setor.unidade.nome %> - <%= @chamado.setor.nome -%></b>
     </div>
-  </div>
 <% end -%>
+Data e hora da abertura: <b><%= I18n.localize(@chamado.created_at, :format => "%d/%m/%Y | %H:%M h " ) %> </b> <br>
+Tipo de Atendimento:     <b><%= @chamado.tipoAtendimento %> </b> <br>
+Prioridade:     <b><%= @chamado.prioridade %> </b> <br>
+<% if @chamado.status == "Cancelado" %>
+  <span class="label">Cancelado 
+  <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
+<% end %>
+<% if @chamado.status == "Finalizado" %>
+  <span class="label">Finalizado 
+  <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
+<% end %>
+
+</fieldset> <br>
 <!-- fim  -->
+
+<fieldset>
+  <legend>Descrição do Chamado</legend>
+    <%= @chamado.descricao %>
+</fieldset> <br>
+<hr>
 <!-- Informa o usuário do sistema -->
 <% if @chamado.funcionario %>
   <div class="span4">
-    <span >Técnico Responsável:</span><br/>
-        <%= link_to("#{@chamado.funcionario.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'left',  "data-content" => "
-                        Email: <b>#{@chamado.funcionario.user.email}</b> <br/>
-                        Nº RG: <b>#{@chamado.funcionario.rg}</b> <br/>
-                        Aniversário: #{@chamado.funcionario.dataNascimento if @chamado.funcionario.dataNascimento     }</b>").html_safe %>
+    <span >Técnico Responsável:</span> <b> <%= @chamado.funcionario.user.name %> </b>
   </div>
-
 <% end -%>
-<!-- fim  -->
-
-
-
-
-</div>
-
-<hr>
-
-<div class="row-fluid">
-  <div class="span12">
-    <div class="span4">
-      Prioridade: <b> <%= @chamado.prioridade %></b>
-    </div>
-    <div class="span4">
-      Atendimento:  <b> <%= @chamado.tipoAtendimento %></b>
-    </div>
-    <div class="span4">
-      Status:
-                <% if @chamado.status == "Aguardando Atendimento"  %> 
-                   <span class="label label-important">
-                      Aguardando Atendimento  
-                        <%= I18n.localize(@chamado.created_at, :format => "%d/%m/%Y") %></span> 
-                  <% elsif @chamado.status == "Cancelado" %>
-                    <span class="label">Cancelado 
-                      <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
-                  <% else %>
-                  <span class="label label-success">
-                    <%= "Finalizado #{time_ago_in_words @chamado.updated_at}" %> 
-                        <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
-                  <% end -%>
-    </div>    
-  </div>
-</div>
-<hr>
-
-</div>
-  </div>
-<div class="">
-              <h3 class="heading">Atendimento</h3>
-              <div class="tabbable tabbable-bordered">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_br1" data-toggle="tab">Interações</a></li>
-                  <% if @chamado.servicos.present? %>
-                  <li class=""><a href="#tab_br2" data-toggle="tab">Serviços</a></li>
-                  <% end -%>
-<!--Terceira aba  <li class=""><a href="#tab_br3" data-toggle="tab">Section 3</a></li> -->
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab_br1">
-                    <h3 class="heading inline">Descrição do Chamado:</h3>
-                      <div> <%= @chamado.descricao %></div><br>
-                  </div>
-                 <% if @chamado.servicos.present? %>
-                  <div class="tab-pane" id="tab_br2">
-                    <div class="span12">
-                      <h3 class="heading">Histórico dos Serviços </h3>
-                       <% @chamado.servicos.each do |servico| %>
-                      <div id="accordion<%= servico.id %>" class="accordion">
-                        <div class="accordion-group">
-                          <div class="accordion-heading">
-                              <a href="#collapseOne<%= servico.id %>" data-parent="#accordion<%= servico.id %>" data-toggle="collapse" class="accordion-toggle">
-                                <%= servico.id %> <%= servico.nome %> 
-                                <% @ultimo_servico = Servico.last %>
-                                <% if not @chamado.status == "Finalizado" %>
-                                <% if @ultimo_servico.id == servico.id and servico.updated_at <= Time.now %>
-                                <span class="label label-important">último</span>
-                                <% end -%>
-                                <% end %> 
-                              </a>
-                          </div>
-                          <div class="accordion-body collapse" id="collapseOne<%= servico.id %>" style="height: 0px;">
-                            <div class="accordion-inner">
-                               <% if servico.pecas.present? %>
-                                 <h3 class="heading">Peças </h3>
-                                  <% servico.pecas.each do |peca| %>
-                                    <div class=" ">
-                                      <div>Identificação: <span class="label label-info"><%= peca.id %></span></div>
-                                      <div>Nome da Peça:   <b><%= peca.nome %></b></div>
-                                      <div><%= ("Códido da Peça: <b> #{peca.codigo}</b>").html_safe  unless peca.codigo.blank?%> </div>
-                                      <div><%= ("Valor da Peça: <b> #{number_to_currency peca.valorPeca} </b>").html_safe  unless peca.valorPeca.blank? %></div> 
-                                      <div>
-                                        Troca de Peça:
-                                        <% if peca.trocarPeca == true %>
-                                        <span class="label label-success">Sim</span>
-                                        <% else %> 
-                                        <span class="label label-warning">Não</span>
-                                        <% end -%>
-                                      </div>
-                                      <div>
-                                        <%=  ("Observação: <b>#{peca.observacao  unless peca.observacao.blank?} </b>").html_safe  %>
-                                      </div>
-                                    </div>
-                                    <h3 class="heading"> </h3>
-                                  <% end %>
-                                <% end %> 
-                                <div class="">
-                                <h3 class="heading">Detalhe do Serviços </h3>
-                              <div>  <%= ("Assunto: <b>#{servico.nome unless servico.nome.blank?} </b>").html_safe  %></div>
-                       <div> <%= (" Valor da Mão-de-obra: <b>#{servico.valorServico unless servico.valorServico.blank?} </b> ").html_safe  %></div>
-                <div>  <%= ("Observação: <b>#{servico.observacao unless servico.observacao.blank?} </b>").html_safe  %></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <% end -%>
-                    </div> <!-- final -->
-                    <% end -%>
-                  </div>
-       <!--       <div class="tab-pane" id="tab_br3">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
-                    </p>
-                  </div> -->
-                </div>
 <br>
-<% if  @chamado.status == "Aguardando Atendimento" %>
-
-    <div class="row-fluid">
-      <div class="span12 well">
-        <h3 class="heading">Descrever</h3> 
-        <div id="comment_form span12"> 
-           <!-- @chamado.comments.length  -%> Conta quantos chamado existem-->
-       <div class="span6">
-        <% if  @chamado.status == "Aguardando Atendimento" %>
-          <%= render "admin/comments/form", :chamado => @chamado, :comment => Comment.new %> 
-        <% end -%>
-      </div>    
-      <div class="pull-left span6">
-        <% if current_user.is_role?(:administrador) or current_user.is_role?(:funcionario)  %>
-              <%= render 'confirmar' if  @chamado.status == "Aguardando Atendimento" %>
-        <% end -%>   
-        <% if current_user.is_role?(:cliente) %>
-            <% if @chamado.comments.length >= 1  %>
-              <%= render 'cancelamento' if @chamado.cancelar == nil %>
-            <% end -%>
-      <% end -%>
-      </div>       
-          </div>
-  <% end -%>
-     
-     
-       </div>
-    </div> 
-
-  </div>
+Rio Branco Acre - <%= I18n.localize(Time.now, :format => "%d/%m/%Y | %H:%M h " ) %>
+<!-- fim  -->
 </div>
-
-
-
-
-<div class="control-group span12">
-    <div class="controls">
-      <!-- Opção ninguém pode editar um chamado -->
-       <!-- link_to 'Editar', edit_admin_chamado_path(@chamado) if current_user.is_role?(:administrador) %>  -->
-
-    </div>
-</div>
-

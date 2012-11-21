@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
-  </head>
-  <body>
-    <div id="content">
-      
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	   <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+</head>
+<body>
+   <div id="content">
       <%= yield %>
-    </div>
-  </body>
+    </div>	
+</body>
 </html>

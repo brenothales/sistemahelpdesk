@@ -8,16 +8,16 @@ class Admin::ChamadosController < ApplicationController
     @produto = Produto.new
     @unidades = Unidade.all
     
-    respond_to do |format|
-      format.html
-      format.pdf do 
-        render :pdf => 'file_name',
-               :template => 'admin/chamados/show.pdf.erb',
-               :layout => 'pdf',
-               :encoding => 'UTF-8'
-        end
-      end
-    # respond_with @chamados, :location => admin_chamados_path
+  #   respond_to do |format|
+  #     format.html
+  #     format.pdf do 
+  #       render :pdf => 'file_name',
+  #              :template => 'admin/chamados/show.pdf.erb',
+  #              :layout => 'pdf',
+  #              :encoding => 'UTF-8'
+  #       end
+  #     end
+    respond_with @chamados, :location => admin_chamados_path
   end
 
   def show

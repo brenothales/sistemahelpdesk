@@ -91,9 +91,8 @@
                                              <% end -%>
                                          </td> 
                                          <td>
-  <!--  url_a_format_result = url_for :controller=>'chamados', :action=>'show', :format=>:pdf, :id => chamado.id %> -->
-            <!-- link_to 'Gerar PDF', url_format_result, :class=>"btn btn-info", :target=> "_blank" %> -->
-    <p><%= link_to "Printable Receipt (PDF)", admin_chamados_path(chamado, format: "pdf") %></p>
+  <% url_format_result = url_for :controller => 'chamados', :action => 'show', :format => :pdf, :id => chamado.id %> 
+  <%= link_to "Gerar PDF", url_format_result, :class => "btn btn-info", :target => "_blank" %>      
                                          </td>
                                        <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.user.name unless chamado.user.blank? %>  </td> <% end -%>
                                       <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.funcionario.user.name unless chamado.funcionario.blank? %>  </td> <% end -%>
