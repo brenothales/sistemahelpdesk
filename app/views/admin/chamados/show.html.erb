@@ -113,7 +113,13 @@
                   <span class="label label-success">
                     <%= "Finalizado #{time_ago_in_words @chamado.updated_at}" %> 
                         <%= I18n.localize(@chamado.updated_at, :format => "%d/%m/%Y") %></span> 
-                  <% end -%>
+                  <% end -%> <br> <hr>
+                  <% if @chamado.cancelar.present? and @chamado.status == "Aguardando Atendimento"%>
+                    <%= ("Analisando a solicitação de: <span class='label label-info'> #{@chamado.cancelar} </span> ").html_safe  %>
+                  <% end %>
+                
+                
+                  
     </div>    
   </div>
 </div>

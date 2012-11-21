@@ -6,7 +6,6 @@
 	<% if can? :update, chamado %>
 	  <div>
 	    <div><%= link_to chamado.assunto, admin_chamado_path(chamado) %> <small> <%= chamado.status -%></small></div>
-	    <%= chamado.user.name %>
 	  </div>
 	<% end %>
  <% end %>
