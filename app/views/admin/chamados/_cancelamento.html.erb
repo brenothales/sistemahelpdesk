@@ -1,22 +1,10 @@
-
 <%= simple_form_for [:admin, @chamado], :html => { :class => 'form-horizontal inline' } do |f| %>
-<div id="status_chamado_show">
-<div class="pane">
-      <!-- f.input :finalizaSolicitacao,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"habi", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Finalizar Chamado" %> -->
-      <%= f.input :cancelar, :collection => [ "Finalização", "Cancelamento"], label: "Solicitar:", prompt: " Opções", input_html: { :class=>"chzn_a" } if current_user.is_role?(:cliente) %>
-    <%= f.button :submit, input_html: { class: "btn"}, :confirm => 'Sua Solicitação será avaliada pelos nosso técnicos' %>
-</div>
-</div>
-
+  <div id="status_chamado_show">
+    <div class="pane">
+          <%= f.input :cancelar, :collection => [ "Finalizar", "Cancelar"], label: "Solicitar:", prompt: " Opções", input_html: { :class=>"chzn_a" } if current_user.is_role?(:cliente) %>
+        <%= f.button :submit, input_html: { class: "btn"}, :confirm => 'Sua Solicitação será avaliada pelos nosso técnicos' %>
+    </div>
+  </div>
 <% end -%>
 
-<script>
-        function HabiDsabi(){
-  if(document.getElementById('cancelar').checked == true){
-         document.getElementById('envia').disabled = ""
-  }
-  if(document.getElementById('cancelar').checked == false){
-         document.getElementById('envia').disabled = "disabled"
-  }
-        }
-</script>
+  <!-- f.input :finalizaSolicitacao,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"habi", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Finalizar Chamado" %> -->

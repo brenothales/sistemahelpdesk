@@ -83,10 +83,10 @@
                                         </td>  
                                         <td class='name'> <span class="label label-warning"> <%= chamado.prioridade unless chamado.prioridade.blank? %>  </span></td> 
                                         <td class='name'>
-                                           <% if chamado.cancelar == 'Finalização' %>   
+                                           <% if chamado.cancelar == 'Finalizar' %>   
                                              <span class="label label-important"> Pedido de Finalização</span>
                                             <% end -%>
-                                            <% if chamado.cancelar == 'Cancelamento' %>   
+                                            <% if chamado.cancelar == 'Cancelar' %>   
                                              <span class="label label-important"> Pedido de Cancelamento</span>
                                            <% end -%>
                                          </td> 
