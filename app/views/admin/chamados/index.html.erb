@@ -83,12 +83,12 @@
                                         </td>  
                                         <td class='name'> <span class="label label-warning"> <%= chamado.prioridade unless chamado.prioridade.blank? %>  </span></td> 
                                         <td class='name'>
-                                           <% if chamado.cancelar == "Finalização" %>   
+                                           <% if chamado.cancelar == 'Finalização' %>   
                                              <span class="label label-important"> Pedido de Finalização</span>
                                             <% end -%>
-                                            <% if chamado.cancelar == "Cancelamento" %>   
+                                            <% if chamado.cancelar == 'Cancelamento' %>   
                                              <span class="label label-important"> Pedido de Cancelamento</span>
-                                             <% end -%>
+                                           <% end -%>
                                          </td> 
                                          <td>
   <% url_format_result = url_for :controller => 'chamados', :action => 'show', :format => :pdf, :id => chamado.id %> 
