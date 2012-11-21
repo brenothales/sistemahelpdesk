@@ -38,8 +38,8 @@ class Admin::SetoresController < ApplicationController
 
     respond_to do |format|
       if @setor.save
-        format.html { redirect_to [:admin, @setores], notice: 'Setor cadastrado.' }
-        format.json { render json: @setor, status: :created, location: [:admin, @setores] }
+        format.html { redirect_to [:admin, @setor], notice: 'Setor cadastrado.' }
+        format.json { render json: @setor, status: :created, :location => admin_setores_url }
       else
         format.html { render action: "new" }
         format.json { render json: @setor.errors, status: :unprocessable_entity }

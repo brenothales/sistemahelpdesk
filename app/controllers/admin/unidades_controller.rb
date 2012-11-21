@@ -37,8 +37,8 @@ class Admin::UnidadesController < ApplicationController
 
     respond_to do |format|
       if @unidade.save
-        format.html { redirect_to [:admin, @unidade], notice: 'Unidade was successfully created.' }
-        format.json { render json: @unidade, status: :created, :location => admin_unidade_path }
+        format.html { redirect_to [:admin, @unidade], notice: 'Unidade cadastrada com sucesso.' }
+        format.json { render json: @unidade, status: :created, :location => admin_unidades_path }
       else
         format.html { render action: "new" }
         format.json { render json: @unidade.errors, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Admin::UnidadesController < ApplicationController
 
     respond_to do |format|
       if @unidade.update_attributes(params[:unidade])
-        format.html { redirect_to [:admin, @unidade], notice: 'Unidade was successfully updated.' }
+        format.html { redirect_to [:admin, @unidade], notice: 'Unidade atualizada com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
