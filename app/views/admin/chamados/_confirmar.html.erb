@@ -3,8 +3,8 @@
 <div class="pane">
       <!-- f.input :finalizaSolicitacao,:as => :boolean, :input_html => {:class => 'uni_style', :id=>"habi", :onClick=>"HabiDsabi()"}, :label_html => {:class=>"inline"}, :label=> "Finalizar Chamado" %> -->
       <%= f.input :status, :priority => [ "Aguardando Atendimento" ], :collection => [ "Aguardando Atendimento", "Cancelado", "Finalizado"], label: "Status:", prompt: "Tipo de Status", input_html: { :class => "chzn_a"} if current_user.is_role?(:administrador) %>
-      <% if not @funcionario == nil %>
-      <label class="select optional control-label">Funcionário</label>
+      <% if  @funcionario == nil %>
+      <label class="select optional control-label">Funcionário</label> <br><br>
       <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Funcionario") if current_user.is_role?(:administrador) %> <br>
       <br>
       <% end -%>

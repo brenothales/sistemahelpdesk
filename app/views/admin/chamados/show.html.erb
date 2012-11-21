@@ -76,7 +76,7 @@
 <% if @chamado.funcionario %>
   <div class="span4">
     <span >Técnico Responsável:</span><br/>
-        <%= link_to("#{@chamado.funcionario.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'left',  "data-content" => "
+        <%= link_to("#{@chamado.funcionario.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Funcionário", "data-placement"=> 'left',  "data-content" => "
                         Email: <b>#{@chamado.funcionario.user.email}</b> <br/>
                         Nº RG: <b>#{@chamado.funcionario.rg}</b> <br/>
                         Aniversário: #{@chamado.funcionario.dataNascimento if @chamado.funcionario.dataNascimento     }</b>").html_safe %>
