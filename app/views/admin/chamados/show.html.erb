@@ -229,7 +229,7 @@
         <% if current_user.is_role?(:cliente) %>
             <% if @chamado.comments.length >= 1  %>
               <%= render 'cancelamento' if @chamado.cancelar == nil %>
-            <% end -%>
+            <% end -%> 
       <% end -%>
       </div>       
           </div>

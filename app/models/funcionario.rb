@@ -3,10 +3,10 @@ class Funcionario < ActiveRecord::Base
   has_many :chamados, :dependent => :destroy
   has_many :contato_telefones, :dependent => :destroy
   accepts_nested_attributes_for :contato_telefones, :reject_if => proc{|a| a["numero"].blank? }
-  attr_accessible :ctps, :funcao, :user_id, :contato_telefones_attributes, :cpf, :rg, :sexo, :dataNascimento
+  attr_accessible :ctps, :funcao, :user_id, :contato_telefones_attributes, :cpf, :rg, :sexo, :dataNascimento, :name
 
 
-
+ validates_presence_of :name
 
 
   def telefones

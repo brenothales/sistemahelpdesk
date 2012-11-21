@@ -14,6 +14,7 @@ gem 'carrierwave'
 gem 'rmagick'
 gem "highcharts-rails", "~> 2.3.0"
 gem 'country_select'
+gem 'brazilian-rails'
 # gem 'prawn'
 # gem 'wicked_pdf'
 # gem 'prawn_rails'

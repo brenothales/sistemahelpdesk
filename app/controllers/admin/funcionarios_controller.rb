@@ -52,7 +52,7 @@ class Admin::FuncionariosController < ApplicationController
 
     respond_to do |format|
       if @funcionario.update_attributes(params[:funcionario])
-        format.html { redirect_to [:admin, @funcionario], notice: 'Funcionario was successfully updated.' }
+        format.html { redirect_to [:admin, @funcionario], notice: 'Funcionario Atualizado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
