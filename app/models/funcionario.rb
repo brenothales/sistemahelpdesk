@@ -7,7 +7,7 @@ class Funcionario < ActiveRecord::Base
 
 
  validates_presence_of :name
-
+validates_associated :attribute, :on => :create
 
   def telefones
     self.contato_telefones.map{|a| "(#{a.ddd}) #{a.numero}"}

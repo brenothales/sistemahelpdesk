@@ -1,5 +1,8 @@
 class Admin::SetoresController < ApplicationController
   layout 'admin'
+  load_and_authorize_resource
+  before_filter :authenticate_user!
+
   # GET /setores
   # GET /setores.json
   def index
