@@ -3,7 +3,7 @@
  <!-- simple_form_for [:admin, @servico], remote: true do |f| %> -->
 
   <%= f.input :nome, label:"Nome do Serviço", input_html: { class: "span5", placeholder: "Assunto da Ordem"} %>
-  <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:finalizaSolicitacao == false), :prompt => "Escolher Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
+  <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:status == "Aguardando Atendimento"), :prompt => "Escolher Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
   <%= f.label "Data" %>
   <%= f.text_field :published_on, label:"Data" %>
   <%= f.input :valorServico%>

@@ -1,3 +1,22 @@
+<div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        
+        <li><%= link_to  :controller => "users", :action => "index", :id => @users do %>
+                <i class="icon-home"></i> Todos Usuários 
+            <% end -%>
+        </li>
+            <%= link_to new_admin_cliente_path do %>
+             <i class=" icon-plus"></i> Cadastrar Cliente <b>&nbsp</b>
+            <% end -%>
+        </li>
+        
+        <li>
+            <%= link_to new_admin_funcionario_path(@funcionario) do %>
+               <b>&nbsp</b> <i class=" icon-plus"></i> Cadastrar Funcionário
+            <% end -%>
+        </li>
+    </ul>
+</div>    
 <%= page_sub_title('Detalhes Usuário') %>
 <table class="table table-striped">
 	<thead>
@@ -7,10 +26,10 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%= show_field_value(:name, @user.name) %>
+		<%= show_field_value(:nome, @user.name) %>
 		<%= show_field_value(:email, @user.email) %>
 		<%= show_field_value(:role, @user.role.name.camelize) %>
-		<%= show_field_value(:situation, show_situation_status(@user.situation)) %>
+		<%= show_field_value(:situação, show_situation_status(@user.situation)) %>
 	</tbody>
 </table>
 <%= back_button(admin_users_path) %>

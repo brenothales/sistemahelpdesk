@@ -277,7 +277,6 @@
                         <ul class="nav nav-list">
                               <li class="nav-header">Produtos</li>
                               <li><%= link_to "Adicionar", :controller => "produtos", :action => "new", :id => @produto %></li>
-                              <li><%= link_to "Meus Produtos", admin_produtos_path if (!current_user.is_role?(:modera)) %></li>
                               <% if current_user.is_role?(:administrador) %>
                                <li><%= link_to "Todos Produtos", admin_produtos_path %></li>
                                <li class="nav-header">Categoria</li>
@@ -345,7 +344,7 @@
                   <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapseFour" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                        <i class="icon-cog"></i> Configuração de Conta
+                        <i class="icon-cog"></i> Cadastros
                       </a>
                     </div>
                     <div class="accordion-body collapse" id="collapseFour">
@@ -355,12 +354,11 @@
                           <li><%= link_to "Cadastrar Usuário", admin_users_path %></li>
                           <li><%= link_to "Cadastrar Clientes", admin_clientes_path %></li>
                           <li><%= link_to "Cadastrar Funcionário", admin_funcionarios_path %></li>
-                          <li class="nav-header">Sistema</li>
-                          <li><a href="javascript:void(0)">Informação</a></li>
-                          <li><a href="javascript:void(0)">Menu</a></li>
-                          <li><a href="javascript:void(0)">Menu</a></li>
                           <li class="divider"></li>
-                          <li><a href="javascript:void(0)">Ajuda</a></li>
+                          <li class="nav-header">Unidade/Setores</li>
+                          <li><%= link_to "Cadastrar Unidade", admin_unidades_path %></li>
+                          <li><%= link_to "Cadastrar Setor", admin_setores_path %></li>
+                          
                         </ul>
                       </div>
                     </div>

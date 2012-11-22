@@ -9,7 +9,7 @@
                   <div class="tab-pane active" id="tab_br1">
                     <% if current_user.is_role?(:administrador) %>
                     <fieldset>
-                      <legend>Usuário</legend>
+                      <legend>Cliente Solicitante</legend>
                                <%=  f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %> 
 
 

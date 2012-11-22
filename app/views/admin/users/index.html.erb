@@ -1,8 +1,28 @@
+<div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        
+        <li><%= link_to  :controller => "users", :action => "index", :id => @users do %>
+                <i class="icon-home"></i> Todos Usuários 
+            <% end -%>
+        </li>
+            <%= link_to new_admin_cliente_path do %>
+             <i class=" icon-plus"></i> Cadastrar Cliente <b>&nbsp</b>
+            <% end -%>
+        </li>
+        
+        <li>
+            <%= link_to new_admin_funcionario_path(@funcionario) do %>
+               <b>&nbsp</b> <i class=" icon-plus"></i> Cadastrar Funcionário
+            <% end -%>
+        </li>
+    </ul>
+</div>      
+
 <table class="table table-striped table-bordered dTableR" id="dt_d">
 <thead>
   <tr>
       <th>ID</th>
-      <th>User</th>
+      <th>Usuários</th>
       <th>Email</th>
       <th>Permissão</th>
       <th>Ações</th>

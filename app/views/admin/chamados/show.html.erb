@@ -49,7 +49,7 @@
 <% if @chamado.user %>
   <div class="span4">
     <span >Cliente:</span><br/>
-        <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
+        <%= link_to("<i class='icon-user/></i> #{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
                         Email: <b>#{@user.email}</b> <br/>
                         Tipo: <b>#{@cliente.tipo_cliente.nome unless @cliente.blank?}</b> <br/>
                         Nº RG: <b>#{@cliente.rg unless @cliente.blank? }</b> <br/>
