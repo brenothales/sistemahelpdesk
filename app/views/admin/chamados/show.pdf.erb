@@ -55,6 +55,6 @@ Prioridade:     <b><%= @chamado.prioridade %> </b> <br>
   </div>
 <% end -%>
 <br>
-Rio Branco Acre - <%= I18n.localize(Time.now, :format => "%d/%m/%Y | %H:%M h " ) %>
+Rio Branco Acre - <%= I18n.localize(Time.now.in_time_zone, :format => "%d/%m/%Y | %H:%M h " ) %>
 <!-- fim  -->
 </div>
