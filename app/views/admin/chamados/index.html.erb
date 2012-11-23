@@ -1,7 +1,7 @@
 
 <div id="jCrumbs" class="breadCrumb module">
     <ul>
-        <li><%= link_to  :controller => "chamados", :action => "index", :id => @chamados do %>
+        <li><%= link_to  admin_chamados_path do %>
                 <i class="icon-home"></i> Todos Chamados 
             <% end -%>
 
@@ -9,6 +9,11 @@
          <li>
             <%= link_to new_admin_chamado_path do %>
             <i class=" icon-plus"></i> Novo Chamado
+            <% end -%>
+        </li>
+         <li>
+            <%= link_to new_admin_produto_path do %>
+            <i class=" icon-plus"></i> Novo Produto
             <% end -%>
         </li>
     </ul>

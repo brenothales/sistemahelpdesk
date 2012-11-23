@@ -4,8 +4,8 @@
 <div id="jCrumbs" class="breadCrumb module">
     <ul>
         
-        <li><%= link_to  :controller => "categories", :action => "index", :id => @categories do %>
-                <i class="icon-home"></i> Todos Nome 
+        <li><%= link_to  admin_categories_path do %>
+                <i class="icon-home"></i> Todas as categorias 
             <% end -%>
         </li>
             <%= link_to new_admin_produto_path do %>

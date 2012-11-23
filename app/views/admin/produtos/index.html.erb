@@ -10,81 +10,95 @@
             <i class=" icon-plus"></i> Novo Produto
             <% end -%>
         </li>
+        <li>
+            <%= link_to new_admin_category_path do %>
+             <i class=" icon-plus"></i> Cadastrar Categoria <b>&nbsp</b>
+            <% end -%>
+        </li>
+        </li>
+            <%= link_to new_admin_chamado_path do %>
+             <i class=" icon-plus"></i> Abrir Chamado <b>&nbsp</b>
+            <% end -%>
+        </li>
     </ul>
 </div>          
 
 <div data-pjax-container>
   <div class="row-fluid">
+    <div class="span12">
+        <h3 class="heading">Produtos</h3>
+        <table class="table table-striped table-bordered dTableR" id="dt_d">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Produto</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Serial</th>
+                    <th>Patrimônio</th>
+                    <th>Setor</th>
+                    <th>Unidade</th>
+                    <th>Ações</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+            <% @produtos.each do |produto| %>
+              <% if can? :update, produto %>
+                <tr>
+                  <td class='name'><%= produto.id %></td>
+                  <td class='name'><%= produto.name %></td>
+                  <td class='name'><%= produto.modelo %></td>
+                  <td class='name'><%= produto.marca %></td>
+                  <td class='name'><%= produto.numeroSerie %></td>
+                  <td class='name'><%= produto.patrimonio %></td>
+                  <td class='name'><%= produto.setor.nome %> | <%= produto.setor.sigla %> 
+                  </td>
+                  <td class="name"><%= produto.setor.unidade.nome %></td>
+                  <!-- <td class='name'><%= produto.user.name   %></td><!-- if produto.user.name.present? --> 
+                       <td class='situation'>
+                          <div class="btn-group dropup">
+                            <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+                              Ações
+                              <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                              <!-- dropdown menu links -->
+                              <li> 
+                                 <%= link_to new_admin_produto_servico_path(produto, @servico) do %>
+                                  <i class="icon-plus-sign"></i> Abrir OS
+                                 <% end -%>
+                              </li>   
+                              <li> <%= link_to admin_produto_servicos_path(produto) do %>
+                                 <i class="icon-folder-open"></i> Histórico 
+                                 <% end -%>
+                              </li>
+                              <li class="divider"></li>
+                              <li> <%= link_to [:admin, produto] do %>
+                                   <i class="icon-eye-open"></i> Detalhes
+                                    <% end -%>
+                              </li>
+                              <li> <%= link_to edit_admin_produto_path(produto) do %>
+                                    <i class="icon-edit"></i> Editar
+                                   <% end -%>
+                              </li>
+                              
+                            
+                              <li> 
+                                <%= link_to [:admin, produto], :confirm => 'Você tem certeza?', :method => :delete do %>
+                                <i class="icon-trash"></i> Deletar 
+                                <% end -%>
+                              </li>
+                            </ul>
+                          </div>
+                  </td>
+                </tr>
+               <% end %>
+             <% end %>
 
-                        <div class="span12">
-                            <h3 class="heading">Produtos</h3>
-                            <table class="table table-striped table-bordered dTableR" id="dt_d">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Ações</th>
-                                        <th>Produto</th>
-                                        <th>Modelo</th>
-                                        <th>Marca</th>
-                                        <th>Serial</th>
-                                        <th>Patrimônio</th>
-                                        <th>Setor</th>
-                                        <th>Unidade</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <% @produtos.each do |produto| %>
-                                  <% if can? :update, produto %>
-                                    <tr>
-                                      <td class='name'><%= produto.id %></td>
-                                      <td class='situation'>
-                                              <div class="btn-group dropup">
-                                                <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
-                                                  Ações
-                                                  <span class="caret"></span>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                  <!-- dropdown menu links -->
-                                                  <li> <%= link_to admin_produto_servicos_path(produto) do %>
-                                                     <i class="icon-folder-open"></i> Abrir OS
-                                                     <% end -%>
-                                                  </li>
-                                                  <li class="divider"></li>
-                                                  <li> <%= link_to [:admin, produto] do %>
-                                                       <i class="icon-eye-open"></i> Detalhes
-                                                        <% end -%>
-                                                  </li>
-                                                  <li> <%= link_to edit_admin_produto_path(produto) do %>
-                                                        <i class="icon-edit"></i> Editar
-                                                       <% end -%>
-                                                  </li>
-                                                  
-                                                
-                                                  <li> 
-                                                    <%= link_to [:admin, produto], :confirm => 'Você tem certeza?', :method => :delete do %>
-                                                    <i class="icon-trash"></i> Deletar 
-                                                    <% end -%>
-                                                  </li>
-                                                </ul>
-                                              </div>
-                                      </td>
-                                      <td class='name'><%= produto.name %></td>
-                                      <td class='name'><%= produto.modelo %></td>
-                                      <td class='name'><%= produto.marca %></td>
-                                      <td class='name'><%= produto.numeroSerie %></td>
-                                      <td class='name'><%= produto.patrimonio %></td>
-                                      <td class='name'><%= produto.setor.nome %> | <%= produto.setor.sigla %> 
-                                      </td>
-                                      <td class="name"><%= produto.setor.unidade.nome %></td>
-                                      <!-- <td class='name'><%= produto.user.name   %></td><!-- if produto.user.name.present? --> 
-                                    </tr>
-                                   <% end %>
-                                 <% end %>
-
-                                </tbody>
-                            </table>
-                        </div>
+            </tbody>
+        </table>
+    </div>
   </div>
 </div>
 </div>

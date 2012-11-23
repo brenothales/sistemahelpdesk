@@ -75,3 +75,10 @@
 #incomplete_servicos a{
 color:
 }
+
+table .dropdown-menu {
+		top: auto;
+		bottom: 100%;
+		margin-bottom: -67px !important;
+		margin-left: -164px !important;
+}

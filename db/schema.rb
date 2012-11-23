@@ -212,15 +212,23 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
   end
 
   create_table "servicos", :force => true do |t|
-    t.string   "nome",         :limit => 30
-    t.text     "observacao"
+    t.string   "nome",          :limit => 30
+    t.integer  "numero_os"
     t.date     "published_on"
-    t.boolean  "completado",                                                :default => false, :null => false
-    t.decimal  "valorServico",               :precision => 10, :scale => 2
+    t.boolean  "completado",                                                 :default => false, :null => false
+    t.boolean  "retirado",                                                   :default => false, :null => false
+    t.decimal  "valor_Servico",               :precision => 10, :scale => 2
+    t.text     "observacao"
+    t.text     "laudo"
+    t.text     "descricao"
+    t.text     "solucao"
+    t.integer  "peca_id"
+    t.integer  "tarefa_id"
     t.integer  "produto_id"
+    t.integer  "statu_id"
     t.integer  "chamado_id"
-    t.datetime "created_at",                                                                   :null => false
-    t.datetime "updated_at",                                                                   :null => false
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
   end
 
   create_table "setores", :force => true do |t|

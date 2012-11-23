@@ -1,13 +1,42 @@
+<div id="accordion1" class="accordion">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a href="#collapseOne1" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle">
+				<h1 class="heading">Ordem de Serviço | <b> <%= "#{@produto.name}" %> </b>  <i class="icon-plus-sign"></i></h1>
+			</a>
+		</div>
+		<div class="accordion-body collapse" id="collapseOne1" style="height: 0px;">
+			<div class="accordion-inner">
+				    <%= "Cliente: #{@produto.user.name}  "                if @produto.user.present? %> <br>
+			    	<%= "Unidade:  #{@produto.setor.unidade.nome}"         if @produto.setor.unidade.nome.present?%><br>
+				    <%= "Setor:  #{@produto.setor.nome}"                   if @produto.setor.present?%><br>
+					<%= "Categoria:  #{@produto.category.name}"           if @produto.category.name.present? %> <br>
+				    <%= "Modelo: #{@produto.modelo}"                      if @produto.modelo.present? %> <br>
+				    <%= "Marca:  #{@produto.marca}"                       if @produto.marca.present? %> <br>
+				    <%= "Número de Série: #{@produto.numeroSerie}"        if @produto.numeroSerie.present? %><br>
+				    <%= "Patrimônio:  #{@produto.patrimonio} "            if @produto.patrimonio.present?%><br>
+				    <%= "Número de Contrato: #{@produto.numeroContrato}"  if @produto.numeroContrato.present? %><br>
+				    <%= "Acessórios: #{@produto.acessorios}"              if @produto.acessorios %><br>
+				    
+				    
+				    
+			</div>
+		</div>
+	</div>
+</div>
+
 <%= simple_form_for [:admin, @produto, @servico], :html=> { :multipart => true} do |f| %>
 <!-- Form para ajax -->
  <!-- simple_form_for [:admin, @servico], remote: true do |f| %> -->
-
-  <%= f.input :nome, label:"Nome do Serviço", input_html: { class: "span5", placeholder: "Assunto da Ordem"} %>
-  <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:status == "Aguardando Atendimento"), :prompt => "Escolher Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
-  <%= f.label "Data" %>
-  <%= f.text_field :published_on, label:"Data" %>
-  <%= f.input :valorServico%>
+  <%= f.input :numero_os, label: "Nº da OS", hint: "(Numeração do Bloco)", input_html: { class: "span2"} %>
+  <%= f.input :nome, label:"Defeito do Produto", input_html: { class: "span6", placeholder: "Defeito do produto"} %>
+  <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:status == "Aguardando Atendimento"), :prompt => "Apartir do Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
+ <!-- f.label "Data" %> -->
+ <!-- f.text_field :published_on, label:"Data" %> -->
+  <%= f.input :retirado %>  
   <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+   <%= f.input :laudo, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+    <%= f.input :descricao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
 
 
 
