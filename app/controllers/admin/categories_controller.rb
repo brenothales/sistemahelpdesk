@@ -5,7 +5,7 @@ class Admin::CategoriesController < ApplicationController
   before_filter :atualizar_situation, :only => :index
 
   def index
-    @categories = Category.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page])
+    @categories = Category.all #.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page])
     respond_with @categories,:location => admin_categories_path
   end
 
