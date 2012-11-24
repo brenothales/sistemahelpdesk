@@ -1,0 +1,97 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */ 
+
+
+/* Footer
+-------------------------------------------------- */
+/**/
+/*bootstrap/css/bootstrap.min*/
+/*bootstrap/css/bootstrap-responsive.min*/
+/*css/blue*/
+/*lib/jBreadcrumbs/css/BreadCrumb*/
+/*lib/qtip2/jquery.qtip.min*/
+/*lib/colorbox/colorbox*/
+/*lib/google-code-prettify/prettify*/
+/*lib/sticky/sticky*/
+/*img/splashy/splashy*/
+/*img/flags/flags*/
+/*lib/fullcalendar/fullcalendar_gebo*/
+/*css/style*/
+/*jquery-ui-1.8.custom*/
+/*ui.daterangepicker */
+/*select2*/
+/*require_tree .*/
+
+
+
+.right{ float: right;}
+.left{float:left;}
+.letrinha{ font-size: 9px; color:#999999 }
+
+.success {
+  color: #468847;
+  padding-left: 10px;
+  border-color: #bce8f1;
+}
+.info {
+  color: #3a87ad;
+  border-color: #bce8f1;
+  padding-left: 10px;
+}
+
+
+#incomplete_servicos a{
+color:
+}
+
+table .dropdown-menu {
+		top: auto;
+		bottom: 100%;
+		margin-bottom: -67px !important;
+		margin-left: -164px !important;
+}
+.branco{
+  background-color: #ffffff !important;
+  padding: 14px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.15);
+
+}
+
+
+

@@ -82,3 +82,15 @@ table .dropdown-menu {
 		margin-bottom: -67px !important;
 		margin-left: -164px !important;
 }
+.branco{
+  background-color: #ffffff !important;
+  padding: 14px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.15);
+
+}
+
+
+

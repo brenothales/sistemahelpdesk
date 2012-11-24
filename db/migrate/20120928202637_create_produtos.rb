@@ -15,11 +15,13 @@ class CreateProdutos < ActiveRecord::Migration
       t.references :category   
       t.references :setor   
       t.references :user   
+      t.references :cliente   
 
       t.timestamps
     end
     add_index :produtos, :category_id
     add_index :produtos, :user_id
     add_index :produtos, :setor_id
+    add_index :produtos, :cliente_id
   end
 end

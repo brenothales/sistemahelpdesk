@@ -1,43 +1,255 @@
-<p>
-  <b>Nome do Serviço:</b>
-  <%= @servico.nome %>
-</p>
-
-<p>
-  <b>Chamado:</b>
-  <%= @servico.chamado.assunto %>
-</p>
-
-<p>
-  <b>Data da Atividade:</b>
-  <%= I18n.localize(@servico.published_on, :format => "%d/%m/%Y") %>
-</p>
-
-<p>
-  <b>Data da Criação:</b>
-  <%= time_ago_in_words @servico.created_at %> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %>
-</p>
+<!--  current_user.cliente.rg  %></h1> -->
+<!--  current_user.cliente.cpf %></h1> -->
+<!--  @user.cliente.cpf        %></h1> -->
+<!--  @user.cliente.cpf        %></h1> -->
+<!--  @cliente.sexo            %> -->
+<!--  @user.cliente.cpf        %></h1> -->
+    
 
 
-<p>
-  <b>Observação:</b>
-  <%= @servico.observacao %>
-</p>
+<div class=" well">
+  <h1 class="inline"> <b> Ordem de Serviço:  <%= @servico.id %> </b></h1>
+  <% if @servico.numero_os -%>
+  <h4 class="inline"> <b><small><i class="icon-file" > </i>  Ordem de serviço (Bloco):  <%= @servico.numero_os %> </small> </b></h4>
+  <% end -%>
+  <br>
+  <small>Defeito:</small>
+  <h3 class="heading inline"><%= @servico.nome %> 
+  <small class=" pull-right">Criando <%= time_ago_in_words @servico.created_at %> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %> 
+ 
+  </small></h3>
+<div class="row-fluid ">
+  <div class="span12 branco">
+    <% if @servico.produto%>
+        <div class="span4">
+          <span><i class="icon-hdd"></i> Aparelho:</span>
+            <b> <%= link_to("#{@servico.produto.name.html_safe}","#{ }", :class => " pop_over ", :title => "Espercificações do Aparelho", "data-placement"=> 'right',  "data-content" => "Modelo: #{@servico.produto.modelo} <br/>
+                      ID:<b> #{@servico.produto.id}</b> <br/>
+                      Categoria:<b> #{@servico.produto.category.name}</b> <br/>
+                      Marca:<b> #{@servico.produto.marca}</b> <br/>
+                      Nº:<b> #{@servico.produto.numeroSerie}</b> <br/>
+                      Acessórios:<b> #{@servico.produto.acessorios}</b> <br/>
+                      Observação:<b> #{@servico.produto.observacao}</b> <br/>").html_safe  %></b>
+        </div>
+    <% end -%>
 
-   <div class="modal hide fade" id="myMail">
-                    <div class="modal-header">
-                        <button class="close" data-dismiss="modal">×</button>
-                        <h3>Gerenciamento de Tarefas</h3>
-                    </div>
-                    <div class="modal-body">
-                         <div id='lateral'>
 
-                         
+    <% if @produto.setor%>
+      <div class="span4">
+        <span> <b> <i class=" icon-map-marker"></i> Local:</b></span>
+        <%= @produto.setor.unidade.nome %> | <%= @produto.setor.nome %>  
+      </div>
+    <% end -%>
+    <% if @produto.user%>
+      <div class="span4">
+        <b><span><i class="icon-user"></i> Cliente:</span></b>
+        <%= @produto.user.name%>  
+      </div>
+    <% end -%>
+  </div> <br> 
+<p>&nbsp</p> 
+<div class="">
+  <div class="span6">
+      Completado: 
+      <span class="label label-inverse">
+        <% if @servico.completado == true %>
+        Completado
+        <% else %>
+        Aguardando Atendimento
+        <% end -%>
+      </span>
+  </div>  
+  <div class="span6">
+    Aparelho Retirado: 
+      <% if @servico.retirado == true %>
+      <span class="label label-success">Sim</span>
+      <% else %>
+      <span class="label label-success">Não</span>
+      <% end -%>
+  </div>
+</div>
+  <hr>
+    
+  <div class="" >
+    <!-- Observação -->
+    <fieldset class="span6 branco">
+      <legend>Observação</legend>
+    <%= @servico.observacao %>
+    </fieldset>
+    <!-- Fim Observação -->
+    <!-- Descriçao -->
+    <fieldset class="span6 branco ">
+      <legend>Descrição</legend>
+    <%= @servico.observacao %>
+    </fieldset> <br>
+   <!-- Fim Descricao -->
+  </div>
+</div>   
+<hr>
+  <!-- Interação do cliente mas funcionário e admin -->
+  <% if @servico.chamado.present? %>
+<div class="">
+      <div id="accordion1" class="accordion">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a href="#collapseOne1" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle">
+                      <legend> Detalhe do Chamado: <%= @servico.chamado.assunto %></legend>
+                    </a>
+                  </div>
+                  <div class="accordion-body collapse" id="collapseOne1">
+                    <div class="accordion-inner ">
+                      <div class="span6 branco">
+                        <b><i class="icon-info-sign" ></i> Identificação: </b><%= @servico.chamado.assunto if @servico.chamado.assunto %> <br>
+                                    <b><i class="icon-tags" ></i> Assunto: </b><%= @servico.chamado.assunto if @servico.chamado.assunto %> <br>
+                                <b> <i class="icon-time"></i> Data: </b> <%= time_ago_in_words @servico.chamado.created_at %> <%= I18n.localize(@servico.chamado.created_at, :format => "%d/%m/%Y") %>  <br>
+                               <b> <i class="icon-user"></i> Técnico Resposánvel: </b> <%= @servico.chamado.funcionario.user.name if  @servico.chamado.funcionario.user.name.present?  %> <br>
+                                 <b> <i class="icon-warning-sign"></i> Prioridade: </b> <%= @servico.chamado.prioridade %>  <br>
+                                 <b> <i class="icon-tasks"></i> Status: </b> <%= @servico.chamado.status %>  <br>
+                                 <b> <i class="icon-retweet"></i> Solicitação do Cliente: </b> <%= @servico.chamado.cancelar %>  <br>
+                                 <b> <i class="icon-check"></i> Tipo de Atendimento: </b> <%= @servico.chamado.tipoAtendimento %>  <br>
+                                 <b> <i class=" icon-map-marker"></i> Local: </b> <%= @servico.chamado.setor.unidade.nome %> | <%= @servico.chamado.setor.nome %> <br>
+                                  <b> <i class="icon-arrow-right"></i> Telefone do Setor: </b> <%= @servico.chamado.setor.unidade.fone %> <%= "Ramal #{@servico.chamado.setor.unidade.ramal} " unless  @servico.chamado.setor.unidade.ramal.blank? %> <br> 
+                      </div> 
+                                         
+                        
+                               <div class="span6 branco"> 
+                            <div class="" id="comentarios">
+                                    <div class="antiScroll">
+                                      <div class="antiscroll-inner" style="width: 453px; ">
+                                        <div class="antiscroll-content" style="">
+                                      
+                                          <div class="sidebar_inner" style="margin-bottom: -92px; min-height: 100%;">
+                                            <div id="side_accordion" class="accordion">
+                                              
+                                              <div class="accordion-group">
+                                                <div class="accordion-heading sdb_h_active">
+                                                  <a href="#collapse<%= @servico.id %>" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+                                                     <i class="icon-comment"></i> Interação do Chamado 
+                                                  </a>
+                                                </div>
+                                                <div class="accordion-body collapse in" id="collapse<%= @servico.id %>">
+                                                  <div class="accordion-inner">
+                                                      <%- if @servico.chamado.comments.any? -%>
+                                                          <%= render :partial =>  @servico.chamado.comments %>
+                                                        <%- else -%>
+                                                          <b class=''>Sem histórico de conversa</b>
+                                                        <%- end -%>
+                                                  </div>
+                                                 </div>
+                                              </div>
+                                            </div>
+                                            
+                                            <div class="push" style="height: 92px;"></div>
+                                          </div>
 
+                                        
+                                        </div>
+                                      </div>
+                                    <div class="antiscroll-scrollbar antiscroll-scrollbar-vertical" style="height: 102.11443850267379px; top: 0px;"></div></div>
+                                  
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <%= link_to "Ir para Tarefas", admin_servicos_path, :class=>"btn" %>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                     </div>
+                  </div>
+                </div>
+            </div>
+      </div>
+</div>
+<% end -%>
+<!-- Fim da interação  -->
+
+
+</div>
+</div>
+<div class="">
+            <h3 class="heading">Atendimento</h3>
+            <div class="tabbable tabbable-bordered">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_br1" data-toggle="tab">Interações</a></li>
+                <% if @servicos.present? %>
+                <li class=""><a href="#tab_br2" data-toggle="tab">Serviços</a></li>
+                <% end -%>
+<!--Terceira aba  <li class=""><a href="#tab_br3" data-toggle="tab">Section 3</a></li> -->
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_br1">
+                  <h3 class="heading inline">Descrição do Chamado:</h3>
+                    <div> <%= @servico.descricao %></div><br>
+                    <div id="comments" class="">
+                      <div class="">
+                      </div>
                     </div>
                 </div>
+               <% if @servicos.present? %>
+                <div class="tab-pane" id="tab_br2">
+                  <div class="span12">
+                    <h3 class="heading">Histórico dos Serviços </h3>
+                     <% @servicos.each do |servico| %>
+                    <div id="accordion<%= servico.id %>" class="accordion">
+                      <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a href="#collapseOne<%= servico.id %>" data-parent="#accordion<%= servico.id %>" data-toggle="collapse" class="accordion-toggle">
+                              <%= servico.id %> <%= servico.nome %> 
+                              <% @ultimo_servico = Servico.last %>
+                              <% if @chamado.completado == false %>
+                              <% if @ultimo_servico.id == servico.id and servico.updated_at <= Time.now %>
+                              <span class="label label-important">último</span>
+                              <% end -%>
+                              <% end %> 
+                            </a>
+                        </div>
+                        <div class="accordion-body collapse" id="collapseOne<%= servico.id %>" style="height: 0px;">
+                          <div class="accordion-inner">
+                             <% if servico.pecas.present? %>
+                               <h3 class="heading">Peças </h3>
+                                <% servico.pecas.each do |peca| %>
+                                  <div class=" ">
+                                    <div>Identificação: <span class="label label-info"><%= peca.id %></span></div>
+                                    <div>Nome da Peça:   <b><%= peca.nome %></b></div>
+                                    <div><%= ("Códido da Peça: <b> #{peca.codigo}</b>").html_safe  unless peca.codigo.blank?%> </div>
+                                    <div><%= ("Valor da Peça: <b> #{number_to_currency peca.valorPeca} </b>").html_safe  unless peca.valorPeca.blank? %></div> 
+                                    <div>
+                                      Troca de Peça:
+                                      <% if peca.trocarPeca == true %>
+                                      <span class="label label-success">Sim</span>
+                                      <% else %> 
+                                      <span class="label label-warning">Não</span>
+                                      <% end -%>
+                                    </div>
+                                    <div>
+                                      <%=  ("Observação: <b>#{peca.observacao  unless peca.observacao.blank?} </b>").html_safe  %>
+                                    </div>
+                                  </div>
+                                  <h3 class="heading"> </h3>
+                                <% end %>
+                              <% end %> 
+                              <div class="">
+                              <h3 class="heading">Detalhe do Serviços </h3>
+                            <div>  <%= ("Assunto: <b>#{servico.nome unless servico.nome.blank?} </b>").html_safe  %></div>
+                     <div> <%= (" Valor da Mão-de-obra: <b>#{servico.valorServico unless servico.valorServico.blank?} </b> ").html_safe  %></div>
+              <div>  <%= ("Observação: <b>#{servico.observacao unless servico.observacao.blank?} </b>").html_safe  %></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% end -%>
+                  </div> <!-- final -->
+                  <% end -%>
+                </div>
+              </div>
+     </div>
+  </div> 
+
+</div>
+</div>
+
+               <%= link_to "Voltar", admin_produto_servicos_path %> 
       

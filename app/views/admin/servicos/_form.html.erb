@@ -1,3 +1,13 @@
+<script>
+	
+jQuery(function() {
+  return $('#servico_published_on').datepicker({
+    dateFormat: 'dd/mm/yy'
+  });
+});
+
+	
+</script>
 <div id="accordion1" class="accordion">
 	<div class="accordion-group">
 		<div class="accordion-heading">
@@ -24,23 +34,27 @@
 		</div>
 	</div>
 </div>
-
+<br>
 <%= simple_form_for [:admin, @produto, @servico], :html=> { :multipart => true} do |f| %>
+<%= error_message_for(@servico) %>
 <!-- Form para ajax -->
  <!-- simple_form_for [:admin, @servico], remote: true do |f| %> -->
   <%= f.input :numero_os, label: "Nº da OS", hint: "(Numeração do Bloco)", input_html: { class: "span2"} %>
   <%= f.input :nome, label:"Defeito do Produto", input_html: { class: "span6", placeholder: "Defeito do produto"} %>
   <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:status == "Aguardando Atendimento"), :prompt => "Apartir do Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
- <!-- f.label "Data" %> -->
- <!-- f.text_field :published_on, label:"Data" %> -->
-  <%= f.input :retirado %>  
-  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
-   <%= f.input :laudo, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
-    <%= f.input :descricao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+	<%=  f.label "Data" %>
+	<%=  f.text_field :published_on, label:"Data", :input_html => { :id => ":servico_published_on" } %>
+  <%= f.input :retirado, :label => "Retirado do local" %>  
+  <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span10", :rows => 5, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
+  
+  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 5, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+
+    
 
 
 
-  <%= f.submit :class=> "btn" %>
+
+  <%= submit_and_back_buttons(admin_produto_servicos_path,{:label_name => "Gravar Produto"}) %>
 
 
 <% end %>

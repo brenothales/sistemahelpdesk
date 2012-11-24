@@ -198,7 +198,7 @@
                                 <div class="">
                                 <h3 class="heading">Detalhe do Serviços </h3>
                               <div>  <%= ("Assunto: <b>#{servico.nome unless servico.nome.blank?} </b>").html_safe  %></div>
-                       <div> <%= (" Valor da Mão-de-obra: <b>#{servico.valorServico unless servico.valorServico.blank?} </b> ").html_safe  %></div>
+                       <div> <%= (" Valor da Mão-de-obra: <b>#{servico.valor_Servico if servico.valor_Servico.present?} </b> ").html_safe  %></div>
                 <div>  <%= ("Observação: <b>#{servico.observacao unless servico.observacao.blank?} </b>").html_safe  %></div>
                               </div>
                             </div>

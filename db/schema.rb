@@ -196,11 +196,13 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
     t.integer  "category_id"
     t.integer  "setor_id"
     t.integer  "user_id"
+    t.integer  "cliente_id"
     t.datetime "created_at",                                                                        :null => false
     t.datetime "updated_at",                                                                        :null => false
   end
 
   add_index "produtos", ["category_id"], :name => "index_produtos_on_category_id"
+  add_index "produtos", ["cliente_id"], :name => "index_produtos_on_cliente_id"
   add_index "produtos", ["setor_id"], :name => "index_produtos_on_setor_id"
   add_index "produtos", ["user_id"], :name => "index_produtos_on_user_id"
 
@@ -212,12 +214,12 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
   end
 
   create_table "servicos", :force => true do |t|
-    t.string   "nome",          :limit => 30
+    t.string   "nome",           :limit => 30
     t.integer  "numero_os"
     t.date     "published_on"
-    t.boolean  "completado",                                                 :default => false, :null => false
-    t.boolean  "retirado",                                                   :default => false, :null => false
-    t.decimal  "valor_Servico",               :precision => 10, :scale => 2
+    t.boolean  "completado",                                                  :default => false, :null => false
+    t.boolean  "retirado",                                                    :default => false, :null => false
+    t.decimal  "valor_Servico",                :precision => 10, :scale => 2
     t.text     "observacao"
     t.text     "laudo"
     t.text     "descricao"
@@ -227,8 +229,9 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
     t.integer  "produto_id"
     t.integer  "statu_id"
     t.integer  "chamado_id"
-    t.datetime "created_at",                                                                    :null => false
-    t.datetime "updated_at",                                                                    :null => false
+    t.integer  "funcionario_id"
+    t.datetime "created_at",                                                                     :null => false
+    t.datetime "updated_at",                                                                     :null => false
   end
 
   create_table "setores", :force => true do |t|

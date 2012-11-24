@@ -31,6 +31,7 @@ class Admin::ServicosController < ApplicationController
   def show
     @servico = Servico.find(params[:id])
     @servico = @produto.servicos.find(params[:id])
+    
       respond_to do |format|
         format.html #{ render :layout => ! request.xhr? }
         # Default behavior -> renders show.js.erb
@@ -49,26 +50,42 @@ class Admin::ServicosController < ApplicationController
     end
   end
 
-  def create
-    @servico = @produto.servicos.build(params[:servico])
+  def edit
+   @servico = @produto.servicos.find(params[:id])
+  end
+
+   def create
+     @servico = @produto.servicos.build(params[:servico])
+     respond_to do |format|
+        if @servico.save
+         format.html { redirect_to([:admin, @produto, @servico])}
+         format.js
+         @data_type = :json
+       end
+     end
+   end
+
+  # def update
+  #   @servico = Servico.find(params[:id])
+  #   @servico.update_attributes!(params[:servico])
+  #   respond_to do |format|
+  #     format.html { redirect_to admin_servicos_url }
+  #     format.js
+  #   end
+  # end
+def update
+    @servico = @produto.servicos.find(params[:id])
+
     respond_to do |format|
-       if @servico.save
-        format.html { redirect_to([:admin, @produto, @servico])}
-        format.js
-        @data_type = :json
+      if @servico.update_attributes(params[:servico])
+        format.html { redirect_to([:admin, @produto, @servico]) }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @servico.errors, status: :unprocessable_entity }
       end
     end
   end
-
-  def update
-    @servico = Servico.find(params[:id])
-    @servico.update_attributes!(params[:servico])
-    respond_to do |format|
-      format.html { redirect_to admin_servicos_url }
-      format.js
-    end
-  end
-
   def destroy
     @servico = Servico.destroy(params[:id])
     respond_to do |format|

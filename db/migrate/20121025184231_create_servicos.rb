@@ -16,6 +16,7 @@ class CreateServicos < ActiveRecord::Migration
       t.integer :produto_id
       t.integer :statu_id
       t.integer :chamado_id
+      t.integer :funcionario_id
 
       t.timestamps
     end
