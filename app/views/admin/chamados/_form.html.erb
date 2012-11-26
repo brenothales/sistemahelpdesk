@@ -21,6 +21,7 @@
                          <div class=" offsets3 " ></div> <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
                     </fieldset>
                   <% end -%>
+                  
                   <fieldset>
                       <legend>Solicitação</legend>
 
@@ -104,3 +105,12 @@
       <!-- </div> -->
 <!--  -->
  <!-- end -%> -->
+<%= content_for :head do %>
+  <%=  javascript_include_tag "js/forms/jquery.ui.touch-punch.min" %>
+
+ 
+
+  <%=  javascript_include_tag "raphael" %>
+  <%=  javascript_include_tag "morris" %>
+  <%=  javascript_include_tag "servicos" %>
+<% end %>

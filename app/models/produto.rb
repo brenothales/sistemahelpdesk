@@ -9,13 +9,14 @@ class Produto < ActiveRecord::Base
   attr_accessible :acessorios, :marca, :modelo, :name, :nome,
   :numeroContrato, :numeroSerie, :observacao, :patrimonio, :seto, 
   :valorDespreciaco, :situation, :category_id, :valorDespreciacao, :user_id, 
-  :produto_name, :produto_id, :servicos_attributes, :setor_id, :unidade_id, :nome, :nome
+  :produto_name, :produto_id, :servicos_attributes, :setor_id, :unidade_id, :nome,  :setores_attributes
   # Produto tem muito Serviços e servicos depende da existência de Produto
   has_many :servicos, :dependent => :destroy
   accepts_nested_attributes_for :servicos, allow_destroy: true
 
   validates_presence_of  :marca, :modelo, :name, :numeroSerie, 
                          :patrimonio, :category_id
+
                       
  # validates_numericality_of :valorDespreciacao, :numeroContrato, :greater_than => 0, :allow_nil => true
 

@@ -1,22 +1,22 @@
 <div class="alert alert-block alert-info fade in">
 	<button type="button" class="close" data-dismiss="alert">×</button>
-        <h4 class="alert-heading">  <span class="label label-info"> <%= @servico.id %> </span> <%= @servico.nome %></h4>
+        <h4 class="alert-heading">  <span class="label label-info"> <%= @compromisso.id %> </span> <%= @compromisso.nome %></h4>
     <p>
 		<p>
 		  Chamado:
-		  <b><%= @servico.chamado.assunto %></b>
+		  <b><%= @compromisso.chamado.assunto %></b>
 		</p>
 		<p>
 		  Data da Atividade:
-		  <b><%= I18n.localize(@servico.published_on, :format => "%d/%m/%Y") %></b>
+		  <b><%= I18n.localize(@compromisso.published_on, :format => "%d/%m/%Y") %></b>
 		</p>
 		<p>
 		  Data da Criação:
-		  <b><%= time_ago_in_words @servico.created_at %> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %></b>
+		  <b><%= time_ago_in_words @compromisso.created_at %> <%= I18n.localize(@compromisso.created_at, :format => "%d/%m/%Y") %></b>
 		</p>
 		<p>
 		  Observação:
-		  <b><%= @servico.observacao %></b>
+		  <b><%= @compromisso.observacao %></b>
 		</p>
             
     </p>

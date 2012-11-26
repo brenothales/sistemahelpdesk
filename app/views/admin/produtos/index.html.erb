@@ -52,7 +52,7 @@
                   <td class='name'><%= produto.marca %></td>
                   <td class='name'><%= produto.numeroSerie %></td>
                   <td class='name'><%= produto.patrimonio %></td>
-                  <td class='name'><%= produto.setor.nome %> | <%= produto.setor.sigla %> 
+                  <td class='name'><%= produto.setor.nome %> | <%= produto.setor.sigla if produto.setor.sigla.present? %> 
                   </td>
                   <td class="name"><%= produto.setor.unidade.nome %></td>
                   <!-- <td class='name'><%= produto.user.name   %></td><!-- if produto.user.name.present? --> 

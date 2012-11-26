@@ -6,8 +6,8 @@ class Funcionario < ActiveRecord::Base
   attr_accessible :ctps, :funcao, :user_id, :contato_telefones_attributes, :cpf, :rg, :sexo, :dataNascimento, :name
 
 
- validates_presence_of :name
-validates_associated :attribute, :on => :create
+ # validates_presence_of :name
+# validates_associated :attribute, :on => :create
 
   def telefones
     self.contato_telefones.map{|a| "(#{a.ddd}) #{a.numero}"}

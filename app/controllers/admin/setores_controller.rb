@@ -57,7 +57,7 @@ class Admin::SetoresController < ApplicationController
 
     respond_to do |format|
       if @setor.update_attributes(params[:setor])
-        format.html { redirect_to [:admin, @setores], notice: 'Setor Atualizando com Sucesso.' }
+        format.html { redirect_to [:admin, @setor], notice: 'Setor Atualizando com Sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

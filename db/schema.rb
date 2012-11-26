@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125031350) do
+ActiveRecord::Schema.define(:version => 20121126063016) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
@@ -104,6 +104,19 @@ ActiveRecord::Schema.define(:version => 20121125031350) do
 
   add_index "comments", ["chamado_id"], :name => "index_comments_on_chamado_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "compromissos", :force => true do |t|
+    t.string   "nome",           :limit => 30
+    t.text     "observacao"
+    t.date     "published_on"
+    t.boolean  "completado",                                                  :default => false, :null => false
+    t.decimal  "valorServico",                 :precision => 10, :scale => 2
+    t.integer  "chamado_id"
+    t.integer  "servico_id"
+    t.integer  "funcionario_id"
+    t.datetime "created_at",                                                                     :null => false
+    t.datetime "updated_at",                                                                     :null => false
+  end
 
   create_table "contato_emails", :force => true do |t|
     t.string   "contato"
@@ -255,15 +268,15 @@ ActiveRecord::Schema.define(:version => 20121125031350) do
   end
 
   create_table "tarefas", :force => true do |t|
-    t.string   "nome"
-    t.string   "valor_tarefa"
-    t.boolean  "cortesia",     :default => false
-    t.boolean  "completado",   :default => false
+    t.string   "nome",         :limit => 150
+    t.decimal  "valor_tarefa",                :precision => 10, :scale => 2
+    t.boolean  "cortesia",                                                   :default => false
+    t.boolean  "completado",                                                 :default => false
     t.text     "descricao"
     t.text     "observacao"
     t.integer  "servico_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
   end
 
   add_index "tarefas", ["servico_id"], :name => "index_tarefas_on_servico_id"

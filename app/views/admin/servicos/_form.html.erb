@@ -1,13 +1,4 @@
-<script>
-	
-jQuery(function() {
-  return $('#servico_published_on').datepicker({
-    dateFormat: 'dd/mm/yy'
-  });
-});
 
-	
-</script>
 <div id="accordion1" class="accordion">
 	<div class="accordion-group">
 		<div class="accordion-heading">
@@ -52,8 +43,8 @@ jQuery(function() {
                     </fieldset>
                   <% end -%>                    
   <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:status == "Aguardando Atendimento"), :prompt => "Apartir do Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
-	  <!-- f.label "Data" %> -->
-	  <!-- f.text_field :published_on, label:"Data", :input_html => { :id => ":servico_published_on" } %> -->
+	 <%= f.label "Data" %>
+	 <%= f.text_field :published_on, label:"Data", :input_html => { :id => ":servico_published_on" } %> 
   <%= f.input :retirado, :label => "Retirado do local" %>  
   <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span10", :rows => 5, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
   
@@ -74,4 +65,5 @@ jQuery(function() {
   <%=  javascript_include_tag "js/forms/jquery.inputmask.min" %>
   <%=  javascript_include_tag "js/forms/jquery.autosize.min" %>
   <%=  javascript_include_tag "js/forms/jquery.counter.min" %>
+ 
 <% end %>

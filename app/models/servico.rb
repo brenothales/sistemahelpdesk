@@ -1,7 +1,7 @@
 class Servico < ActiveRecord::Base
  
   attr_accessible :descricacao, :nome, :chamado_id, :produto_id, :pecas_attributes, :valor_Servico, :observacao, :completado, :published_on, :numero_os, :retirado, :descricao,
-                  :setor_id, :cliente_id, :funcionario_id, :nome, :statu_id, :laudo, :solucao
+                  :setor_id, :cliente_id, :funcionario_id, :nome, :statu_id, :laudo, :solucao, :created_at
   belongs_to :chamado
   belongs_to :produto
   belongs_to :cliente
@@ -21,31 +21,31 @@ class Servico < ActiveRecord::Base
   # scope :incompleto, where(:completado => false)
   
   # def self.total_on(date)
-  #   where("date(published_on) = ?", date).sum(:valorServico)
+  #   where("date(published_on) = ?", date).sum(:valor_Servico)
   # end
 
 
 
   def self.chart_data(start = 3.weeks.ago)
-    total_valorServicos = valorServicos_by_day(start)
-    completado_valorServicos = where(completado: true).valorServicos_by_day(start)
-    incompleto_valorServicos = where(completado: false).valorServicos_by_day(start)
+    total_valor_Servicos = valor_Servicos_by_day(start)
+    completado_valor_Servicos = where(completado: true).valor_Servicos_by_day(start)
+    incompleto_valor_Servicos = where(completado: false).valor_Servicos_by_day(start)
     (start.to_date..Date.today).map do |date|
       {
-        published_on: date,
-        id: total_valorServicos[date] || 0,
-        completado_valorServico: completado_valorServicos[date] || 0,
-        incompleto_valorServico: incompleto_valorServicos[date] || 0
+        created_at: date,
+        valor_Servico: total_valor_Servicos[date] || 0,
+        completado_valor_Servico: completado_valor_Servicos[date] || 0,
+        incompleto_valor_Servico: incompleto_valor_Servicos[date] || 0
       }
     end
   end
 
-  def self.valorServicos_by_day(start)
-    servicos = where(published_on: start.beginning_of_day..Time.zone.now)
-    servicos = servicos.group("date(published_on)")
-    servicos = servicos.select("published_on, sum(valorServico) as total_valorServico")
-    servicos.each_with_object({}) do |servico, valorServicos|
-      valorServicos[servico.published_on.to_date] = servico.total_valorServico
+  def self.valor_Servicos_by_day(start)
+    servicos = where(created_at: start.beginning_of_day..Time.zone.now)
+    servicos = servicos.group("date(created_at)")
+    servicos = servicos.select("created_at, sum(valor_Servico) as total_valor_Servico")
+    servicos.each_with_object({}) do |servico, valor_Servicos|
+      valor_Servicos[servico.created_at.to_date] = servico.total_valor_Servico
     end
   end
 end

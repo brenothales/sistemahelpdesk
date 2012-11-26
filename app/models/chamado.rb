@@ -13,6 +13,7 @@ class Chamado < ActiveRecord::Base
 validates_presence_of  :assunto, :descricao, :prioridade, :tipoAtendimento, :slug, :setor_id
 
 has_many :servicos, :dependent => :destroy
+has_many :compromissos, :dependent => :destroy
   accepts_nested_attributes_for :servicos, allow_destroy: true
 
 # TIPODEATENDIMENTO = %w(1,2,3,4".split(",").map { |s| s.to_i })

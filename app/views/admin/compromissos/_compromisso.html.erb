@@ -1,0 +1,33 @@
+
+<%= form_for [:admin, compromisso], remote: true do |f| %>
+	  <%= f.check_box :completado, :class=>"left"  %> -
+	  <%= f.submit "Update" %>
+	  <%= link_to("#{compromisso.nome}","#{}", :class => " pop_over ", :title => "Espercificação do Chamdo #{compromisso.nome}", "data-placement"=> 'top',  "data-content" => 
+	  	  	"Assunto: #{compromisso.nome} <br/>
+	  	  	Valor : #{compromisso.valorServico} <br/>
+	  	  	Número do : #{compromisso.chamado_id} <br/>
+	  	  	#{time_ago_in_words(compromisso.created_at)} <br/>
+			 #{if compromisso.completado == true 
+			   content_tag(:span,:class => 'label label-success')   do      
+  	  	  			   "Serviço Completo" if compromisso.completado == true 
+  	  	  			   end 
+  	  	  	else
+
+			   content_tag(:span,:class => 'label label-important')   do      
+  	  	  			   "Serviço Incompleto" if compromisso.completado == false 
+  	  	  			   end 
+  	  	  	end} <br>
+          	Obervação: #{compromisso.observacao}").html_safe %>
+	  <small><%= time_ago_in_words(compromisso.created_at)%></small> |
+	  <small><%= time_ago_in_words(compromisso.updated_at)%></small>
+	  <%= f.label :chamado, compromisso.chamado_id %>
+  <%= content_tag(:span, :class => 'right') do  %>	  <%= link_to [:admin, compromisso], method: :delete, remote: true do %>
+	  <i class="icon-trash"></i>
+	  <% end -%>
+  <% end -%>
+<% end -%>
+
+
+
+<!-- content_tag(:div, :class => 'control-group') do  %> -->
+<!--   content_tag(:div, :admin.form.collection_select(field, @compromisso, :id, :nome, :prompt =>  --><!-- 'Selecione...'), :class => 'controls')  %> -->

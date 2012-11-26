@@ -10,7 +10,7 @@ PrimeiraApp::Application.routes.draw do
 
   get "home/index"
 resources :chamados
-  root :to => "home#index"
+  root :to => "admin/chamados#index"
 
   #rotas devise
   devise_for :users,:controllers => {
@@ -21,15 +21,16 @@ resources :chamados
 
   #rotas admin
   namespace :admin do
-    root :to => "home#index"
+    root :to => "chamados#index"
     resources :chamados do
         resources :comments
         resources :produtos
     end
+    
     resources :funcionarios
     resources :clientes
     resources :produtos do
-      resources :servicos 
+      resources :servicos
       resources :tarefas
       resources :pecas
     end
@@ -38,15 +39,15 @@ resources :chamados
     resources :categories
     resources :users
     resources :unidades
-    resources :compromissos
     resources :setores
     resources :pecas
     resources :tarefas
     resources :posts
     resources :tasks
-    resources :servicos do
+    resources :compromissos  do
       collection { post :sort }
     end
+    
     # match 'produtos/produtouser/:id' => "produtos#produtouser"
   end
 

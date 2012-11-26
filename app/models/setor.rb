@@ -2,6 +2,8 @@ class Setor < ActiveRecord::Base
   belongs_to :unidade
   attr_accessible :codigo, :nome, :sala, :sigla,  :unidade_id, :produto_id, :chamado_id, :nome
   alias_attribute :name, :nome
+
+  validates_presence_of :nome
   # attr_reader :name
   # def name
   # 	self.nome

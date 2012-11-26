@@ -13,8 +13,8 @@
 
 
 //= require js/jquery.min
+//= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require select2
 //= require js/jquery.debouncedresize.min
 //= require js/jquery.actual.min
@@ -51,17 +51,14 @@
 //= require clientes
 //= require comments
 
-//= require produtos
 
+//= require ordemcompromissos
 
 //= require jquery.pjax
 //= require tasks
-//= require pecas
+//= require jquery.ui.datepicker
 
 
-
-//= require raphael
-//= require morris
 
 
 
@@ -86,9 +83,9 @@
 
 
 $(document).ready(function(){
-	setTimeout(function(){
-		$('.alert.alert-success, .alert.alert-error').slideUp('fast');
-	}, 5000)
+  setTimeout(function(){
+    $('.alert.alert-success, .alert.alert-error').slideUp('fast');
+  }, 5000)
 
 })
 // js/jquery.min

@@ -1,4 +1,4 @@
-<%= content_tag_for(:li, servico) do %>
-  <p class="content"><%= servico.nome %></p>
-  <span class="posted_at">(<%= link_to 'Delete', [:admin, servico], :confirm => 'Are you sure?', :method => :delete %>)</span>
+<%= content_tag_for(:li, compromisso) do %>
+  <p class="content"><%= compromisso.nome %></p>
+  <span class="posted_at">(<%= link_to 'Delete', [:admin, compromisso], :confirm => 'Are you sure?', :method => :delete %>)</span>
 <% end %>

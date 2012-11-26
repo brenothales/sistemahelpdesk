@@ -57,7 +57,9 @@
       </div>
       <div class="span5">
        <b> <small class=" pull-right">Criando: <%= time_ago_in_words @servico.created_at %> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %> <br>
+          <% if @servico.completado == true %>
            Finalizado: <%= time_ago_in_words @servico.updated_at %> <%= I18n.localize(@servico.updated_at, :format => "%d/%m/%Y") %> 
+           <% end -%>
         </small>
       </b>
       </div>

@@ -16,4 +16,4 @@ $(document).ready(function() {
 });
 
 
-$('input#picker').daterangepicker();
+// $('input#picker').daterangepicker();

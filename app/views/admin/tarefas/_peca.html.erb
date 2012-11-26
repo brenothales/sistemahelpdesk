@@ -1,0 +1,45 @@
+<%= content_tag_for(:li, tarefa, :class => 'tarefalistada') do %>
+    <div class="">
+	<div id="accordion1" class="accordion">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a href="#<%= "#{tarefa.id}" %>" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle" title="<%= "#{tarefa.nome}" %>">
+					<i class="icon-plus"></i> <%= "#{tarefa.id}" %> - <%= "#{tarefa.nome}" %> <% if tarefa.cortesia == true %><span class="label label-info">Cortesia </span><% end -%>
+					  
+					     <span class="pull-right" > <b>  <%= "#{ number_to_currency tarefa.valor_tarefa}" %> </b></span>
+				</a>
+			</div>
+			<div class="accordion-body collapse" id="<%= "#{tarefa.id}" %>" style="height: 0px;">
+				<div class="accordion-inner">
+					
+					<p class="nome">
+					   <% if tarefa.codigo.present? %>
+						<b>	Código: </b> <%=  tarefa.codigo %> <br> <% end -%>
+					   <%= "Valor: #{number_to_currency tarefa.valor_tarefa}" if tarefa.valor_tarefa.present? %>
+					   <%= "Cortesia" if tarefa.cortesia == true  %> <br>
+					   <% if tarefa.completado == true %> Tarefa Realizada  <br> <% end -%>
+					   <%= "Observação:  #{tarefa.observacao} " if tarefa.observacao.present? %>
+					    </p>
+				</div>
+				<%= link_to  [:admin, tarefa], :confirm => 'Deseja deletar tarefa?', :claas=> "right" ,:method => :delete, :remote => true do %>
+					   <i class="icon-remove-sign"></i> Remover
+					   <% end -%>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+ <!-- render :partial=>"/admin/tarefas/tarefa", :locals=>{ :tarefa => SafraProduto.new(:servico_id=>@servico.id) } -->
+

@@ -1,22 +1,22 @@
 <div class="">
-		<h1>Ordem de Serviço</h1>
-		 <%= link_to "Novo Serviços", new_admin_servico_path, id: "new_link", :class=> "btn", remote: true %> 
+		<h1>Ordem de Compromisso</h1>
+		 <%= link_to "Novo Compromissos", new_admin_compromisso_path, id: "new_link", :class=> "btn", remote: true %> 
 		 <p></p>
 		</div> <br>
  <div class="">
 	<div class="span6">
-		<h2>Serviços Incompletos</h2>
-		<div class="servico form-inline well " id="incomplete_servicos">
-			<%= render @incomplete_servicos.reverse %>
+		<h2>Compromissos Incompletos</h2>
+		<div class="compromisso form-inline well " id="incomplete_compromissos">
+			<%= render @incomplete_compromissos.reverse %>
 		</div>
-		<span class='paginate'><%= page_navigation_links(@incomplete_servicos)%></span>
+		<span class='paginate'><%= page_navigation_links(@incomplete_compromissos)%></span>
 	</div>
 	<div class="span6">
-		<h2 class="panel">Serviços Completaa</h2>
-		<div class="servico form-inline well" id="complete_servicos">
-			  <%= render @complete_servicos.reverse %>
+		<h2 class="panel">Compromissos Completaa</h2>
+		<div class="compromisso form-inline well" id="complete_compromissos">
+			  <%= render @complete_compromissos.reverse %>
 		</div>
-		<span class='paginate'><%= page_navigation_links(@complete_servicos)%></span>
+
 	</div>
 </div>
 

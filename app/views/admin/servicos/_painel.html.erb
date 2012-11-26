@@ -10,6 +10,10 @@
   <%= f.input :completado, :label => "Finalizar Ordem de Serviço?", :confirm => 'Deseja deletar tarefa?', :disabled => @servico.completado, :hint => "<i class='icon-warning-sign'></i>  Depois de finalizada não poderá ser editada" ,label_html:{ class: "inline"},input_html:{ class: "inline"}  %>  
   <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span5", :rows => 5, :id => ""  }, :label_html => { :class=>"control-label" }, :label => "Obervação:", :disabled => @servico.completado %>
   <%= f.input :solucao, :input_html => { :placeholder => "Solução", :class => "span5", :rows => 5, :id => ""  }, :label_html => { :class=>"control-label" }, :label => "Solução:" , :disabled => @servico.completado %>
+  <%= @total_tarefas +  @total_pecas %> 
+
+  <%= f.text_field   :valor_Servico, :value => @total_tarefas +  @total_pecas %> 
+  
   <%= f.submit 'Adicionar ', class: "btn btn-large btn-block btn-primary", :disabled => @servico.completado %>
 
 

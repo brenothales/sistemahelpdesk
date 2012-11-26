@@ -1,27 +1,27 @@
 <p>
   <b>Nome do Serviço:</b>
-  <%= @servico.nome %>
+  <%= @compromisso.nome %>
 </p>
 
 <p>
   <b>Chamado:</b>
-  <%= @servico.chamado.assunto %>
+  <%= @compromisso.chamado.assunto %>
 </p>
 
 <p>
   <b>Data da Atividade:</b>
-  <%= I18n.localize(@servico.published_on, :format => "%d/%m/%Y") %>
+  <%= I18n.localize(@compromisso.published_on, :format => "%d/%m/%Y") %>
 </p>
 
 <p>
   <b>Data da Criação:</b>
-  <%= time_ago_in_words @servico.created_at %> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %>
+  <%= time_ago_in_words @compromisso.created_at %> <%= I18n.localize(@compromisso.created_at, :format => "%d/%m/%Y") %>
 </p>
 
 
 <p>
   <b>Observação:</b>
-  <%= @servico.observacao %>
+  <%= @compromisso.observacao %>
 </p>
 
    <div class="modal hide fade" id="myMail">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <%= link_to "Ir para Tarefas", admin_servicos_path, :class=>"btn" %>
+                        <%= link_to "Ir para Tarefas", admin_compromissos_path, :class=>"btn" %>
                     </div>
                 </div>
       

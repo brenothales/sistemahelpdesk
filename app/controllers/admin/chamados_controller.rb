@@ -1,7 +1,10 @@
 class Admin::ChamadosController < ApplicationController
-  layout 'admin'
-  load_and_authorize_resource
+  
+
   before_filter :authenticate_user!
+  load_and_authorize_resource
+  layout 'admin'
+  
   def index
     @chamados = Chamado.all
     @produtos = Produto.all
