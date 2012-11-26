@@ -3,7 +3,6 @@ PrimeiraApp::Application.routes.draw do
 
 
 
-  
 
   get "comments/index"
 
@@ -31,12 +30,18 @@ resources :chamados
     resources :clientes
     resources :produtos do
       resources :servicos 
+      resources :tarefas
+      resources :pecas
     end
+    resources :status
     resources :archives
     resources :categories
     resources :users
     resources :unidades
+    resources :compromissos
     resources :setores
+    resources :pecas
+    resources :tarefas
     resources :posts
     resources :tasks
     resources :servicos do

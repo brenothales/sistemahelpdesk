@@ -1,12 +1,14 @@
 class Servico < ActiveRecord::Base
  
   attr_accessible :descricacao, :nome, :chamado_id, :produto_id, :pecas_attributes, :valor_Servico, :observacao, :completado, :published_on, :numero_os, :retirado, :descricao,
-                  :setor_id, :cliente_id, :funcionario_id
+                  :setor_id, :cliente_id, :funcionario_id, :nome, :statu_id, :laudo, :solucao
   belongs_to :chamado
   belongs_to :produto
   belongs_to :cliente
   belongs_to :funcionario
+  belongs_to :statu
   has_many :pecas, :dependent => :destroy
+  has_many :tarefas, :dependent => :destroy
 
   accepts_nested_attributes_for :pecas, allow_destroy: true
   
@@ -31,7 +33,7 @@ class Servico < ActiveRecord::Base
     (start.to_date..Date.today).map do |date|
       {
         published_on: date,
-        valorServico: total_valorServicos[date] || 0,
+        id: total_valorServicos[date] || 0,
         completado_valorServico: completado_valorServicos[date] || 0,
         incompleto_valorServico: incompleto_valorServicos[date] || 0
       }

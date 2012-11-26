@@ -1,0 +1,10 @@
+
+<%= form_for [:admin, @produto, @servico], :html=> { :multipart => true} do |f| %>
+<%= error_message_for(@servico) %>
+<legend>Laudo Técnico</legend>
+  <%= f.text_area :laudo,  :placeholder => " Campo Expansivo ", :class => "input-block-level", :id => "auto_expand" , :label => "Laudo Técnico:", :rows => 40 , :disabled => @servico.completado %> 
+<%= f.submit 'Inserir Laudo', class: "btn btn-large btn-block" , :disabled => @servico.completado %> 
+   <!-- submit_and_back_buttons(admin_produto_servicos_path,{:label_name => "Inserir laudo"})  -->
+
+
+<% end %>

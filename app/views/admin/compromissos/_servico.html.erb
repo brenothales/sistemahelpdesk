@@ -1,0 +1,33 @@
+
+<%= form_for [:admin, servico], remote: true do |f| %>
+	  <%= f.check_box :completado, :class=>"left"  %> -
+	  <%= f.submit "Update" %>
+	  <%= link_to("#{servico.nome.html_safe}","#{}", :class => " pop_over ", :title => "Espercificação do Chamdo #{servico.nome}", "data-placement"=> 'top',  "data-content" => 
+	  	  	"Assunto: #{servico.nome} <br/>
+	  	  	Valor : #{servico.valorServico} <br/>
+	  	  	Número do : #{servico.chamado_id} <br/>
+	  	  	#{time_ago_in_words(servico.created_at)} <br/>
+			 #{if servico.completado == true 
+			   content_tag(:span,:class => 'label label-success')   do      
+  	  	  			   "Serviço Completo" if servico.completado == true 
+  	  	  			   end 
+  	  	  	else
+
+			   content_tag(:span,:class => 'label label-important')   do      
+  	  	  			   "Serviço Incompleto" if servico.completado == false 
+  	  	  			   end 
+  	  	  	end} <br>
+          	Obervação: #{servico.observacao}").html_safe %>
+	  <small><%= time_ago_in_words(servico.created_at)%></small> |
+	  <small><%= time_ago_in_words(servico.updated_at)%></small>
+	  <%= f.label :chamado, servico.chamado_id %>
+  <%= content_tag(:span, :class => 'right') do  %>	  <%= link_to [:admin, servico], method: :delete, data: {confirm: "Tem certeza que deseja deletar o serviços?"}, remote: true do %>
+	  <i class="icon-trash"></i>
+	  <% end -%>
+  <% end -%>
+<% end -%>
+
+
+
+<!-- content_tag(:div, :class => 'control-group') do  %> -->
+<!--   content_tag(:div, :admin.form.collection_select(field, @servico, :id, :nome, :prompt =>  --><!-- 'Selecione...'), :class => 'controls')  %> -->

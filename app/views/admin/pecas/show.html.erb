@@ -2,19 +2,19 @@
 
 <p>
   <b>Title:</b>
-  <%= @post.title %>
+  <%= @peca.nome %>
 </p>
 
 <p>
   <b>Email:</b>
-  <%= @post.email %>
+  <%= @peca.codigo %>
 </p>
 
 <p>
   <b>Content:</b>
-  <%= @post.content %>
+  <%= @peca.valorPeca %>
 </p>
 
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_peca_path(@peca) %> |
+<%= link_to 'Back', pecas_path %>

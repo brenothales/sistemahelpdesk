@@ -1,0 +1,6 @@
+<%= content_tag_for(:li, servico) do %>
+  <p class="title"><%= "#{servico.nome} - [#{servico.published_on}]" %></p>
+  <p class="content"><%= servico.content %></p>
+  <span class="servicoed_at">Posted at <%= time_ago_in_words(servico.created_at) %> ago.
+  (<%= link_to 'Delete', servico, :confirm => 'Are you sure?', :method => :delete %>)</span>
+<% end %>

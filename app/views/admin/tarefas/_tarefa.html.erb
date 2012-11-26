@@ -1,0 +1,54 @@
+<%= content_tag_for(:li, tarefa, :class => 'tarefalistada') do %>
+    <div class="">
+	<div id="accordion1" class="accordion">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a href="#<%= "#{tarefa.id}" %>" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle" title="<%= "#{tarefa.nome}" %>">
+					<i class="icon-plus"></i> <%= "#{tarefa.id}" %> - <%= "#{tarefa.nome}" %> <% if tarefa.cortesia == true %><span class="label label-info">Cortesia </span><% end -%>
+					  
+					     <span class="pull-right" > <b>  <%= "#{ number_to_currency tarefa.valor_tarefa}" %> </b></span>
+				</a>
+			</div>
+			<div class="accordion-body collapse" id="<%= "#{tarefa.id}" %>" style="height: 0px;">
+				<div class="accordion-inner">
+					
+					<p class="nome">
+						<% if tarefa.nome.present? %>
+						<b>	Tarefa: </b> <%=  tarefa.nome %> <br> <% end -%>
+						<% if tarefa.valor_tarefa.present? %>
+					    <b>	Valor da Mão-de-obra: </b>  <%= number_to_currency tarefa.valor_tarefa %> <br> <% end -%>
+					    <% if tarefa.completado == true %>
+						<b>	Finalizado: </b> <span class="label label-success"> SIM</span> <br>  <% else %> <b>	Finalizado: </b> <span class="label label-important"> NÃO</span> <br>  <% end -%>
+					   <% if tarefa.cortesia == true %>
+						<b>	Cortesia: </b> <span class="label label-success"> SIM</span> <br> <% end -%>
+					   <% if tarefa.observacao.present? %>
+						   <b>Obervação:</b>   <%= tarefa.observacao %> <br> <% end -%>
+						<% if tarefa.descricao.present? %>
+						   <b>Descrição:</b>  <%= tarefa.descricao %>  <br> <% end -%>
+					    <b>Realizado:</b> <%= time_ago_in_words tarefa.created_at %> <%= I18n.localize(tarefa.created_at, :format => "%d/%m/%Y") %>
+					    </p>
+				</div>
+				<% if @servico.completado == false %> 
+				<%= link_to  [:admin, tarefa], :confirm => 'Deseja deletar tarefa?', :claas=> "right" ,:method => :delete, :remote => true do %>
+					   <i class="icon-trash"></i> Remover
+					   <% end -%>
+			   <% end -%>
+			</div>
+		</div>
+	</div>
+</div>
+ 
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+ <!-- render :partial=>"/admin/tarefas/tarefa", :locals=>{ :tarefa => SafraProduto.new(:servico_id=>@servico.id) } -->
+

@@ -1,0 +1,121 @@
+<div style ="width:50%; float:right;" >
+<%= wicked_pdf_image_tag "dentalmenor.jpg" %>
+</div>
+<div style ="width:100%;" > </div> <br>
+<div class=" well">
+ <h3> Ordem de Serviço: #<%= @servico.id %></h3>
+ <hr>
+ <% if @produto.setor%>
+    <b>Instituição:</b> <%= @produto.setor.unidade.nome %> <b> Setor: </b> <%= @produto.setor.nome %> <br>
+    <b>Telefone:</b> <%= @produto.setor.unidade.fone %> - <%= "Ramal #{@produto.setor.unidade.ramal} " unless  @produto.setor.unidade.ramal.blank? %> <br> 
+<% end -%>  
+<% if @produto.user%>
+  <div class="span4">
+    <b><span><i class="icon-user"></i> Cliente:</span></b>
+   <%= @produto.user.name%>  
+  </div>
+<% end -%>
+<br>
+<% if @servico.produto%>
+<fieldset>
+  <legend>Dados do Produto</legend>
+  <div class="span4">
+    <b>Aparelho:</b> <%= @servico.produto.name %> <br>
+    <b>Marca:</b> <%= @servico.produto.marca %> <br>
+    <b>Modelo:</b> <%= @servico.produto.modelo %> <br>
+    <b>Patrimônio:</b> <%= @servico.produto.patrimonio %> <br>
+    <b>Nº de Série</b> <%= @servico.produto.numeroSerie %> <br>
+  </div>
+</fieldset>
+<% end -%>
+<br>
+<% if @servico.present?%>
+<fieldset>
+  <legend>Informções da Ordem de Serviço</legend>
+  <div class="span4">
+    <b>Defeito Reclamado:</b> <%= @servico.nome %> <br>
+    <b>Data da Abertura:</b> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %> <br>
+    <b>Data da Fechamento:</b> <%= I18n.localize(@servico.updated_at , :format => "%d/%m/%Y") if @servico.completado == true %> <b> | Status: </b> <%= @servico.statu.nome  %>  <br>
+    <b>Equipamento Retirado do local:</b> <%= "Não" if  @servico.retirado == false %><%= "Sim" if  @servico.retirado == true %> <br>
+    <b>Técnico Responsável</b> <%= @servico.funcionario.user.name %> <br>
+    <hr>
+    <b>Descrição:</b> <%= @servico.descricao %> <br> 
+  <hr>
+    <b>Solução:</b> <%= @servico.solucao %> <br>
+    
+  </div>
+</fieldset>
+<% end -%>
+<br>
+<div style ="width:100%; display:block" > 
+
+<div style ="width:50%; float:left;" >
+  <% if @servico.pecas.present? %>
+  <fieldset>
+  <legend>Peças Utilizadas</legend>
+  <div class="span4">
+    <% @pecas.each do |peca|  %>
+    <b>Nome:</b> <%= peca.nome if peca.nome.present? %> <br>
+    <!-- <b>Código:</b>  peca.codigo %> <br> -->
+    <b>Valor:</b> <%= number_to_currency peca.valorPeca %> <br>
+      <% if peca.trocarPeca == true %>
+            <b> Trocada: </b> SIM
+        <% else %> <b>  Trocada: </b> NÃO
+      <% end -%>
+     <% if peca.cortesia == true %>
+            <b> Cortesia: </b>  SIM<br> <% end -%>
+  <hr>
+  <% end -%>
+  
+  </div>
+    <b>Qtd:</b> <%= @servico.tarefas.count %>  <b>Total</b>  <%= number_to_currency  @total_pecas  %> 
+  </fieldset>
+  <% end -%>
+</div>
+      
+  <div style ="width:50%; float:right;" >
+  <% if @servico.tarefas.present? %>
+  <fieldset>
+    <legend>Mão-de-obra Realizada</legend>
+    <div class="span4">
+      <% @tarefas.each do |tarefa|  %>
+      <b>Nome:</b> <%= tarefa.nome if tarefa.nome.present? %> <br>
+      <b>Valor:</b> <%= number_to_currency tarefa.valor_tarefa %> <br>
+        <% if tarefa.completado == true %>
+              <b> Realizada: </b> SIM
+          <% else %> <b>  Trocada: </b> NÃO
+        <% end -%>
+       <% if tarefa.cortesia == true %>
+              <b> Cortesia: </b>  SIM<br> <% end -%>
+             <hr>   
+    <% end -%>
+    <b>Qtd:</b> <%= @servico.pecas.count %>  <b>Total</b>  <%= number_to_currency  @total_tarefas  %> 
+      
+  </fieldset>
+  <% end -%>
+  </div>
+</div> 
+</div> 
+<hr>
+<fieldset class="span6 branco">
+      <legend>Orçamento</legend>
+     <% if @servico.pecas.count > 0 %> 
+      <b> <i class="icon-cog"></i> Qtd de Peças: </b> <%= @servico.pecas.count %> <b> Total:</b> <%= number_to_currency  @total_pecas  %> 
+      <% else %>
+      <b> <i class="icon-cog"></i> Qtd de Peças: </b> <%= @servico.pecas.count %> <b> Total:</b> <%= number_to_currency  @total_pecas  %> 
+     <% end -%> <br>
+      <% if @servico.tarefas.count > 0 %> 
+      <b> <i class="icon-wrench" ></i> Qtd de Mão-de-obra: </b> <%= @servico.tarefas.count %> <b> Total:</b> <%= number_to_currency  @total_tarefas  %> 
+      <% else %>
+      <b> <i class="icon-wrench" ></i> Qtd de Mão-de-obra: </b> <%= @servico.tarefas.count %> <b> Total:</b> <%= number_to_currency  @total_tarefas  %>
+     <% end -%> 
+     <hr>
+       <% if @total_pecas.present? or @total_tarefas.present? %>
+        <h3 styles="float:right;" >Total da OS: <%= (number_to_currency (@total_pecas) + ( @total_tarefas))  %> </h3>
+       <% end -%>
+       
+    </fieldset>
+    <br>
+    <br>
+  <hr>
+   <div style="text-align:center;" > Assinatura do Responsável:</div>

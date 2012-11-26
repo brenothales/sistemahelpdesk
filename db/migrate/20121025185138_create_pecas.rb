@@ -5,6 +5,7 @@ class CreatePecas < ActiveRecord::Migration
       t.string :codigo
       t.decimal :valorPeca, :precision => 10, :scale => 2
       t.boolean :trocarPeca, :default => false
+      t.boolean :cortesia, :default => false
       t.text :observacao
       t.integer :servico_id
 

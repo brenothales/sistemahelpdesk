@@ -1,0 +1,59 @@
+<div id="jCrumbs" class="breadCrumb module">
+    <ul>        
+        <li>
+            <%= link_to new_admin_statu_path do %>
+              <i class=" icon-plus"></i> Cadastrar Status
+            <% end -%>
+        </li>
+    </ul>
+</div>      
+
+
+<h1>Todos Status</h1>
+
+<table class="table table-striped table-bordered dTableR" id="dt_d">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Ações</th>
+  </tr>
+</thead>
+  <tbody>
+  <% @status.each do |statu| %>
+
+  <tr>
+
+    <td class='name'> <%= statu.id %></td> 
+    <td class='name'> <%= statu.nome %></td> 
+    <td class='situation'>
+    <div class="btn-group dropup">
+      <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+        Ações
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+        <li class="divider"></li>
+        <li> <%= link_to [:admin, statu] do %>
+             <i class="icon-eye-open"></i> Detalhes
+              <% end -%>
+        </li>
+        <li> <%= link_to edit_admin_statu_path(statu) do %>
+              <i class="icon-edit"></i> Editar
+             <% end -%>
+        </li>
+        
+      
+        <li> 
+          <%= link_to [:admin, statu], :confirm => 'Você tem certeza?', :method => :delete do %>
+          <i class="icon-trash"></i> Deletar 
+          <% end -%>
+        </li>
+      </ul>
+    </div>
+  </td>
+  </tr>
+      <% end -%>          
+  </tbody>
+</table>

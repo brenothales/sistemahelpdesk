@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @tarefa.nome %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @tarefa.codigo %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @tarefa.valorPeca %>
+</p>
+
+
+<%= link_to 'Editar', edit_tarefa_path(@tarefa) %> |
+<%= link_to 'Voltar', tarefas_path %>

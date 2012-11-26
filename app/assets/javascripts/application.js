@@ -56,6 +56,7 @@
 
 //= require jquery.pjax
 //= require tasks
+//= require pecas
 
 
 

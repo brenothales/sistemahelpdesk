@@ -1,0 +1,29 @@
+
+<%= form_for([ :admin, @peca], :remote => true) do |f| %>
+  <%= error_message_for(@peca)  %>
+  <div class="field">
+    <%= f.label :nome, "Nome" %>
+    <%= f.text_field :nome, class: "span4", placeholder: "Nome da Peça", :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :codigo, "Código" %>
+    <%= f.text_field :codigo, class: "span2", placeholder: "Código da Peça", :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :valorPeca, "Valor da Peça" %>
+    <%= f.text_field :valorPeca, class: "span1", placeholder: "00,01", :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :trocarPeca, "Trocar Peça" %> <%=  f.check_box :trocarPeca, :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :cortesia, "Cortesia" %> <%=  f.check_box :cortesia, :disabled => @servico.completado %>  
+  </div>
+  <div class="field">
+    <%= f.label :observacao, "Observação" %> <%=  f.text_area :observacao , :rows => "4" , class: "span4", :disabled => @servico.completado %> 
+  </div>
+<%= f.hidden_field  :servico_id, :value => @servico.id %>
+  <div class="actions">
+    <%= f.submit 'Adicionar Peça', class: "btn btn-large btn-block btn-primary", :disabled => @servico.completado %> 
+  </div>
+<% end %>

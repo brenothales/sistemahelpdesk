@@ -1,0 +1,3 @@
+$('#tarefas').prepend('<%= escape_javascript(render(@tarefa)) %>');
+$('#tarefas > li').first().effect('highlight', {color: 'blue', mode: 'show'}, 2000);
+$('#tarefa_form > form')[0].reset();

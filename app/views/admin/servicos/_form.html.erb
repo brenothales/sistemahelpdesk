@@ -41,9 +41,19 @@ jQuery(function() {
  <!-- simple_form_for [:admin, @servico], remote: true do |f| %> -->
   <%= f.input :numero_os, label: "Nº da OS", hint: "(Numeração do Bloco)", input_html: { class: "span2"} %>
   <%= f.input :nome, label:"Defeito do Produto", input_html: { class: "span6", placeholder: "Defeito do produto"} %>
+  <%= f.association :statu, :input_html => { :class => 'chzn_a span5 ', :id => ""}, :label_method => :nome,
+                    :include_blank => false, :label => 'Status' %>
+                    
+    <% if current_user.is_role?(:administrador) %>
+                    <fieldset>
+                      <legend>Técnico</legend>
+						 <%= f.label :funcionario, label: "Funcionário" %>
+                         <div class=" offsets3 " ></div> <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
+                    </fieldset>
+                  <% end -%>                    
   <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:status == "Aguardando Atendimento"), :prompt => "Apartir do Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
-	<%=  f.label "Data" %>
-	<%=  f.text_field :published_on, label:"Data", :input_html => { :id => ":servico_published_on" } %>
+	  <!-- f.label "Data" %> -->
+	  <!-- f.text_field :published_on, label:"Data", :input_html => { :id => ":servico_published_on" } %> -->
   <%= f.input :retirado, :label => "Retirado do local" %>  
   <%= f.input :descricao, :input_html => { :placeholder => "Descrição", :class => "span10", :rows => 5, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Descrição" %>
   
@@ -54,7 +64,7 @@ jQuery(function() {
 
 
 
-  <%= submit_and_back_buttons(admin_produto_servicos_path,{:label_name => "Gravar Produto"}) %>
+  <%= submit_and_back_buttons(admin_produto_servicos_path,{:label_name => "Gravar Ordem de Serviços"}) %>
 
 
 <% end %>

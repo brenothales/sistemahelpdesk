@@ -1,0 +1,44 @@
+$('#new_servico')
+// $('#new_servico').remove();
+$('#new_link').show();
+$('#cancelar_link').remove();
+$('#cancelar_link').hide();
+$('#incomplete_servicos').append('<%= j render(@servico) %>');
+document.getElementById('new_servico').reset();
+$('#edit_servico_<%= @servico.id %>').submitOnCheck2();
+$('#incomplete_servicos').first().effect('highlight', {color: 'cyan', mode: 'show'}, 2000);
+
+
+
+
+// $('#servicos').prepend('<%= escape_javascript(render(@servico)) %>');
+// $('#servicos > li').first().effect('highlight', {color: 'cyan', mode: 'show'}, 2000);
+ $('#servico_form > form')[0].reset();
+
+
+
+
+
+
+
+
+
+
+
+
+// $('#new_servico')
+// // $('#new_servico').remove();
+// $('#new_link').show();
+// $('#cancelar_link').remove();
+// $('#cancelar_link').hide();
+// $('#incomplete_servicos').append('<%= j render(@servico) %>');
+// $('#edit_servico_<%= @servico.id %>').submitOnCheck2();
+// $('#incomplete_servicos').first().effect('highlight', {color: 'cyan', mode: 'show'}, 2000);
+
+
+
+
+// $('#servicos').prepend('<%= escape_javascript(render(@servico)) %>');
+// $('#servicos > li').first().effect('highlight', {color: 'cyan', mode: 'show'}, 2000);
+// $('#servico_form > form')[0].reset();
+

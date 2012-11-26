@@ -1,0 +1,52 @@
+<%= content_tag_for(:li, peca, :class => 'pecalistada') do %>
+    <div class="">
+	<div id="accordion1" class="accordion">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a href="#<%= @id_1 %>_<%= peca.id %>" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle" title="<%= "#{peca.nome}" %>">
+					<i class="icon-plus"></i> <%= @id_1  %> <%= "#{peca.nome}" %> <% if peca.cortesia == true %><span class="label label-info">Cortesia </span><% end -%>
+					  
+					     <span class="pull-right" > <b>  <%= "#{ number_to_currency peca.valorPeca}" %> </b></span>
+				</a>
+			</div>
+			<div class="accordion-body collapse" id="<%= @id_1 %>_<%= peca.id %>" style="height: 0px;">
+				<div class="accordion-inner">
+					   <% if peca.nome.present? %>
+						<b>	Peça: </b> <%=  peca.nome %> <br> <% end -%>
+						<% if peca.codigo.present? %>
+						<b>	Código: </b> <%=  peca.codigo %> <br> <% end -%>
+						<% if peca.valorPeca.present? %>
+						<b>	Valor: </b> <%= number_to_currency peca.valorPeca %> <br> <% end -%>
+						<% if peca.trocarPeca == true %>
+						<b>	Trocada: </b> <span class="label label-success"> SIM</span> <br>  <% else %> <b>	Trocada: </b> <span class="label label-important"> NÃO</span> <br>  <% end -%>
+						<% if peca.cortesia == true %>
+						<b>	Cortesia: </b> <span class="label label-success"> SIM</span> <br> <% end -%>
+						<% if peca.observacao.present? %>
+						   <b>Obervação:</b>   <%= peca.observacao %> <br> <% end -%>
+					    <b>Adicionada:</b> <%= time_ago_in_words peca.created_at %> <%= I18n.localize(peca.created_at, :format => "%d/%m/%Y") %>
+						 
+				</div>
+				<% if @servico.completado == false %> 
+				<%= link_to  [:admin, peca], :confirm => 'Deseja deletar?', :claas=> "right" ,:method => :delete, :remote => true do %>
+					   <i class="icon-trash"></i> Remover
+					   <% end -%>
+				<% end -%>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+ <!-- render :partial=>"/admin/pecas/peca", :locals=>{ :peca => SafraProduto.new(:servico_id=>@servico.id) } -->
+

@@ -14,8 +14,8 @@ class Produto < ActiveRecord::Base
   has_many :servicos, :dependent => :destroy
   accepts_nested_attributes_for :servicos, allow_destroy: true
 
-  validates_presence_of  :marca, :modelo, :name, :numeroContrato, :numeroSerie, 
-                         :patrimonio, :valorDespreciacao, :category_id
+  validates_presence_of  :marca, :modelo, :name, :numeroSerie, 
+                         :patrimonio, :category_id
                       
  # validates_numericality_of :valorDespreciacao, :numeroContrato, :greater_than => 0, :allow_nil => true
 

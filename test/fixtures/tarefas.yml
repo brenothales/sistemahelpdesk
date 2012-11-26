@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nome: MyString
+  valor_tarefa: MyString
+  cortesia: MyString
+  completado: false
+  descricao: MyText
+  observacao: MyText
+  servico: 
+
+two:
+  nome: MyString
+  valor_tarefa: MyString
+  cortesia: MyString
+  completado: false
+  descricao: MyText
+  observacao: MyText
+  servico: 

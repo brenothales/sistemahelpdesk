@@ -31,19 +31,39 @@ class Admin::ServicosController < ApplicationController
   def show
     @servico = Servico.find(params[:id])
     @servico = @produto.servicos.find(params[:id])
-    
+  # Add Peca na show e soma
+    @pecas = Peca.where("servico_id = ?", @servico.id)
+    @peca = Peca.new  # added
+    @total_pecas = Peca.where("servico_id = ?", @servico.id).sum(:valorPeca)
+  # fim
+  
+  # Add tarefas na show e soma
+    @tarefas = Tarefa.where("servico_id = ?", @servico.id)
+    @tarefa = Tarefa.new  # added
+    @total_tarefas = Tarefa.where("servico_id = ?", @servico.id).sum(:valor_tarefa)
+    @servico = @produto.servicos.find(params[:id])
+  # fim 
+   @id_1 = rand(900)+100 # apenas para id da div
+   
+    # Peca.sum(:valor_pesa, "servico_id = ?", @servico.id)
+# Peca.sum(:valorPeca).where("servico_id = ?", @servico.id)
       respond_to do |format|
         format.html #{ render :layout => ! request.xhr? }
         # Default behavior -> renders show.js.erb
         format.js {}
         format.json { render :json =>  [:admin, @servico] }
+        format.pdf do 
+        render :pdf => 'servico',
+               :template => 'admin/servicos/show.pdf.erb',
+               :layout => 'pdf',
+               :encoding => 'UTF-8'
+        end
       end
   end
 
   def new
     @servico = Servico.new
     @servico = @produto.servicos.build
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: [:admin, @servico] }

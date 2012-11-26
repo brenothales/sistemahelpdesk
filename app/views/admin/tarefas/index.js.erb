@@ -1,0 +1,7 @@
+$('#tarefas').append('<%= j render([:admin,@tarefas]) %>');
+<% if @tarefas.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate([:admin,@tarefas]) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
+<% sleep 1 %>

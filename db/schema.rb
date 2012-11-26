@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113032237) do
+ActiveRecord::Schema.define(:version => 20121125031350) do
 
   create_table "archives", :force => true do |t|
     t.string   "image"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
     t.string   "codigo"
     t.decimal  "valorPeca",  :precision => 10, :scale => 2
     t.boolean  "trocarPeca",                                :default => false
+    t.boolean  "cortesia",                                  :default => false
     t.text     "observacao"
     t.integer  "servico_id"
     t.datetime "created_at",                                                   :null => false
@@ -245,6 +246,27 @@ ActiveRecord::Schema.define(:version => 20121113032237) do
   end
 
   add_index "setores", ["unidade_id"], :name => "index_setores_on_unidade_id"
+
+  create_table "status", :force => true do |t|
+    t.string   "nome"
+    t.integer  "servico_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tarefas", :force => true do |t|
+    t.string   "nome"
+    t.string   "valor_tarefa"
+    t.boolean  "cortesia",     :default => false
+    t.boolean  "completado",   :default => false
+    t.text     "descricao"
+    t.text     "observacao"
+    t.integer  "servico_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "tarefas", ["servico_id"], :name => "index_tarefas_on_servico_id"
 
   create_table "tasks", :force => true do |t|
     t.string   "name"

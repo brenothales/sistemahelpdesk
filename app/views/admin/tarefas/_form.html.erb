@@ -1,0 +1,28 @@
+
+<%= form_for([ :admin, @tarefa], :remote => true) do |f| %>
+  <%= error_message_for(@tarefa)  %>
+  <div class="field">
+    <%= f.label :nome, "Nome" %>
+    <%= f.text_field :nome, class: "span4", placeholder: "Nome da Tarefa", :disabled => @servico.completado %>
+  </div>
+  <div class="field">
+    <%= f.label :valor_tarefa, "Valor" %>
+    <%= f.text_field :valor_tarefa, class: "span2", placeholder: "Valor da Tarefa", :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :completado, "Tarefa Realizada" %> <%=  f.check_box :completado, :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :cortesia, "Cortesia" %> <%=  f.check_box :cortesia, :disabled => @servico.completado %> 
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição" %> <%=  f.text_area :descricao , :rows => "4" , class: "span4", :disabled => @servico.completado, :disabled => @servico.completado %>
+  </div>
+  <div class="field">
+    <%= f.label :observacao, "Observação" %> <%=  f.text_area :observacao , :rows => "4" , class: "span4" %> 
+  </div>
+    <%= f.hidden_field  :servico_id, :value => @servico.id %>
+  <div class="actions">
+    <%= f.submit 'Adicionar Mão-de-obra', class: "btn btn-large btn-block btn-primary", :disabled => @servico.completado %>
+  </div>
+<% end %>
