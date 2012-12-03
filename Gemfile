@@ -19,7 +19,7 @@ gem 'brazilian-rails'
 # gem 'wicked_pdf'
 # gem 'prawn_rails'
 gem "magic_encoding"
-
+gem 'puma'
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 

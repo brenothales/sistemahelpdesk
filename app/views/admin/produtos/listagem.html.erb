@@ -1,0 +1,22 @@
+<table class="table table-striped table-bordered dTableR" id="dt_d">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>Nome</th>
+  </tr>
+</thead>
+<tbody>
+
+
+
+<% @produtos.each do |servico| %>
+  <tr>
+    <td class='name'><%=  servico.id %></td>
+		<td class='name'> <%= servico.nome %></td>  
+  </tr>
+    <% end -%>          
+
+
+
+  </tbody>
+</table>

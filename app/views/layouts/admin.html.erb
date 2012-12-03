@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
            <title>Painel Administrativo </title>
            <%= stylesheet_link_tag    "application", :media => "all" %>
-             <!-- yield(:header) if @content_for_header %> -->
+               <!-- yield(:header) if @content_for_header %>  -->
 
             
       
@@ -97,7 +97,7 @@
                                 <li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix">
                                         <!-- <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="Novos Chamados">25 <i class="splashy-mail_light"></i></a> -->
-                                        <a data-toggle="modal" data-backdrop="static" href="#myTasks" class="label ttip_b" title="Novas Tarefas">10 <i class="splashy-calendar_week"></i></a>
+                                        <a data-toggle="modal" data-backdrop="static" href="#myTasks" class="label ttip_b" title="Novas Tarefas">  <i class="splashy-calendar_week"></i></a>
                                     </div>
                                 </li>
                 <li class="divider-vertical hidden-phone hidden-tablet"></li>
@@ -157,9 +157,14 @@
  -->
                                         <li>
                                         </li>
-                                        <li>
-                                            <a href="#.html"><i class="icon-book icon-white"></i> Ajuda</a>
+                                        <% if current_user.is_role?(:administrador) or  current_user.is_role?(:funcionario) %>
+                                          <li>
+                                            <%= link_to admin_compromissos_path do %>
+                                            <i class="icon-calendar icon-white"></i> Atividades 
+                                            <% end -%>
+
                                         </li>
+                                        <% end -%>
                                     </ul>
                                 </div>
                             </nav>
@@ -276,13 +281,16 @@
                       <div class="accordion-inner">
                         <ul class="nav nav-list">
                               <li class="nav-header">Produtos</li>
-                              <li><%= link_to "Adicionar", :controller => "produtos", :action => "new", :id => @produto %></li>
                               <% if current_user.is_role?(:administrador) %>
-                               <li><%= link_to "Todos Produtos", admin_produtos_path %></li>
-                               <li class="nav-header">Categoria</li>
-                               <li><%= link_to "Adicionar Categoria", :controller => "categories", :action => "new", :id => @category %></li>
-                              <li><%= link_to "Listar Categorias", admin_categories_path %></li>
+                              <li><%= link_to "Adicionar", :controller => "produtos", :action => "new", :id => @produto %></li>
                               <% end -%>
+                               <% if current_user.is_role?(:cliente) %>
+                               <li><%= link_to "Meus Produtos", admin_produtos_path %></li>
+                              <% end -%>
+                               <% if current_user.is_role?(:administrador) or current_user.is_role?(:funcionario)  %>
+                               <li><%= link_to "Todos Produtos", admin_produtos_path %></li>
+                              <% end -%>
+                              
                         </ul>
                       </div>
                     </div>
@@ -305,25 +313,7 @@
                       </div>
                     </div>
                   </div>
-                   <% if current_user.is_role?(:administrador) %>
-                    <div class="accordion-group">
-                    <div class="accordion-heading">
-                      <a href="#collapseTwo" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                        <i class="icon-th"></i> Peças
-                      </a>
-                    </div>
-                    <div class="accordion-body collapse" id="collapseTwo">
-                      <div class="accordion-inner">
-                        <ul class="nav nav-list">
-                          <li><a href="javascript:void(0)">Adicionar Peças</a></li>
-                          <li><a href="javascript:void(0)">Todas</a></li>
-                          <li><a href="javascript:void(0)">Manutenção</a></li>
-                          <li><a href="javascript:void(0)">Pedidos</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    </div>
-                  <% end -%>
+
                   <div class="accordion-group">
                     <div class="accordion-heading">
                       <a href="#collapseThree" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
@@ -350,14 +340,21 @@
                     <div class="accordion-body collapse" id="collapseFour">
                       <div class="accordion-inner">
                         <ul class="nav nav-list">
-                          <li class="nav-header">Pessoas</li>
-                          <li><%= link_to "Cadastrar Usuário", admin_users_path %></li>
+                          <li class="nav-header">Pessoas</li>                        
+                          <li><%= link_to "Cadastrar Usuário", :controller => "users", :action => "new", :id => @user %></li>
+                          
                           <li><%= link_to "Cadastrar Clientes", admin_clientes_path %></li>
                           <li><%= link_to "Cadastrar Funcionário", admin_funcionarios_path %></li>
                           <li class="divider"></li>
                           <li class="nav-header">Unidade/Setores</li>
                           <li><%= link_to "Cadastrar Unidade", admin_unidades_path %></li>
                           <li><%= link_to "Cadastrar Setor", admin_setores_path %></li>
+                          <li class="nav-header">Ordem de Serviços</li>
+                          <li><%= link_to "Cadastrar Status", admin_status_path %></li>
+                           <li class="nav-header">Categoria do Produto</li>
+                               <li><%= link_to "Adicionar Categoria", :controller => "categories", :action => "new", :id => @category %></li>
+                              <li><%= link_to "Listar Categorias", admin_categories_path %></li>
+
                           
                         </ul>
                       </div>

@@ -2,17 +2,17 @@
 <%= simple_form_for [:admin, @produto, @servico], :html=> { :multipart => true} do |f| %>
 <%= error_message_for(@servico) %>
 
-  <%= f.association :statu, :input_html => { :class => 'chzn_a span5 ', :id => ""}, :label_method => :nome,
+  <%= f.association :statu, :input_html => { :class => 'chzn_a  ', :id => ""}, :label_method => :nome,
                     :include_blank => false, :label => 'Status da OS:' ,:disabled => @servico.completado  %>
   <%= f.label :funcionario, label: "Funcionário" %>
- <div class=" offsets3 " ></div> <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente")  %>
+ <div class=" offsets3 " ></div> <%= f.select( :funcionario_id, Funcionario.all.collect {|p| [ p.user.name, p.id ] }, { :include_blank => true }, :class=>"chzn_a span6", :prompt => "Escolha o Funcionario Responsável", :label => "Cliente") %>
   <%= f.input :retirado, :label => "Retirado do local?", :disabled => @servico.completado %>  
   <%= f.input :completado, :label => "Finalizar Ordem de Serviço?", :confirm => 'Deseja deletar tarefa?', :disabled => @servico.completado, :hint => "<i class='icon-warning-sign'></i>  Depois de finalizada não poderá ser editada" ,label_html:{ class: "inline"},input_html:{ class: "inline"}  %>  
   <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span5", :rows => 5, :id => ""  }, :label_html => { :class=>"control-label" }, :label => "Obervação:", :disabled => @servico.completado %>
   <%= f.input :solucao, :input_html => { :placeholder => "Solução", :class => "span5", :rows => 5, :id => ""  }, :label_html => { :class=>"control-label" }, :label => "Solução:" , :disabled => @servico.completado %>
-  <%= @total_tarefas +  @total_pecas %> 
 
-  <%= f.text_field   :valor_Servico, :value => @total_tarefas +  @total_pecas %> 
+
+  <%= f.hidden_field    :valor_Servico, :value => @total_tarefas +  @total_pecas %> 
   
   <%= f.submit 'Adicionar ', class: "btn btn-large btn-block btn-primary", :disabled => @servico.completado %>
 

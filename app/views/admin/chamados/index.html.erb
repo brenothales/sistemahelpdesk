@@ -11,11 +11,6 @@
             <i class=" icon-plus"></i> Novo Chamado
             <% end -%>
         </li>
-         <li>
-            <%= link_to new_admin_produto_path do %>
-            <i class=" icon-plus"></i> Novo Produto
-            <% end -%>
-        </li>
     </ul>
 </div>          
 
@@ -97,7 +92,9 @@
                                          </td> 
                                          <td>
   <% url_format_result = url_for :controller => 'chamados', :action => 'show', :format => :pdf, :id => chamado.id %> 
-  <%= link_to "Gerar PDF", url_format_result, :class => "btn btn-info", :target => "_blank" %>      
+  <%= link_to  url_format_result, :class => "btn btn-info", :target => "_blank"  do %>      
+  <i class="icon-print icon-white"></i> Imprimir
+  <% end -%>
                                          </td>
                                        <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.user.name unless chamado.user.blank? %>  </td> <% end -%>
                                       <% if current_user.is_role?(:administrador) %> <td class='name'><%= chamado.funcionario.user.name unless chamado.funcionario.blank? %>  </td> <% end -%>

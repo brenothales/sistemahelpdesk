@@ -7,7 +7,7 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_br1">
-                    <% if current_user.is_role?(:administrador) %>
+                    <% if current_user.is_role?(:administrador) or current_user.is_role?(:funcionario) %>
                     <fieldset>
                       <legend>Cliente Solicitante</legend>
                                <%=  f.association :user, :label_method => :name, :value_method => :id, :include_blank => false, :collection => User.all, :input_html => { :class=>"chzn_a", :prompt => "Escolha o produto"}, :label => "Cliente"  %> 
@@ -24,12 +24,12 @@
                   
                   <fieldset>
                       <legend>Solicitação</legend>
-
+                        <%= f.input :assunto, :input_html => { :class=> "span5", :placehold => "Assunto do Chamado" }  %>
                        <%= f.input :setor_id, :collection => @unidades, :as => :grouped_select, :group_method => :setores, :input_html => { :class => 'chzn_a span5' }, :label => "Setor", :prompt=> "Escolher o setor", :value_method => :id, :include_blank => false  %> 
-                      <%= f.input :assunto, :input_html => { :class=> "span5", :placehold => "Assunto do Chamado" }  %>
+                      
                       <%= f.input :prioridade, :collection => Chamado::PRIORIDADE, :prompt => "Tipo de Prioridade" %>
                        <!-- f.input :status, :priority => [ "Aguardando Atendimento" ], :collection => [ "Aguardando Atendimento", "Cancelado", "Finalizado"], label: "Status", prompt: "Tipo de Status" if current_user.is_role?(:administrador) %> -->
-                      <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atedimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atedimento" %> 
+                      <%= f.input :tipoAtendimento, :collection => Chamado::TIPODEATENDIMENTO, :prompt => "Tipo de Atendimento",  :label_html => { :placeholder => "Atendimento"}, :label => "Atendimento" %> 
                     </fieldset>
                   <!-- Se for admin do sistema -->
                     <% if current_user.is_role?(:administrador) %>
@@ -76,7 +76,7 @@
 
 <br>
   <div class="well">
-  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+
     <div class="form-actions">
     <%= submit_and_back_buttons(admin_chamados_path,{:label_name => "Gravar Chamado"}) %>
   </div>

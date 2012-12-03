@@ -3,9 +3,9 @@ jQuery ->
     element: 'compromissos_chart'
     data: $('#compromissos_chart').data('compromissos')
     xkey: 'published_on'
-    ykeys: ['id', 'completado_id', 'incompleto_id']
-    labels: ['ID', 'Compromisso Completo', 'Compromisso Incompleto']
-    preUnits: 'Q'
+    ykeys: [' ', 'completado_id', 'incompleto_id']
+    labels: [' ', 'Compromisso Completo', 'Compromisso Incompleto']
+    preUnits: ' '
 
 
 jQuery ->

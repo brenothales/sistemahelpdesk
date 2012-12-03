@@ -1,38 +1,34 @@
-<h1>Compromissos</h1>
 
-<%= content_tag :div, "", id: "compromissos_chart", data: {compromissos: Compromisso.chart_data} %>
+  <div class="row-fluid">
+    <div class="span12">
+        <h3 class="heading">Compromissos 
+        <span class=" btn pull-right " type="span" class="icon-refresh" onClick="history.go(0)"><i class="icon-refresh i"></i> Atualizar </span></h3>
+            <%= content_tag :div, "", id: "compromissos_chart", data: {compromissos: Compromisso.chart_data} %>
 
+<fieldset>
+  <legend><small> Legenda </small></legend>
+Qtd: Atividades Realizadas:<span class="label label-success"><%= @complete_compromissos.count  %></span> 
+Qtd: Atividades Pendentes:<span class="label label-important"><%= @incomplete_compromissos.count  %></span>
+</fieldset>
 
-<!-- <div id="post_form">< render :partial => 'peca' %></div> -->
-<!-- 
-<h1>Posts</h1>
- <div id="dialog-modal" title="Basic modal dialog">
-<div id="post_form">
-   render 'formpeca' %>
-</div>
- </div>
-<ul id="posts">
-   render :partial => @pecas.reverse %>
-</ul>
- -->
+        </div>  
+</div> 
+<hr>
 
-<br>
 <div class="span12">
-  <div class="span12"><button class="btn btn-large btn pull-right " type="button" class="icon-refresh" onClick="history.go(0)"><i class="icon-refresh i"></i> Atualizar </button></div>
-  <h3 class="heading">Compromissos</h3>
+  <div class="span12">
+  <h3 class="heading">Agendamento</h3>
 
   <div class="tabbable">
     <ul class="nav nav-tabs">
-      <li class=""><a href="#tab1" data-toggle="tab">Calendario de Compromissos</a></li>
-      <li class=""><a href="#tab2" data-toggle="tab">Tarefas</a></li>
-      <li class="active"><a href="#tab3" data-toggle="tab">Adicionar Tarefas</a></li>
+      <li class=""><a href="#tab1" data-toggle="tab">Calendário de Atividades</a></li>
+      <li class="active"><a href="#tab2" data-toggle="tab">Quadro de Atividades</a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane" id="tab1">
         <div class="pull-left">
           <div class="row-fluid">
             <div class="span12">
-              <h2 class="heading">Calendario</h2>
               <div id="compromissos">
                 <div class="fc-header" style="width:100%">
                   <div>
@@ -53,7 +49,7 @@
                 <% if @compromissos_by_date[date] %>
                 <ul>
                   <% @compromissos_by_date[date].each do |compromisso| %>
-                  <li> <%= div_for(compromisso)  do  %> <span class="label label-warning"> <%= link_to("#{compromisso.nome.html_safe}","#my", :class => " pop_over ", :title => "Detalhes", "data-placement"=> 'top',  "data-content" => "Assundo: <b>#{compromisso.nome}</b> <br/>
+                  <li> <%= div_for(compromisso)  do  %> <span class="label label-info"> <%= link_to("#{compromisso.nome.html_safe}","#my", :class => " pop_over ", :title => "Detalhes", "data-placement"=> 'top',  "data-content" => "Assundo: <b>#{compromisso.nome}</b> <br/>
                         Data da Atividade: <b>#{ I18n.localize(compromisso.published_on, :format => "%d/%m/%Y")  if compromisso.published_on}</b>
                         Data da Criação: <b>#{time_ago_in_words compromisso.created_at  if compromisso.created_at}</b>
                         Chamado: <b>#{compromisso.observacao  if compromisso.observacao}</b>").html_safe %> </span>
@@ -68,49 +64,37 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="tab2">
+      <div class="tab-pane active " id="tab2">
         <div>
-          <div class="span12 pull-left">
-            <!-- <h1>Ordem de Serviço</h1> -->
-             <%= link_to "Novo Compromissos", new_admin_compromisso_path, id: "new_link", :class=> "btn", remote: true %> -->
-            <p></p>
-          </div>
-          <div class="pull-left span11">
+
+          <div class="pull-left span11 well">
             <div class="span6">
-              <h2>Compromissos Pendentes <span class="label label-important">&nbsp &nbsp</span> </h2>
-              <div class="compromisso form-inline well " id="incomplete_compromissos"> <%= render @incomplete_compromissos.reverse %> </div>
- </div>
+              <h2>Atividades Pendentes <span class="label label-important">&nbsp &nbsp</span> </h2>
+              <div class="compromisso form-inline branco " id="incomplete_compromissos"> <%= render @incomplete_compromissos.reverse %> </div>
+                 </div>
             <div class="span6">
-              <h2 class="panel">Compromissos Finalizados <span class="label label-success">&nbsp &nbsp</span></h2>
-              <div class="compromisso form-inline well" id="complete_compromissos"> <%= render @complete_compromissos.reverse %> </div>
- </div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane active" id="tab3">
-          <h1>Compromissos</h1>
-         <div class="">
-          <div class="span6 pull-left">
-            <div id="compromisso_form"> <%= simple_form_for [:admin, @compromisso], remote: true do |f| %>
-
-  <%= f.input :nome, label:"Nome do Serviço" %>
-  <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:finalizaSolicitacao == false), :prompt => "Escolher Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
-  <%= f.label "Data" %>
-  <%= f.text_field :published_on, label:"Data" %>
-  <%= f.input :valorServico%>
-  <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
-
-
-
-
-
-  <%= f.submit :class=> "btn" %>
-
-
-<% end %>
-</div>
-         </div>
-        <div class="span6 pull-right well">
+              <h2 class="panel">Atividades Finalizados <span class="label label-success">&nbsp &nbsp</span></h2>
+              <div class="compromisso form-inline branco" id="complete_compromissos"> <%= render @complete_compromissos.reverse %> </div>
+             </div>
+           <div class="pull-left span12"> </div>
+             
+           <div class="pull-left span11">
+              <div class="span6 pull-left">
+                <h2>Registrar Atividade  </h2>
+                  <div id="compromisso_form">
+                     <%= simple_form_for [:admin, @compromisso], remote: true do |f| %>
+                      <%= f.input :nome, label:"Nome da Atividade" %>
+                      <%= f.association :chamado, :label_method => ( :identificacao_chamado ), :value_method => :id, :include_blank => false, :collection => Chamado.where(:finalizaSolicitacao == false), :prompt => "Assossiar Chamado" , :input_html=> { :class => "span6 chzn_a"} %>
+                      <%= f.label "Data" %>
+                      <%= f.text_field :published_on, label:"Data" %>
+                      <%= f.input :observacao, :input_html => { :placeholder => "Observação", :class => "span10", :rows => 2, :id => "auto_expand"  }, :label_html => { :class=>"control-label" }, :label => "Obervação:" %>
+                      <%= f.submit :class=> "btn" %>
+                    <% end %>
+                  </div>
+               </div>
+        <div class="span6 pull-right">
+          <h2>Detalhar Atividades  </h2>
+            <div class=" branco">
           <% @compromissos.each do |compromisso| %>
             <%= div_for(compromisso)  do  %>
               <ul>
@@ -119,13 +103,30 @@
               <div class="details"></div>
             <% end %>
         <% end %>
-
+        </div>
         </div>
       
         <ul id="compromissos">
            <!-- render :partial => @compromissos %> -->
         </ul>
-        </div> 
+        </div>
+        
+        
+        
+        
+        
+        
+             
+             
+             
+             
+             
+             
+             
+             
+             
+          </div>
+        </div>
       </div>
     </div>
   </div>

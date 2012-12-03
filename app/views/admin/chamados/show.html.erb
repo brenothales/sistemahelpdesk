@@ -19,10 +19,32 @@
         </li>
         <li>
           <% url_format_result = url_for :controller => 'chamados', :action => 'show', :format => :pdf, :id => @chamado.id %> 
-  <%= link_to "Gerar PDF", url_format_result, :target => "_blank" %>      
+  <%= link_to url_format_result, :target => "_blank" do  %>      
+  <i class="icon-print"></i> Imprimir
+  <% end -%>
         </li>
     </ul>
 </div>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="">
   <div class=" well">
@@ -31,25 +53,13 @@
     <small class=" pull-right">Criando <%= time_ago_in_words @chamado.created_at %> <%= I18n.localize(@chamado.created_at, :format => "%d/%m/%Y") %> 
    
     </small></h3>
-    <h1>  </h1>  <div class="row-fluid painel">
-  <% if @chamado.produto%>
+
+<div class="row-fluid ">
+  <div class="span12 branco">
+ <% if @chamado.user %>
   <div class="span4">
-  <span>Produto:</span><br/>
-      <%= link_to("#{@chamado.produto.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Produto", "data-placement"=> 'right',  "data-content" => "Modelo: #{@chamado.produto.modelo} <br/>
-                      ID:<b> #{@chamado.produto.id}</b> <br/>
-                      Categoria:<b> #{@chamado.produto.category.name}</b> <br/>
-                      Marca:<b> #{@chamado.produto.marca}</b> <br/>
-                      Nº:<b> #{@chamado.produto.numeroSerie}</b> <br/>
-                      Acessórios:<b> #{@chamado.produto.acessorios}</b> <br/>
-                      Observação:<b> #{@chamado.produto.observacao}</b> <br/>
-                      Setor:<b> #{@chamado.produto.seto} </b>").html_safe  %>
-  </div>
-<% end -%>
-<!-- Informa o usuário do sistema -->
-<% if @chamado.user %>
-  <div class="span4">
-    <span >Cliente:</span><br/>
-        <%= link_to("<i class='icon-user/></i> #{@chamado.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
+    <span > <b> <i class='icon-user'/></i> Cliente: </b></span> <br>
+        <%= link_to("#{@chamado.user.name.html_safe}","#{}", :class => " pop_over ", :title => "Espercificações do Cliente", "data-placement"=> 'right',  "data-content" => "
                         Email: <b>#{@user.email}</b> <br/>
                         Tipo: <b>#{@cliente.tipo_cliente.nome unless @cliente.blank?}</b> <br/>
                         Nº RG: <b>#{@cliente.rg unless @cliente.blank? }</b> <br/>
@@ -61,36 +71,47 @@
   </div>
 
 <% end -%>
-<!-- fim  -->
-<!-- Informa o usuário do sistema -->
+
+
+
 <% if @chamado.setor %>
   <div class="span4">
-    <span >Setor:</span><br/>
-    <div class="btn btn-large btn">
-      <%= @chamado.setor.unidade.nome %> - <%= @chamado.setor.nome -%>
+    <span > <i class="icon-map-marker"></i> <b> Instituição | Setor: </b></span><br/>
+    <div class="">
+      <%= @chamado.setor.unidade.nome %> <br> <%= @chamado.setor.nome -%>
     </div>
   </div>
 <% end -%>
-<!-- fim  -->
-<!-- Informa o usuário do sistema -->
+
+
 <% if @chamado.funcionario %>
-  <div class="span4">
-    <span >Técnico Responsável:</span><br/>
-        <%= link_to("#{@chamado.funcionario.user.name.html_safe}","#{}", :class => " pop_over btn btn-large btn", :title => "Espercificações do Funcionário", "data-placement"=> 'left',  "data-content" => "
+  <div class="span3">
+    <span > <i class="icon-user "></i><i class="icon-wrench"></i><b>  Técnico Responsável:</b></span> <br>
+        <%= link_to("#{@chamado.funcionario.user.name.html_safe}","#{}", :class => " pop_over ", :title => "Espercificações do Funcionário", "data-placement"=> 'left',  "data-content" => "
                         Email: <b>#{@chamado.funcionario.user.email}</b> <br/>
-                        Nº RG: <b>#{@chamado.funcionario.rg}</b> <br/>
-                        Aniversário: #{@chamado.funcionario.dataNascimento if @chamado.funcionario.dataNascimento     }</b>").html_safe %>
+                        Função: <b>#{@chamado.funcionario.funcao}</b> ").html_safe %>
   </div>
 
 <% end -%>
-<!-- fim  -->
 
 
-
-
+<% if @chamado.produto%>
+<div class="span4">
+<span>Produto:</span><br/>
+<%= link_to("#{@chamado.produto.name.html_safe}","#{}", :class => " pop_over ", :title => "Espercificações do Produto", "data-placement"=> 'right',  "data-content" => "Modelo: #{@chamado.produto.modelo} <br/>
+  ID:<b> #{@chamado.produto.id}</b> <br/>
+  Categoria:<b> #{@chamado.produto.category.name}</b> <br/>
+  Marca:<b> #{@chamado.produto.marca}</b> <br/>
+  Nº:<b> #{@chamado.produto.numeroSerie}</b> <br/>
+  Acessórios:<b> #{@chamado.produto.acessorios}</b> <br/>
+  Observação:<b> #{@chamado.produto.observacao}</b> <br/>
+  Setor:<b> #{@chamado.produto.seto} </b>").html_safe  %>
+</div>
+<% end -%>
+  </div> 
+    
 </div>
 
-<hr>
 
 <div class="row-fluid">
   <div class="span12">
@@ -133,7 +154,7 @@
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_br1" data-toggle="tab">Interações</a></li>
                   <% if @chamado.servicos.present? %>
-                  <li class=""><a href="#tab_br2" data-toggle="tab">Serviços</a></li>
+                  <li class=""><a href="#tab_br2" data-toggle="tab">Ordens de Serviços</a></li>
                   <% end -%>
 <!--Terceira aba  <li class=""><a href="#tab_br3" data-toggle="tab">Section 3</a></li> -->
                 </ul>
@@ -198,7 +219,7 @@
                                 <div class="">
                                 <h3 class="heading">Detalhe do Serviços </h3>
                               <div>  <%= ("Assunto: <b>#{servico.nome unless servico.nome.blank?} </b>").html_safe  %></div>
-                       <div> <%= (" Valor da Mão-de-obra: <b>#{servico.valor_Servico if servico.valor_Servico.present?} </b> ").html_safe  %></div>
+                       <div> <%= (" Valor: <b>#{servico.valor_Servico if servico.valor_Servico.present?} </b> ").html_safe  %></div>
                 <div>  <%= ("Observação: <b>#{servico.observacao unless servico.observacao.blank?} </b>").html_safe  %></div>
                               </div>
                             </div>

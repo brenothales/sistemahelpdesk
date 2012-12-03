@@ -1,3 +1,27 @@
+<div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        
+        <li><%= link_to  admin_users_path do %>
+                <i class="icon-home"></i> Todos Usuários 
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_user_path do %>
+             <i class=" icon-plus"></i> Cadastrar Usuário 
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_cliente_path do %>
+             <i class=" icon-plus"></i> Cadastrar Cliente 
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_funcionario_path(@funcionario) do %>
+               <i class=" icon-plus"></i> Cadastrar Funcionário
+            <% end -%>
+        </li>
+    </ul>
+</div>  
 <%= page_sub_title('Novo Usuário') %>
 <%= render :partial => 'form',:locals => {:label_name => 'Gravar'}  %>
 

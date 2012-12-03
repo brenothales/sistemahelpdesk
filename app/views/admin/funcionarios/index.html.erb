@@ -1,6 +1,27 @@
-
-
-<%= link_to 'New Funcionario', new_admin_funcionario_path %>
+<div id="jCrumbs" class="breadCrumb module">
+    <ul>
+        
+        <li><%= link_to  admin_funcionarios_path do %>
+                <i class="icon-home"></i> Todos Funcionários 
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_cliente_path do %>
+             <i class=" icon-plus"></i> Cadastrar Cliente 
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_user_path do %>
+             <i class=" icon-plus"></i> Cadastrar Usuário 
+            <% end -%>
+        </li>
+        <li>
+            <%= link_to new_admin_funcionario_path(@funcionario) do %>
+               <i class=" icon-plus"></i> Cadastrar Funcionário
+            <% end -%>
+        </li>
+    </ul>
+</div>    
 
   
 <table class="table table-striped table-bordered dTableR" id="dt_d">
@@ -8,7 +29,8 @@
     <tr>
       <th>ID</th>
       <th>Nome</th>
-      <th>Funcao</th>
+      <th>Função</th>
+      <th>Email</th>
       <th>Telefone</th>
       <th>Ações</th>
       
@@ -20,6 +42,7 @@
       <tr>
         <td class='name'><%= funcionario.id %></td>
         <td class='name'> <%= link_to admin_funcionario_path(funcionario) do %>  <%= funcionario.user.name %> <i class="icon-share-alt"></i><% end -%> </td>
+        <td class='name'> <%= funcionario.funcao %></td> 
         <td class='name'> <%= funcionario.user.email %></td> 
         <td class='name'> 
            <%if funcionario.contato_telefones.length > 0%>

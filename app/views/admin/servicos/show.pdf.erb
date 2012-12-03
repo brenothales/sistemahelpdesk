@@ -37,7 +37,7 @@
     <b>Data da Abertura:</b> <%= I18n.localize(@servico.created_at, :format => "%d/%m/%Y") %> <br>
     <b>Data da Fechamento:</b> <%= I18n.localize(@servico.updated_at , :format => "%d/%m/%Y") if @servico.completado == true %> <b> | Status: </b> <%= @servico.statu.nome  %>  <br>
     <b>Equipamento Retirado do local:</b> <%= "Não" if  @servico.retirado == false %><%= "Sim" if  @servico.retirado == true %> <br>
-    <b>Técnico Responsável</b> <%= @servico.funcionario.user.name %> <br>
+    <b>Técnico Responsável</b> <%= @servico.funcionario.user.name if @servico.funcionario.user.name.present? %> <br>
     <hr>
     <b>Descrição:</b> <%= @servico.descricao %> <br> 
   <hr>

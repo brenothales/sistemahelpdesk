@@ -25,7 +25,7 @@ STATUS = %w("Aguardando Atendimento", "Aguardando Peça", "Aguardando Aprovaçã
 validates_numericality_of :valorGeral, :greater_than => -1, :allow_nil => true
 
 def identificacao_chamado
-  " N #{id} - #{assunto} - #{user.name}"
+  " N #{id} - #{assunto} "
 end
 
 

@@ -261,10 +261,10 @@ ActiveRecord::Schema.define(:version => 20121126063016) do
   add_index "setores", ["unidade_id"], :name => "index_setores_on_unidade_id"
 
   create_table "status", :force => true do |t|
-    t.string   "nome"
+    t.string   "nome",       :limit => 50
     t.integer  "servico_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "tarefas", :force => true do |t|

@@ -32,20 +32,21 @@
   <div class="row-fluid">
     <div class="span12">
         <h3 class="heading">Ordem de Serviços | <%= "#{@produto.name}" %></h3>
-    </div>
-    <div class="span12"> 
+
          <table class="table table-striped table-bordered dTableR" id="dt_d">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nº do Bloco</th>
                     <th>Defeito</th>
+                    <% if @produto.setor.nome.present?  %>
                     <th>Unidade e Setor</th>
-                    <th>Retirado</th>
-                    <th>Completado</th>
-                    <th>Ações</th>
-                    <th>Ações</th>
-                    <th>Ações</th>
+                    <% end -%>
+                    <th>Valor</th>
+                    <th>Finalizado</th>
+                    <th>Cliente</th>
+                    <th>Ação</th>
+
                     
                 </tr>
             </thead>
@@ -56,11 +57,20 @@
                   <td class='name'><%= servico.id %></td>
                   <td class='name'><%= servico.numero_os %></td>
                   <td class='name'><%= servico.nome %></td>
-                  <td class='name'><%= @produto.setor.unidade.nome %></td>
-                  <td class='name'><%= servico.valor_Servico %></td>
-                  <td class='name'><%= servico.retirado %></td>
-                  <td class="name"><%= @produto.setor.unidade.nome %></td>
-                  <td class='name'><%= @produto.user.name   %></td><!-- if produto.user.name.present? --> 
+                  <td class='name'><%= @produto.setor.unidade.nome if @produto.setor.unidade.nome.present?  %>
+                  <br><%= @produto.setor.nome if @produto.setor.nome.present?  %>
+                  </td>
+
+                  <td class='name'><%=  number_to_currency servico.valor_Servico %></td>
+                  <td class='name'>
+                    <% if servico.completado == true %>
+                    <apan class="label label-success">SIM</apan>
+                      <% else %>
+                      <apan class="label label-important">Não</apan>
+                      <% end -%>
+                    </td>
+
+                  <td class='name'><%= @produto.user.name  if @produto.user.name.present?  %></td><!-- if produto.user.name.present? --> 
                        <td class='situation'>
                           <div class="btn-group dropup">
                             <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">

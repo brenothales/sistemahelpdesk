@@ -2,7 +2,7 @@
   <div id="status_chamado_show">
     <div class="pane">
           <%= f.input :cancelar, :collection => [ "Finalizar", "Cancelar"], label: "Solicitar:", prompt: " Opções", input_html: { :class=>"chzn_a" } if current_user.is_role?(:cliente) %>
-        <%= f.button :submit, input_html: { class: "btn"}, :confirm => 'Sua Solicitação será avaliada pelos nosso técnicos' %>
+        <%= f.button :submit, input_html: { class: "btn"}, :confirm => 'Sua Solicitação será avaliada pelos nossos técnicos' %>
     </div>
   </div>
 <% end -%>

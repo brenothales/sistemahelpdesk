@@ -1,10 +1,9 @@
 
 <%= form_for [:admin, compromisso], remote: true do |f| %>
-	  <%= f.check_box :completado, :class=>"left"  %> -
+	  <%= f.check_box :completado, :class=>"left"  %> - 	
 	  <%= f.submit "Update" %>
-	  <%= link_to("#{compromisso.nome}","#{}", :class => " pop_over ", :title => "Espercificação do Chamdo #{compromisso.nome}", "data-placement"=> 'top',  "data-content" => 
+	  <%= compromisso.id %> <%= link_to("#{compromisso.nome}","#{}", :class => " pop_over ", :title => "Espercificação da Atividade #{compromisso.nome}", "data-placement"=> 'top',  "data-content" => 
 	  	  	"Assunto: #{compromisso.nome} <br/>
-	  	  	Valor : #{compromisso.valorServico} <br/>
 	  	  	Número do : #{compromisso.chamado_id} <br/>
 	  	  	#{time_ago_in_words(compromisso.created_at)} <br/>
 			 #{if compromisso.completado == true 
@@ -18,8 +17,8 @@
   	  	  			   end 
   	  	  	end} <br>
           	Obervação: #{compromisso.observacao}").html_safe %>
-	  <small><%= time_ago_in_words(compromisso.created_at)%></small> |
-	  <small><%= time_ago_in_words(compromisso.updated_at)%></small>
+		 <!-- time_ago_in_words(compromisso.created_at)%></small> | -->
+		 <!-- time_ago_in_words(compromisso.updated_at)%></small> -->
 	  <%= f.label :chamado, compromisso.chamado_id %>
   <%= content_tag(:span, :class => 'right') do  %>	  <%= link_to [:admin, compromisso], method: :delete, remote: true do %>
 	  <i class="icon-trash"></i>

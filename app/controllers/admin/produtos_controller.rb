@@ -6,7 +6,9 @@ class Admin::ProdutosController < ApplicationController
   load_and_authorize_resource
 
 
+
   def index
+    @incomplete_servicos = Servico.where(completado: false).order('created_at ASC')
     @produtos = Produto.order(:name).where("name like ?", "%#{params[:term]}%")
     # @produtos = Produto.search(params[:search]).paginate(:per_page => $per_page,:page => params[:page]) comentei para ajudar com plugin database
     respond_with @produtos, :location => admin_produtos_path

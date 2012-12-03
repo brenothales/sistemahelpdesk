@@ -12,6 +12,7 @@ class Ability
       can :manage, Chamado
       can :manage, Servico
       can :manage, Funcionario
+      can :manage, Compromisso
     elsif user.is_role?(:cliente)        
       can :manage, Category
       can :manage, Produto, :user_id => user.id

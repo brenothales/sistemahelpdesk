@@ -1,21 +1,25 @@
   <div id="jCrumbs" class="breadCrumb module">
     <ul>
-        <li><%= link_to  :controller => "produtos", :action => "index", :id => @produtos do %>
+        <li><%= link_to  admin_produtos_path do %>
 				<i class="icon-home"></i> Todos Produtos 
         	<% end -%>
 
         </li>
+        <% if current_user.is_role?(:administrador) or  current_user.is_role?(:funcionario)  %>
          <li>
             <%= link_to new_admin_produto_path do %>
             <i class=" icon-plus"></i> Novo Produto
             <% end -%>
         </li>
+        <% end -%>
+        <% if current_user.is_role?(:administrador) or  current_user.is_role?(:funcionario)  %>
         <li>
             <%= link_to new_admin_category_path do %>
              <i class=" icon-plus"></i> Cadastrar Categoria <b>&nbsp</b>
             <% end -%>
         </li>
-        </li>
+        <% end -%>
+        <li>
             <%= link_to new_admin_chamado_path do %>
              <i class=" icon-plus"></i> Abrir Chamado <b>&nbsp</b>
             <% end -%>
@@ -38,8 +42,9 @@
                     <th>Patrimônio</th>
                     <th>Setor</th>
                     <th>Unidade</th>
+                    <% if current_user.is_role?(:administrador) or  current_user.is_role?(:funcionario)  %>
                     <th>Ações</th>
-                    
+                    <% end -%>
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +59,10 @@
                   <td class='name'><%= produto.patrimonio %></td>
                   <td class='name'><%= produto.setor.nome %> | <%= produto.setor.sigla if produto.setor.sigla.present? %> 
                   </td>
+                  
                   <td class="name"><%= produto.setor.unidade.nome %></td>
-                  <!-- <td class='name'><%= produto.user.name   %></td><!-- if produto.user.name.present? --> 
-                       <td class='situation'>
+                <% if current_user.is_role?(:administrador) or  current_user.is_role?(:funcionario)  %>
+                   <td class='situation'>
                           <div class="btn-group dropup">
                             <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
                               Ações
@@ -90,8 +96,10 @@
                                 <% end -%>
                               </li>
                             </ul>
-                          </div>
+                    </div>
+                <% end -%>
                   </td>
+                  
                 </tr>
                <% end %>
              <% end %>
